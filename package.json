@@ -37,6 +37,7 @@
     "request": "~2.34.0",
     "rimraf": "~2.2.6",
     "unhtml": "~0.1.0",
+    "unzip": "~0.1.9",
     "lodash": "~2.4.1",
     "deep-extend": "~0.2.8",
     "colors": "~0.6.2"
