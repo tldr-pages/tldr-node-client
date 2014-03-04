@@ -2,9 +2,9 @@
 
 # tldr-node-client
 
-A `Node.js` based command-line client for [tldr](https://github.com/rprieto/tldr-node-client).
+A `Node.js` based command-line client for [tldr](https://github.com/rprieto/tldr).
 
-![tldr screenshot](http://raw.github.com/rprieto/tldr/master/screenshot.png)
+![tldr screenshot](http://raw.github.com/rprieto/tldr-node-client/master/screenshot.png)
 
 ## Installing
 
