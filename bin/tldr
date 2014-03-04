@@ -18,17 +18,23 @@ program
   .option('-b, --branch [branch]', 'Update from [branch] of the updateRepo specified in your .tldrrc. This overrides the tag option. Defaults to using \'master\' if --branch is specified, otherwise uses tags');
 
 program.on('--help', function() {
-  console.log('  Examples:');
+  console.log('Examples');
   console.log('');
   console.log('    $ tldr tar');
   console.log('    $ tldr svcs --os sunos');
-  console.log('    $ tldr --clear-cache');
-  console.log('    $ tldr --update');
-  console.log('    $ tldr --update -g cats:meow');
-  console.log('    $ tldr --update -t 0.1');
-  console.log('    $ tldr --update --branch somebranch');
   console.log('    $ tldr --list');
   console.log('    $ tldr --random');
+  console.log('');
+  console.log('To control the cache');
+  console.log('');
+  console.log('    $ tldr --update');
+  console.log('    $ tldr --clear-cache');
+  console.log('');
+  console.log('As a developer');
+  console.log('');
+  console.log('    $ tldr --update --tag 1.2.3');
+  console.log('    $ tldr --update --branch somebranch');
+  console.log('    $ tldr --update --github username:password');
   console.log('');
 });
 
