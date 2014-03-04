@@ -1,4 +1,4 @@
-[![Travis CI](https://api.travis-ci.org/rprieto/tldr.png)](https://travis-ci.org/rprieto/tldr) [![Dependency Status](https://david-dm.org/rprieto/tldr.png?theme=shields.io)](https://david-dm.org/rprieto/tldr) [![devDependency Status](https://david-dm.org/rprieto/tldr/dev-status.png?theme=shields.io)](https://david-dm.org/rprieto/tldr#info=devDependencies)
+[![Travis CI](https://api.travis-ci.org/rprieto/tldr-node-client.png)](https://travis-ci.org/rprieto/tldr-node-client) [![Dependency Status](https://david-dm.org/rprieto/tldr-node-client.png?theme=shields.io)](https://david-dm.org/rprieto/tldr-node-client) [![devDependency Status](https://david-dm.org/rprieto/tldr-node-client/dev-status.png?theme=shields.io)](https://david-dm.org/rprieto/tldr-node-client#info=devDependencies)
 
 # tldr-node-client
 
