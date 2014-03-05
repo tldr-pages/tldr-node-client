@@ -17,6 +17,7 @@
   "bin": {
     "tldr": "./bin/tldr"
   },
+  "preferGlobal": true,
   "directories": {
     "test": "test"
   },
