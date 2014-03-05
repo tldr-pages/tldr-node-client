@@ -15,11 +15,13 @@ program
   .option('-l, --list', 'List the commands in the local cache')
   .option('-r, --random', 'Show a random command')
   .option('-q, --render [file]', 'Render a specific markdown [file]')
+  .option('-i, --index [indy]', 'Render specific hint at index [indy]');
 
 program.on('--help', function() {
   console.log('Examples');
   console.log('');
   console.log('    $ tldr tar');
+  console.log('    $ tldr wget -i 1');
   console.log('    $ tldr svcs --os sunos');
   console.log('    $ tldr --list');
   console.log('    $ tldr --random');
