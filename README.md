@@ -21,19 +21,19 @@ $ npm install -g tldr
 To see tldr pages:
 
 - `tldr <command>`
-- `tldr --list` to show all available pages
-- `tldr --random` to show a page at random
+- `tldr --list` show all available pages
+- `tldr --random` show a page at random
+- `tldr --random-example` show a single random example
 
 The client caches a copy of all pages locally, in `~/.tldr`.
 There are more commands to control the local cache:
 
-- `tldr --update` to download the latest "stable" pages
-- `tldr --clear-cache` to delete the entire local cache
+- `tldr --update` download the latest "stable" pages
+- `tldr --clear-cache` delete the entire local cache
 
 As a contributor, you might also need the following commands:
 
-- `tldr --update --tag 1.2.3` to download a specific tag of the pages
-- `tldr --update --branch somebranch` to download from a specific branch
+- `tldr --render <path>` render a local page for testing purposes
 - `tldr --update --github username:password` if you make more than 30 updates/hour for testing
 
 ## Configuration
@@ -50,6 +50,14 @@ You can configure the `tldr` client by adding a `.tldrrc` file in your HOME dire
     "command-token": "white"
   }
 }
+```
+
+As a contributor, you might need the following options:
+
+``` js
+{ "repository": "your/fork"        }   // download updates from your fork (latest stable tag)
+{ "repository": "your/fork#branch" }   // download updates from HEAD on a given branch
+{ "repository": "your/fork#tag"    }   // download updates from a given tag
 ```
 
 ## Contributing
