@@ -13,9 +13,7 @@ program
   .option('-u, --update', 'Update the local cache')
   .option('-g, --github [user:pass]', 'Set github user to [user] and the github password to [pass] (used for updating, only necessary if updating more than 30 times in an hour)')
   .option('-l, --list', 'List the commands in the local cache')
-  .option('-r, --random', 'Show a random command')
-  .option('-t, --tag [tag]', 'Update from the specified tag. Defaults to the newest tag')
-  .option('-b, --branch [branch]', 'Update from [branch] of the updateRepo specified in your .tldrrc. This overrides the tag option. Defaults to using \'master\' if --branch is specified, otherwise uses tags');
+  .option('-r, --random', 'Show a random command');
 
 program.on('--help', function() {
   console.log('Examples');

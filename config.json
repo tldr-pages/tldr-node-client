@@ -1,5 +1,5 @@
 {
-  "updateRepo" : "rprieto/tldr",
+  "repository" : "rprieto/tldr",
   "colors": {
     "text": "green",
     "command-background": "black",
