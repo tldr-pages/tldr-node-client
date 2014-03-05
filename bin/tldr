@@ -13,7 +13,8 @@ program
   .option('-u, --update', 'Update the local cache')
   .option('-g, --github [user:pass]', 'Set github user to [user] and the github password to [pass] (used for updating, only necessary if updating more than 30 times in an hour)')
   .option('-l, --list', 'List the commands in the local cache')
-  .option('-r, --random', 'Show a random command');
+  .option('-r, --random', 'Show a random command')
+  .option('-q, --render [file]', 'Render a specific markdown [file]')
 
 program.on('--help', function() {
   console.log('Examples');
@@ -30,9 +31,11 @@ program.on('--help', function() {
   console.log('');
   console.log('As a developer');
   console.log('');
-  console.log('    $ tldr --update --tag 1.2.3');
-  console.log('    $ tldr --update --branch somebranch');
   console.log('    $ tldr --update --github username:password');
+  console.log('');
+  console.log('To render a specific file');
+  console.log('');
+  console.log('    $ tldr --render /path/to/file.md');
   console.log('');
 });
 
@@ -44,6 +47,8 @@ if (program.clearCache) {
   tldr.updateCache(program);
 } else if (program.list) {
   tldr.listCache();
+} else if (program.render) {
+  tldr.render(program.render);
 } else if (program.random) {
   try {
     var rander = tldr.getRandom();
