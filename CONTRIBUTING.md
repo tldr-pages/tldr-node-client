@@ -21,5 +21,6 @@ Don't forget to keep the tests green on your branch - or to add some where neces
 
 ## License
 
-`tldr-node-client` is under MIT license, which means you're free to modify or redistribute the source. That being said, but why not contribute over here? :) Also, if you decide to create a new client, don't forget to ping us at [tldr](https://github.com/rprieto/tldr) so we can include it in the README.
+`tldr-node-client` is under MIT license, which means you're free to modify or redistribute the source. That being said, but why not contribute over here? :)
 
+Also, if you create a new client, don't forget to ping us at [tldr-pages](https://github.com/tldr-pages) so we can add it to the organisation &amp; in the README.
