@@ -1,10 +1,10 @@
-[![Travis CI](https://api.travis-ci.org/rprieto/tldr-node-client.png)](https://travis-ci.org/rprieto/tldr-node-client) [![Dependency Status](https://david-dm.org/rprieto/tldr-node-client.png?theme=shields.io)](https://david-dm.org/rprieto/tldr-node-client) [![devDependency Status](https://david-dm.org/rprieto/tldr-node-client/dev-status.png?theme=shields.io)](https://david-dm.org/rprieto/tldr-node-client#info=devDependencies)
+[![Travis CI](https://api.travis-ci.org/tldr-pages/tldr-node-client.png)](https://travis-ci.org/tldr-pages/tldr-node-client) [![Dependency Status](https://david-dm.org/tldr-pages/tldr-node-client.png?theme=shields.io)](https://david-dm.org/tldr-pages/tldr-node-client) [![devDependency Status](https://david-dm.org/tldr-pages/tldr-node-client/dev-status.png?theme=shields.io)](https://david-dm.org/tldr-pages/tldr-node-client#info=devDependencies)
 
 # tldr-node-client
 
-A `Node.js` based command-line client for [tldr](https://github.com/rprieto/tldr).
+A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/tldr).
 
-![tldr screenshot](http://raw.github.com/rprieto/tldr-node-client/master/screenshot.png)
+![tldr screenshot](http://raw.github.com/tldr-pages/tldr-node-client/master/screenshot.png)
 
 ## Installing
 
@@ -62,4 +62,4 @@ As a contributor, you might need the following options:
 
 ## Contributing
 
-Contribution are most welcome! Have a look [over here](https://github.com/rprieto/tldr-node-client/blob/master/CONTRIBUTING.md) for a few rough guidelines.
+Contribution are most welcome! Have a look [over here](https://github.com/tldr-pages/tldr-node-client/blob/master/CONTRIBUTING.md) for a few rough guidelines.
