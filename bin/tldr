@@ -8,22 +8,27 @@ var program = require('commander');
 program
   .version(pkg.version)
   .usage('commandName [options]')
-  .option('-o, --os [type]', 'Override the operating system [linux, osx, sunos]')
-  .option('-c, --clear-cache', 'Clear the local cache')
-  .option('-u, --update', 'Update the local cache')
-  .option('-g, --github [user:pass]', 'Set github user to [user] and the github password to [pass] (used for updating, only necessary if updating more than 30 times in an hour)')
-  .option('-l, --list', 'List the commands in the local cache')
+  //
+  // BASIC OPTIONS
+  //
+  .option('-l, --list', 'List all commands in the cache')
   .option('-r, --random', 'Show a random command')
-  .option('-q, --render [file]', 'Render a specific markdown [file]')
-  .option('-i, --index [indy]', 'Render specific hint at index [indy]')
-  .option('-p, --random-example', 'Show a random example');
+  .option('-e, --random-example', 'Show a random example')
+  .option('-f, --render [file]', 'Render a specific markdown [file]')
+  //
+  // CACHE MANAGEMENT
+  //
+  .option('-u, --update', 'Update the local cache')
+  .option('-c, --clear-cache', 'Clear the local cache')
+  //
+  // DEPRECATED SOON
+  //
+  .option('-o, --os [type]', 'Override the operating system [linux, osx, sunos]');
 
 program.on('--help', function() {
   console.log('Examples');
   console.log('');
   console.log('    $ tldr tar');
-  console.log('    $ tldr wget -i 1');
-  console.log('    $ tldr svcs --os sunos');
   console.log('    $ tldr --list');
   console.log('    $ tldr --random');
   console.log('    $ tldr --random-example');
@@ -33,11 +38,7 @@ program.on('--help', function() {
   console.log('    $ tldr --update');
   console.log('    $ tldr --clear-cache');
   console.log('');
-  console.log('As a developer');
-  console.log('');
-  console.log('    $ tldr --update --github username:password');
-  console.log('');
-  console.log('To render a specific file');
+  console.log('To render a local file (for testing)');
   console.log('');
   console.log('    $ tldr --render /path/to/file.md');
   console.log('');
@@ -45,43 +46,14 @@ program.on('--help', function() {
 
 program.parse(process.argv);
 
-if (program.clearCache) {
-  tldr.clearCache();
-} else if (program.update) {
-  tldr.updateCache(program);
-} else if (program.list) {
-  tldr.listCache();
-} else if (program.render) {
-  tldr.render(program.render);
-} else if (program.randomExample) {
-  try {
-    var rander = tldr.getRandom();
-    console.log(rander.file + ":");
-    program.os = rander.os;
-    program.index = 'random';
-    tldr.get(rander.file, program);
-  } catch(ex) {
-    util.error(ex);
-    process.exit(1);
-  }
-} else if (program.random) {
-  try {
-    var rander = tldr.getRandom();
-    console.log(rander.file + ":");
-    program.os = rander.os;
-    tldr.get(rander.file, program);
-  } catch (ex) {
-    util.error(ex);
-    process.exit(1);
-  }
-} else if (program.args.length == 1) {
-  try {
-    tldr.get(program.args[0], program);
-  } catch (ex) {
-    util.error(ex);
-    process.exit(1);
-  }
-} else {
+     if (program.list)              tldr.list();
+else if (program.random)            tldr.random();
+else if (program.randomExample)     tldr.randomExample();
+else if (program.clearCache)        tldr.clearCache();
+else if (program.update)            tldr.updateCache();
+else if (program.render)            tldr.render(program.render);
+else if (program.args.length == 1)  tldr.get(program.args[0], program)
+else {
   util.log('Usage: tldr <command>');
   process.exit(1);
 }

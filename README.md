@@ -14,7 +14,9 @@ A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/t
 $ npm install -g tldr
 ```
 
-*Note: TLDR is still in early versions. We try to minimise breaking changes, but if you run into issues please try to download the latest package again.*
+*Note: TLDR is still in early versions.
+We try to minimise breaking changes, but if you run into issues
+please try to download the latest package again.*
 
 ## Usage
 
@@ -28,21 +30,22 @@ To see tldr pages:
 The client caches a copy of all pages locally, in `~/.tldr`.
 There are more commands to control the local cache:
 
-- `tldr --update` download the latest "stable" pages
+- `tldr --update` download the latest pages
 - `tldr --clear-cache` delete the entire local cache
 
 As a contributor, you might also need the following commands:
 
 - `tldr --render <path>` render a local page for testing purposes
-- `tldr --update --github username:password` if you make more than 30 updates/hour for testing
 
 ## Configuration
 
-You can configure the `tldr` client by adding a `.tldrrc` file in your HOME directory. This file has to be valid JSON.
+You can configure the `tldr` client by adding a `.tldrrc` file in your HOME directory.
+This file has to be valid JSON, and all entries are optional:
 
 ```json
 {
-  "repository" : "rprieto/tldr",
+  "repository" : "tldr-pages/tldr",
+  "cache": "~/.tldr",
   "colors": {
     "text": "green",
     "command-background": "black",
@@ -52,14 +55,15 @@ You can configure the `tldr` client by adding a `.tldrrc` file in your HOME dire
 }
 ```
 
-As a contributor, you might need the following options:
+As a contributor, you can also point to your own fork or branch:
 
-``` js
-{ "repository": "your/fork"        }   // download updates from your fork (latest stable tag)
-{ "repository": "your/fork#branch" }   // download updates from HEAD on a given branch
-{ "repository": "your/fork#tag"    }   // download updates from a given tag
+```json
+"repository" : "myfork/tldr",
+"repository" : "myfork/tldr#mybranch",
 ```
 
 ## Contributing
 
-Contribution are most welcome! Have a look [over here](https://github.com/tldr-pages/tldr-node-client/blob/master/CONTRIBUTING.md) for a few rough guidelines.
+Contribution are most welcome!
+Have a look [over here](https://github.com/tldr-pages/tldr-node-client/blob/master/CONTRIBUTING.md)
+for a few rough guidelines.
