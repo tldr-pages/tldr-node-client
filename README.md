@@ -22,7 +22,7 @@ please try to download the latest package again.*
 
 To see tldr pages:
 
-- `tldr <command>`
+- `tldr <command>` show examples for this command
 - `tldr --list` show all available pages
 - `tldr --random` show a page at random
 - `tldr --random-example` show a single random example
@@ -40,12 +40,10 @@ As a contributor, you might also need the following commands:
 ## Configuration
 
 You can configure the `tldr` client by adding a `.tldrrc` file in your HOME directory.
-This file has to be valid JSON, and all entries are optional:
+This file has to be valid JSON:
 
 ```json
 {
-  "repository" : "tldr-pages/tldr",
-  "cache": "~/.tldr",
   "colors": {
     "text": "green",
     "command-background": "black",
@@ -57,9 +55,12 @@ This file has to be valid JSON, and all entries are optional:
 
 As a contributor, you can also point to your own fork or branch:
 
-```json
-"repository" : "myfork/tldr",
-"repository" : "myfork/tldr#mybranch",
+```js
+{
+  "repository" : "myfork/tldr",
+  // or
+  "repository" : "myfork/tldr#mybranch",  
+}
 ```
 
 ## Contributing
