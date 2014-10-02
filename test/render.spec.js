@@ -1,52 +1,48 @@
 var should = require('should');
 var render = require('../lib/render');
 
-describe('Render console output from Markdown', function() {
+describe('Render', function() {
 
   it('surrounds the output with blank lines', function() {
-    var o = render.fromMarkdown('');
-    o.should.eql('\n\n');
+    var text = render.toANSI({
+      name: 'tar',
+      description: 'archive utility',
+      examples: []
+    });
+    text.should.startWith('\n');
+    text.should.endWith('\n');
   });
 
-  it('strips paragraph tags', function() {
-    var o = render.fromMarkdown(
-      '\nline 1' +
-      '\n' +
-      '\nline 2' +
-      '\n'
-    );
-    o.should.eql('\nline 1line 2\n');
+  it('contains the command name', function() {
+    var text = render.toANSI({
+      name: 'tar',
+      description: 'archive utility',
+      examples: []
+    });
+    text.should.containEql('  tar\n');
   });
 
-  it('reads the command description from block quotes', function() {
-    var o = render.fromMarkdown(
-      '\n> archiving utility' +
-      '\n> supports optional compression'
-    );
-    o.should.containEql('archiving utility');
-    o.should.containEql('supports optional compression');
-  });
-
-  it('ignores all other Markdown syntax', function() {
-    var o = render.fromMarkdown(
-      '\n# heading 1' +
-      '\n' +
-      '\n## heading 2' +
-      '\n' +
-      '\n[link](http://link)' +
-      '\n' +
-      '\n```' +
-      '\ncode block' +
-      '\n```'
-    );
-    o.should.eql('\n\n');
+  it('contains the description name', function() {
+    var text = render.toANSI({
+      name: 'tar',
+      description: 'archive utility\nwith support for compression',
+      examples: []
+    });
+    text.should.containEql('  archive utility\n  with support for compression\n');
   });
 
   it('highlights replaceable {{tokens}}', function() {
-    var o = render.fromMarkdown('`hello {{token}} bye`');
-    o.should.containEql('hello '.blackBG.red);
-    o.should.containEql('token'.blackBG.white);
-    o.should.containEql(' bye'.blackBG.red);
+    var text = render.toANSI({
+      name: 'tar',
+      description: 'archive utility',
+      examples: [{
+        description: 'create',
+        code: 'hello {{token}} bye'
+      }]
+    });
+    text.should.containEql('hello '.blackBG.red);
+    text.should.containEql('token'.blackBG.white);
+    text.should.containEql(' bye'.blackBG.red);
   });
 
 });
