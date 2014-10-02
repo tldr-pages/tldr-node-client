@@ -53,10 +53,11 @@ describe('Parser', function() {
     var page = parser.parse(
       '\n- this & that' +
       '\n' +
-      '\n`tar --this --that`'
+      '\n`cmd & data`'
     );
     page.examples.should.have.length(1);
     page.examples[0].description.should.eql('this & that');
+    page.examples[0].code.should.eql('cmd & data');
   });
 
   it('parses all the examples', function() {
