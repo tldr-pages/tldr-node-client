@@ -8,16 +8,12 @@ describe('Config', function() {
 
   var DEFAULT =
     '{' +
-    '  "remote": {' +
-    '    "url": "http://default-pages" ' +
-    '  }' +
+    '  "repository": "tldr-pages/tldr"' +
     '}';
 
   var CUSTOM =
     '{' +
-    '  "remote": {' +
-    '    "url": "http://custom-pages" ' +
-    '  }' +
+    '  "repository": "myfork/tldr"' +
     '}';
 
   var CUSTOM_INVALID =
@@ -39,13 +35,13 @@ describe('Config', function() {
   it('should load the default config', function() {
     fs.readFileSync.onCall(0).returns(DEFAULT);
     fs.readFileSync.onCall(1).throws('Not found');
-    config.get().remote.url.should.eql('http://default-pages');
+    config.get().repository.should.eql('tldr-pages/tldr');
   });
 
   it('should override the defaults with content from .tldrrc', function() {
     fs.readFileSync.onCall(0).returns(DEFAULT);
     fs.readFileSync.onCall(1).returns(CUSTOM);
-    config.get().remote.url.should.eql('http://custom-pages');
+    config.get().repository.should.eql('myfork/tldr');
   });
 
   it('should validate the custom config format', function() {
