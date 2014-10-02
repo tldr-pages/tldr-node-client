@@ -23,8 +23,8 @@ describe('Render console output from Markdown', function() {
       '\n> archiving utility' +
       '\n> supports optional compression'
     );
-    o.should.include('archiving utility');
-    o.should.include('supports optional compression');
+    o.should.containEql('archiving utility');
+    o.should.containEql('supports optional compression');
   });
 
   it('ignores all other Markdown syntax', function() {
@@ -44,9 +44,9 @@ describe('Render console output from Markdown', function() {
 
   it('highlights replaceable {{tokens}}', function() {
     var o = render.fromMarkdown('`hello {{token}} bye`');
-    o.should.include('hello '.blackBG.red);
-    o.should.include('token'.blackBG.white);
-    o.should.include(' bye'.blackBG.red);
+    o.should.containEql('hello '.blackBG.red);
+    o.should.containEql('token'.blackBG.white);
+    o.should.containEql(' bye'.blackBG.red);
   });
 
 });
