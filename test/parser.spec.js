@@ -76,4 +76,15 @@ describe('Parser', function() {
     page.examples.should.have.length(2);
   });
 
+  it('leaves out malformed examples', function() {
+    var page = parser.parse(
+      '\n- example 1' +
+      '\n' +
+      '\n`cmd --foo`' +
+      '\n' +
+      '\n- example 2'
+    );
+    page.examples.should.have.length(1);
+  });
+
 });
