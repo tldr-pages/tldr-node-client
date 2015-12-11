@@ -87,4 +87,29 @@ describe('Parser', function() {
     page.examples.should.have.length(1);
   });
 
+  it('should parse description with inline code', function() {
+    var page = parser.parse(
+      '\n# uname' +
+      '\n> See also `lsb_release`'
+    );
+    page.description.should.eql('See also lsb_release');
+  });
+
+  it('should parse examples with inline code', function() {
+    var page = parser.parse(
+      '\n# uname' +
+      '\n> See also' +
+      '\n' +
+      '\n- example 1, see `inline_cmd1` for details' +
+      '\n' +
+      '\n`cmd1 --foo`' +
+      '\n' +
+      '\n- example 2, see `inline_cmd2` for details' +
+      '\n' +
+      '\n`cmd2 --foo`'
+    );
+    page.examples[0].description.should.eql('example 1, see inline_cmd1 for details');
+    page.examples[1].description.should.eql('example 2, see inline_cmd2 for details');
+  });
+
 });
