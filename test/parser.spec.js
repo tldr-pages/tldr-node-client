@@ -112,4 +112,28 @@ describe('Parser', function() {
     page.examples[1].description.should.eql('example 2, see inline_cmd2 for details');
   });
 
+  it('should parse code examples with unix redirects ">", "<", ">>" and "<<<"', function() {
+    var page = parser.parse(
+      '\n- Concatenate several files into the target file.' +
+      '\n' +
+      '\n`cat {{file1}} {{file2}} > {{target-file}}`' +
+      '\n' +
+      '\n- Concatenate several files into the target file.' +
+      '\n' +
+      '\n`wc -l < {{users-file}}`' +
+      '\n' +
+      '\n- Output one file into the target file.' +
+      '\n' +
+      '\n`cat {{file}} >> {{target-file}}`' +
+      '\n' +
+      '\n- Calculate the result of expression' +
+      '\n' +
+      '\n`bc <<< "1 + 1"`'
+    );
+    page.examples[0].code.should.eql('cat {{file1}} {{file2}} > {{target-file}}');
+    page.examples[1].code.should.eql('wc -l < {{users-file}}');
+    page.examples[2].code.should.eql('cat {{file}} >> {{target-file}}');
+    page.examples[3].code.should.eql('bc <<< "1 + 1"');
+  });
+
 });
