@@ -37,7 +37,9 @@ describe('Render', function() {
       description: 'archive utility',
       examples: [{
         description: 'create',
-        code: 'hello {{token}} bye'
+        code: [
+          'hello {{token}} bye'
+        ]
       }]
     });
     text.should.containEql('hello '.blackBG.red);
