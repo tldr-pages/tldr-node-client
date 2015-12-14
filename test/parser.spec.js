@@ -46,7 +46,7 @@ describe('Parser', function() {
     );
     page.examples.should.have.length(1);
     page.examples[0].description.should.eql('create an archive');
-    page.examples[0].code.should.eql('tar cf {{file.tar}}');
+    page.examples[0].code[0].should.eql('tar cf {{file.tar}}');
   });
 
   it('does not escape HTML in the examples either', function() {
@@ -57,7 +57,7 @@ describe('Parser', function() {
     );
     page.examples.should.have.length(1);
     page.examples[0].description.should.eql('this & that');
-    page.examples[0].code.should.eql('cmd & data');
+    page.examples[0].code[0].should.eql('cmd & data');
   });
 
   it('parses all the examples', function() {
@@ -110,6 +110,31 @@ describe('Parser', function() {
     );
     page.examples[0].description.should.eql('example 1, see inline_cmd1 for details');
     page.examples[1].description.should.eql('example 2, see inline_cmd2 for details');
+  });
+
+  it('should parse several code snippets per one example', function() {
+    var page = parser.parse(
+      '\n- example 1' +
+      '\n' +
+      '\n`cmd1 --foo1`' +
+      '\n' +
+      '\n`cmd1 --foo2`' +
+      '\n' +
+      '\n- example 2' +
+      '\n' +
+      '\n`cmd2 --foo1`' +
+      '\n' +
+      '\n`cmd2 --foo2`' +
+      '\n' +
+      '\n`cmd2 --foo3`'
+    );
+    page.examples[0].code.should.have.length(2);
+    page.examples[0].code[0].should.eql('cmd1 --foo1');
+    page.examples[0].code[1].should.eql('cmd1 --foo2');
+    page.examples[1].code.should.have.length(3);
+    page.examples[1].code[0].should.eql('cmd2 --foo1');
+    page.examples[1].code[1].should.eql('cmd2 --foo2');
+    page.examples[1].code[2].should.eql('cmd2 --foo3');
   });
 
 });
