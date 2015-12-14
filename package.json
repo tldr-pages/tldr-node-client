@@ -22,6 +22,8 @@
     "test": "test"
   },
   "scripts": {
+    "precommit": "npm test -- --reporter=dot",
+    "prepush": "npm test -- --reporter=dot",
     "start": "NODE_ENV=development node server.js",
     "example": "NODE_ENV=development node ./bin/tldr tar",
     "test": "mocha test --recursive --reporter=spec",
@@ -47,6 +49,7 @@
     "wrench": "~1.5.8"
   },
   "devDependencies": {
+    "husky": "^0.10.2",
     "mocha": "~1.21.4",
     "should": "~4.0.4",
     "sinon": "~1.10.3"
