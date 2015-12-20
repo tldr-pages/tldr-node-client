@@ -15,15 +15,12 @@ program
   .option('-r, --random', 'Show a random command')
   .option('-e, --random-example', 'Show a random example')
   .option('-f, --render [file]', 'Render a specific markdown [file]')
+  .option('-o, --os [type]', 'Override the operating system [linux, osx, sunos]')
   //
   // CACHE MANAGEMENT
   //
   .option('-u, --update', 'Update the local cache')
-  .option('-c, --clear-cache', 'Clear the local cache')
-  //
-  // DEPRECATED SOON
-  //
-  .option('-o, --os [type]', 'Override the operating system [linux, osx, sunos]');
+  .option('-c, --clear-cache', 'Clear the local cache');
 
 program.on('--help', function() {
   console.log('Examples');
@@ -45,6 +42,14 @@ program.on('--help', function() {
 });
 
 program.parse(process.argv);
+
+if (program.os) {
+  var config = require('../lib/config');
+  var platform = require('../lib/platform');
+  if (platform.isSupported(program.os)) {
+    config.get().platform = program.os;
+  }
+}
 
      if (program.list)              tldr.list();
 else if (program.random)            tldr.random();
