@@ -1,8 +1,7 @@
 var os     = require('os');
 var config = require('../lib/config');
 var sinon  = require('sinon');
-var should = require('should');
-var platform = require('../lib/platform')
+var platform = require('../lib/platform');
 
 describe('Platform', function() {
 
@@ -63,7 +62,7 @@ describe('Platform', function() {
       os.platform.onCall(0).returns('linux');
       platform.resolve('tar').should.eql([
         'pages/linux/tar.md',
-        'pages/common/tar.md',
+        'pages/common/tar.md'
       ]);
     });
   });

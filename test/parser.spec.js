@@ -1,4 +1,3 @@
-var should = require('should');
 var parser = require('../lib/parser');
 
 describe('Parser', function() {

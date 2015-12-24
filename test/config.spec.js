@@ -1,6 +1,5 @@
 var fs     = require('fs');
 var sinon  = require('sinon');
-var should = require('should');
 var config = require('../lib/config');
 
 describe('Config', function() {

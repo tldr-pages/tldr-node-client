@@ -1,4 +1,6 @@
+/*eslint-disable no-unused-vars */
 var should = require('should');
+/*eslint-disable no-unused-vars */
 var render = require('../lib/render');
 
 describe('Render', function() {
