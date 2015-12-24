@@ -1,5 +1,6 @@
 {
   "pagesRepository": "tldr-pages/tldr",
+  "url": "http://tldr-pages.github.io/assets/tldr.zip",
   "colors": {
     "text": "green",
     "command-background": "black",
