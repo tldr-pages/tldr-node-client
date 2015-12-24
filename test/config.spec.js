@@ -1,5 +1,4 @@
 var fs     = require('fs');
-var path   = require('path');
 var sinon  = require('sinon');
 var should = require('should');
 var config = require('../lib/config');

@@ -46,14 +46,21 @@ program.on('--help', function() {
 
 program.parse(process.argv);
 
-     if (program.list)              tldr.list();
-else if (program.random)            tldr.random();
-else if (program.randomExample)     tldr.randomExample();
-else if (program.clearCache)        tldr.clearCache();
-else if (program.update)            tldr.updateCache();
-else if (program.render)            tldr.render(program.render);
-else if (program.args.length == 1)  tldr.get(program.args[0], program)
-else {
+if (program.list) {
+  tldr.list();
+} else if (program.random) {
+  tldr.random();
+} else if (program.randomExample) {
+  tldr.randomExample();
+} else if (program.clearCache) {
+  tldr.clearCache();
+} else if (program.update) {
+  tldr.updateCache();
+} else if (program.render) {
+  tldr.render(program.render);
+} else if (program.args.length == 1) {
+  tldr.get(program.args[0], program);
+} else {
   util.log('Usage: tldr <command>');
   process.exit(1);
 }

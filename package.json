@@ -34,6 +34,7 @@
     "start": "NODE_ENV=development node ./bin/tldr",
     "example": "NODE_ENV=development node ./bin/tldr tar",
     "test": "mocha test --recursive --reporter=spec",
+    "lint": "eslint lib test bin/tldr",
     "watch": "mocha --watch test --recursive --reporter=min --growl"
   },
   "os": [
@@ -56,6 +57,7 @@
     "wrench": "~1.5.8"
   },
   "devDependencies": {
+    "eslint": "^1.10.3",
     "husky": "^0.10.2",
     "mocha": "~1.21.4",
     "should": "~4.0.4",
