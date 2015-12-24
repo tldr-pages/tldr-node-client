@@ -1,4 +1,5 @@
 {
+  "repository" : "tldr-pages/tldr",
   "colors": {
     "text": "green",
     "command-background": "black",
