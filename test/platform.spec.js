@@ -30,6 +30,14 @@ describe('Platform', function() {
       });
       platform.getPreferredPlatform().should.eql('linux');
     });
+
+    it('should return current system platform if configuration is wrong', function() {
+      os.platform.onCall(0).returns('darwin');
+      config.get.onCall(0).returns({
+        platform: 'there_is_no_such_platform'
+      });
+      platform.getPreferredPlatform().should.eql('darwin');
+    });
   });
 
   describe('isSupported', function() {
