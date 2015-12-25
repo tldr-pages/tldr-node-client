@@ -1,14 +1,16 @@
-[![Travis CI](https://api.travis-ci.org/tldr-pages/tldr-node-client.png)](https://travis-ci.org/tldr-pages/tldr-node-client) [![Dependency Status](https://david-dm.org/tldr-pages/tldr-node-client.png?theme=shields.io)](https://david-dm.org/tldr-pages/tldr-node-client) [![devDependency Status](https://david-dm.org/tldr-pages/tldr-node-client/dev-status.png?theme=shields.io)](https://david-dm.org/tldr-pages/tldr-node-client#info=devDependencies)
-
 # tldr-node-client
+
+[![NPM version][npm-image]][npm-url]
+[![Travs CI Build Status][travis-image]][travis-url]
+[![David DM Dependency Status][dep-image]][dep-url]
+[![David DM devDependency Status][dev-dep-image]][dev-dep-url]
+[![Gitter chat][gitter-image]][gitter-url]
 
 A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/tldr).
 
 ![tldr screenshot](http://raw.github.com/tldr-pages/tldr-node-client/master/screenshot.png)
 
 ## Installing
-
-[![NPM](https://nodei.co/npm/tldr.png)](https://www.npmjs.org/package/tldr)
 
 ```bash
 $ npm install -g tldr
@@ -68,3 +70,18 @@ As a contributor, you can also point to your own fork or branch:
 Contribution are most welcome!
 Have a look [over here](https://github.com/tldr-pages/tldr-node-client/blob/master/CONTRIBUTING.md)
 for a few rough guidelines.
+
+[npm-url]: https://www.npmjs.com/package/tldr
+[npm-image]: https://img.shields.io/npm/v/tldr.svg
+
+[travis-url]: https://travis-ci.org/tldr-pages/tldr-node-client
+[travis-image]: https://img.shields.io/travis/tldr-pages/tldr-node-client.svg
+
+[dep-url]: https://david-dm.org/tldr-pages/tldr-node-client
+[dep-image]: https://david-dm.org/tldr-pages/tldr-node-client.svg?theme=shields.io
+
+[dev-dep-url]: https://david-dm.org/tldr-pages/tldr-node-client#info=devDependencies
+[dev-dep-image]: https://david-dm.org/tldr-pages/tldr-node-client/dev-status.svg?theme=shields.io
+
+[gitter-url]: https://gitter.im/tldr-pages/tldr
+[gitter-image]: https://badges.gitter.im/tldr-pages/tldr.png
