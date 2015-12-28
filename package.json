@@ -29,13 +29,14 @@
     "test": "test"
   },
   "scripts": {
-    "precommit": "npm test -- --reporter=dot",
-    "prepush": "npm test -- --reporter=dot",
+    "precommit": "npm run lint && npm run test:quiet",
+    "prepush": "npm run test:quiet",
     "start": "NODE_ENV=development node ./bin/tldr",
     "example": "NODE_ENV=development node ./bin/tldr tar",
-    "test": "mocha test --recursive --reporter=spec",
+    "test": "mocha test",
+    "test:quiet": "npm test -- --reporter=dot",
     "lint": "eslint lib test bin/tldr",
-    "watch": "mocha --watch test --recursive --reporter=min --growl"
+    "watch": "npm run test:quiet -- --reporter=min --watch --growl"
   },
   "os": [
     "!win32"
