@@ -14,7 +14,13 @@
   "keywords": [
     "man",
     "unix",
-    "commands"
+    "linux",
+    "osx",
+    "commands",
+    "command-line",
+    "shell",
+    "bash",
+    "zsh"
   ],
   "homepage": "http://tldr-pages.github.io",
   "engines": {
