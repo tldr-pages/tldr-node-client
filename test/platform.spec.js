@@ -40,11 +40,11 @@ describe('Platform', function() {
   });
 
   describe('isSupported', function() {
-    it('should tell that Linux, OSX and SunOS are supported', function() {
+    it('should tell that Linux, OSX, SunOS and Win32 are supported', function() {
       platform.isSupported('osx').should.eql(true);
       platform.isSupported('linux').should.eql(true);
       platform.isSupported('sunos').should.eql(true);
-      platform.isSupported('windows').should.eql(false); // Yet
+      platform.isSupported('win32').should.eql(true);
       platform.isSupported('ios').should.eql(false);
     });
   });
