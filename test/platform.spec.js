@@ -44,7 +44,7 @@ describe('Platform', function() {
       platform.isSupported('osx').should.eql(true);
       platform.isSupported('linux').should.eql(true);
       platform.isSupported('sunos').should.eql(true);
-      platform.isSupported('windows').should.eql(false); // Yet
+      platform.isSupported('win32').should.eql(true);
       platform.isSupported('ios').should.eql(false);
     });
   });

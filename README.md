@@ -63,6 +63,12 @@ As a contributor, you can also point to your own fork or branch:
 }
 ```
 
+## Windows Users
+
+`tldr` can also run on Windows machines that have either [Cygwin](https://www.cygwin.com/) or [Git Bash](https://git-scm.com/downloads) installed.
+
+It doesn't work on the regular command line neither on PowerShell yet. 
+
 ## Contributing
 
 Contribution are most welcome!
