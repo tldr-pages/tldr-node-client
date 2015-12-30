@@ -37,6 +37,7 @@
   "scripts": {
     "precommit": "npm run lint && npm run test:quiet",
     "prepush": "npm run test:quiet",
+    "postinstall": "node ./bin/tldr --update",
     "start": "NODE_ENV=development node ./bin/tldr",
     "example": "NODE_ENV=development node ./bin/tldr tar",
     "test": "mocha test",
