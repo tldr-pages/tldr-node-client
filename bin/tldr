@@ -16,6 +16,7 @@ program
   .option('-e, --random-example', 'Show a random example')
   .option('-f, --render [file]', 'Render a specific markdown [file]')
   .option('-o, --os [type]', 'Override the operating system [linux, osx, sunos]')
+  .option('-a, --all', 'Show tl;dr for all commands in the cache')
   //
   // CACHE MANAGEMENT
   //
@@ -29,6 +30,7 @@ program.on('--help', function() {
   console.log('    $ tldr --list');
   console.log('    $ tldr --random');
   console.log('    $ tldr --random-example');
+  console.log('    $ tldr --all');
   console.log('');
   console.log('To control the cache');
   console.log('');
@@ -63,6 +65,8 @@ if (program.list) {
   tldr.updateCache();
 } else if (program.render) {
   tldr.render(program.render);
+} else if (program.all) {
+  tldr.all();
 } else if (program.args.length == 1) {
   tldr.get(program.args[0], program);
 } else {
