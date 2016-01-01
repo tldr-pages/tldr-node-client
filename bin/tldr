@@ -26,6 +26,7 @@ program.on('--help', function() {
   console.log('Examples');
   console.log('');
   console.log('    $ tldr tar');
+  console.log('    $ tldr du --os=linux');
   console.log('    $ tldr --list');
   console.log('    $ tldr --random');
   console.log('    $ tldr --random-example');

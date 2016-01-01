@@ -21,6 +21,7 @@ $ npm install -g tldr
 To see tldr pages:
 
 - `tldr <command>` show examples for this command
+- `tldr <command> --os=linux` show page for Linux version of this command
 - `tldr --list` show all available pages
 - `tldr --random` show a page at random
 - `tldr --random-example` show a single random example
@@ -49,6 +50,20 @@ This file has to be valid JSON:
     "command-token": "white"
   }
 }
+```
+
+If you need to always read pages for different platform (e.g. Linux), you can put it in config file:
+
+```json
+{
+  "platform": "linux"
+}
+```
+
+The default platform value can be overwritten with command-line option:
+
+```shell
+tldr du --os=osx
 ```
 
 As a contributor, you can also point to your own fork or branch:
