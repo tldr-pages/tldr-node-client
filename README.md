@@ -16,10 +16,6 @@ A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/t
 $ npm install -g tldr
 ```
 
-*Note: TLDR is still in early versions.
-We try to minimise breaking changes, but if you run into issues
-please try to download the latest package again.*
-
 ## Usage
 
 To see tldr pages:
