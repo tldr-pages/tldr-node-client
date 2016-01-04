@@ -23,8 +23,6 @@ To see tldr pages:
 - `tldr <command>` show examples for this command
 - `tldr <command> --os=linux` show page for Linux version of this command
 - `tldr --list` show all available pages
-- `tldr --random` show a page at random
-- `tldr --random-example` show a single random example
 
 The client caches a copy of all pages locally, in `~/.tldr`.
 There are more commands to control the local cache:
@@ -72,7 +70,7 @@ As a contributor, you can also point to your own fork or branch:
 {
   "repository" : "myfork/tldr",
   // or
-  "repository" : "myfork/tldr#mybranch",  
+  "repository" : "myfork/tldr#mybranch",
 }
 ```
 
