@@ -43,7 +43,8 @@
     "test": "mocha test",
     "test:quiet": "mocha test --reporter=dot",
     "lint": "eslint lib test bin/tldr",
-    "watch": "mocha test --reporter=min --watch --growl"
+    "watch": "mocha test --reporter=min --watch --growl",
+    "test:functional": "./test/functional-test.sh"
   },
   "dependencies": {
     "async": "~1.5.0",
