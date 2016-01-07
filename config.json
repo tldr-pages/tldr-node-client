@@ -6,5 +6,36 @@
     "command-background": "black",
     "command-foreground": "red",
     "command-token": "white"
-  }
+  },
+  "themes": {
+    "bw": {
+      "name": "bold, underline",
+      "description": "bold",
+      "exampleDescription": "",
+      "exampleCode": "",
+      "exampleArgument": "underline"
+    },
+    "plain": {
+      "name": "",
+      "description": "",
+      "exampleDescription": "",
+      "exampleCode": "",
+      "exampleArgument": ""
+    },
+    "original": {
+      "name": "bold",
+      "description": "",
+      "exampleDescription": "green",
+      "exampleCode": "red",
+      "exampleArgument": ""
+    },
+    "simple": {
+      "name": "bold,cyan",
+      "description": "",
+      "exampleDescription": "green",
+      "exampleCode": "",
+      "exampleArgument": "dim"
+    }
+  },
+  "theme": "bw"
 }

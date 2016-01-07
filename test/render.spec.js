@@ -2,8 +2,13 @@
 var should = require('should');
 /*eslint-disable no-unused-vars */
 var render = require('../lib/render');
+var config = require('../lib/config');
 
 describe('Render', function() {
+
+  beforeEach(function() {
+    config.get().theme = 'plain';
+  });
 
   it('surrounds the output with blank lines', function() {
     var text = render.toANSI({
@@ -21,7 +26,8 @@ describe('Render', function() {
       description: 'archive utility',
       examples: []
     });
-    text.should.containEql('  tar\n');
+    text.should.containEql('tar');
+    text.should.containEql('archive utility');
   });
 
   it('contains the description name', function() {
@@ -30,7 +36,8 @@ describe('Render', function() {
       description: 'archive utility\nwith support for compression',
       examples: []
     });
-    text.should.containEql('  archive utility\n  with support for compression\n');
+    text.should.containEql('archive utility');
+    text.should.containEql('with support for compression');
   });
 
   it('highlights replaceable {{tokens}}', function() {
@@ -42,9 +49,9 @@ describe('Render', function() {
         code: 'hello {{token}} bye'
       }]
     });
-    text.should.containEql('hello '.blackBG.red);
-    text.should.containEql('token'.blackBG.white);
-    text.should.containEql(' bye'.blackBG.red);
+    text.should.containEql('hello ');
+    text.should.containEql('token');
+    text.should.containEql(' bye');
   });
 
   it('should correctly render see also section', function() {
