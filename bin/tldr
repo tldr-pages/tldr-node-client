@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-var util    = require('util');
 var tldr    = require('../lib/tldr');
 var pkg     = require('../package');
 var program = require('commander');
@@ -67,6 +66,6 @@ if (program.list) {
 } else if (program.args.length == 1) {
   tldr.get(program.args[0], program);
 } else {
-  util.log('Usage: tldr <command>');
+  program.outputHelp();
   process.exit(1);
 }
