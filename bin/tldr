@@ -11,7 +11,8 @@ program
   //
   // BASIC OPTIONS
   //
-  .option('-l, --list', 'List all commands in the cache')
+  .option('-l, --list', 'List all commands for the chosen platform in the cache')
+  .option('-a, --list-all', 'List all commands in the cache')
   .option('-r, --random', 'Show a random command')
   .option('-e, --random-example', 'Show a random example')
   .option('-f, --render [file]', 'Render a specific markdown [file]')
@@ -54,6 +55,8 @@ if (program.os) {
 
 if (program.list) {
   tldr.list();
+} else if (program.listAll) {
+  tldr.listAll();
 } else if (program.random) {
   tldr.random();
 } else if (program.randomExample) {
