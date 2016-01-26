@@ -6,7 +6,8 @@ var program = require('commander');
 
 program
   .version(pkg.version)
-  .usage('commandName [options]')
+  .description(pkg.description)
+  .usage('command [options]')
   //
   // BASIC OPTIONS
   //
