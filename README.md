@@ -22,7 +22,8 @@ To see tldr pages:
 
 - `tldr <command>` show examples for this command
 - `tldr <command> --os=linux` show page for Linux version of this command
-- `tldr --list` show all available pages
+- `tldr --list` show all pages for current platform
+- `tldr --list-all` show all available pages
 - `tldr --random` show a page at random
 - `tldr --random-example` show a single random example
 
