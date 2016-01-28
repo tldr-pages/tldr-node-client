@@ -1,17 +1,19 @@
 #!/usr/bin/env node
 
-var util    = require('util');
 var tldr    = require('../lib/tldr');
 var pkg     = require('../package');
 var program = require('commander');
 
 program
   .version(pkg.version)
-  .usage('commandName [options]')
+  .description(pkg.description)
+  .usage('command [options]')
   //
   // BASIC OPTIONS
   //
-  .option('-l, --list', 'List all commands in the cache')
+  .option('-l, --list', 'List all commands for the chosen platform in the cache')
+  .option('-a, --list-all', 'List all commands in the cache')
+  .option('-1, --single-column', 'List single command per line (use with options -l or -a)')
   .option('-r, --random', 'Show a random command')
   .option('-e, --random-example', 'Show a random example')
   .option('-f, --render [file]', 'Render a specific markdown [file]')
@@ -28,6 +30,7 @@ program.on('--help', function() {
   console.log('    $ tldr tar');
   console.log('    $ tldr du --os=linux');
   console.log('    $ tldr --list');
+  console.log('    $ tldr --list-all');
   console.log('    $ tldr --random');
   console.log('    $ tldr --random-example');
   console.log('');
@@ -53,7 +56,9 @@ if (program.os) {
 }
 
 if (program.list) {
-  tldr.list();
+  tldr.list(program.singleColumn);
+} else if (program.listAll) {
+  tldr.listAll(program.singleColumn);
 } else if (program.random) {
   tldr.random();
 } else if (program.randomExample) {
@@ -67,6 +72,6 @@ if (program.list) {
 } else if (program.args.length == 1) {
   tldr.get(program.args[0], program);
 } else {
-  util.log('Usage: tldr <command>');
+  program.outputHelp();
   process.exit(1);
 }
