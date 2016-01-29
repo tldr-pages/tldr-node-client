@@ -69,8 +69,8 @@ if (program.list) {
   tldr.updateCache();
 } else if (program.render) {
   tldr.render(program.render);
-} else if (program.args.length == 1) {
-  tldr.get(program.args[0], program);
+} else if (program.args.length >= 1) {
+  tldr.get(program.args, program);
 } else {
   program.outputHelp();
   process.exit(1);
