@@ -18,6 +18,9 @@ program
   .option('-e, --random-example', 'Show a random example')
   .option('-f, --render [file]', 'Render a specific markdown [file]')
   .option('-o, --os [type]', 'Override the operating system [linux, osx, sunos]')
+  .option('--linux', 'Override the operating system with Linux')
+  .option('--osx', 'Override the operating system with OSX')
+  .option('--sunos', 'Override the operating system with SunOS')
   //
   // CACHE MANAGEMENT
   //
@@ -46,6 +49,18 @@ program.on('--help', function() {
 });
 
 program.parse(process.argv);
+
+if (program.linux) {
+  program.os = 'linux';
+}
+
+if (program.osx) {
+  program.os = 'osx';
+}
+
+if (program.sunos) {
+  program.os = 'sunos';
+}
 
 if (program.os) {
   var config = require('../lib/config');
