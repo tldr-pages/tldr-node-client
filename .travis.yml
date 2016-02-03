@@ -6,6 +6,8 @@ node_js:
   - "4.0"
   - "4.1"
   - "stable"
+script:
+  - npm test && npm run test:functional
 cache:
   directories:
     - node_modules
