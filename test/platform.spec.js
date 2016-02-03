@@ -61,8 +61,8 @@ describe('Platform', function() {
     it('should resolve tar command with specific OS and common folder', function() {
       os.platform.onCall(0).returns('linux');
       platform.resolve('tar').should.eql([
-        'pages/linux/tar.md',
-        'pages/common/tar.md'
+        'linux/tar.md',
+        'common/tar.md'
       ]);
     });
   });
