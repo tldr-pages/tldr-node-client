@@ -44,10 +44,10 @@
     "test:quiet": "mocha test --reporter=dot",
     "lint": "eslint lib test bin/tldr",
     "watch": "mocha test --reporter=min --watch --growl",
-    "test:functional": "./test/functional-test.sh"
+    "test:functional": "./test/functional-test.sh",
+    "test:all": "npm run lint && npm test && npm run test:functional"
   },
   "dependencies": {
-    "async": "~1.5.0",
     "colors": "~1.1.2",
     "commander": "~2.9.0",
     "cpr": "~1.0.0",
