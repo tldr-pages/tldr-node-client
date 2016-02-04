@@ -21,7 +21,10 @@ $ npm install -g tldr
 To see tldr pages:
 
 - `tldr <command>` show examples for this command
-- `tldr <command> --os=linux` show page for Linux version of this command
+- `tldr <command> --os=<platform>` show command page for given platform (`linux`, `osx`, `sunos`)
+- `tldr --linux <command>` show command page for Linux
+- `tldr  --osx <command>` show command page for OSX
+- `tldr --sunos <command>` show command page for SunOS
 - `tldr --list` show all pages for current platform
 - `tldr --list-all` show all available pages
 - `tldr --random` show a page at random
@@ -53,7 +56,8 @@ This file has to be valid JSON:
 }
 ```
 
-If you need to always read pages for different platform (e.g. Linux), you can put it in config file:
+If you need to always read pages for different platform (e.g. Linux),
+you can put it in config file:
 
 ```json
 {
@@ -73,7 +77,7 @@ As a contributor, you can also point to your own fork or branch:
 {
   "repository" : "myfork/tldr",
   // or
-  "repository" : "myfork/tldr#mybranch",  
+  "repository" : "myfork/tldr#mybranch",
 }
 ```
 
