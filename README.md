@@ -21,7 +21,7 @@ $ npm install -g tldr
 To see tldr pages:
 
 - `tldr <command>` show examples for this command
-- `tldr <command> --os=<platform>` show command page for given platform (`linux`, `osx`, `sunos`)
+- `tldr <command> --os=<platform>` show command page for the given platform (`linux`, `osx`, `sunos`)
 - `tldr --linux <command>` show command page for Linux
 - `tldr  --osx <command>` show command page for OSX
 - `tldr --sunos <command>` show command page for SunOS
@@ -56,8 +56,8 @@ This file has to be valid JSON:
 }
 ```
 
-If you need to always read pages for different platform (e.g. Linux),
-you can put it in config file:
+If you regularly need pages for a different platform (e.g. Linux),
+you can put it in the config file:
 
 ```json
 {
