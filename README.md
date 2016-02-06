@@ -2,6 +2,7 @@
 
 [![NPM version][npm-image]][npm-url]
 [![Travs CI Build Status][travis-image]][travis-url]
+[![AppVeyor CI Build status][appveyor-image]][appveyor-url]
 [![David DM Dependency Status][dep-image]][dep-url]
 [![David DM devDependency Status][dev-dep-image]][dev-dep-url]
 [![Gitter chat][gitter-image]][gitter-url]
@@ -92,6 +93,9 @@ for a few rough guidelines.
 
 [travis-url]: https://travis-ci.org/tldr-pages/tldr-node-client
 [travis-image]: https://img.shields.io/travis/tldr-pages/tldr-node-client.svg
+
+[appveyor-image]: https://ci.appveyor.com/api/projects/status/8n8ge8cei0rfs0q5?svg=true
+[appveyor-url]: https://ci.appveyor.com/project/tldr-pages/tldr-node-client
 
 [dep-url]: https://david-dm.org/tldr-pages/tldr-node-client
 [dep-image]: https://david-dm.org/tldr-pages/tldr-node-client.svg?theme=shields.io
