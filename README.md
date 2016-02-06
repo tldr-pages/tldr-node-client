@@ -94,7 +94,7 @@ for a few rough guidelines.
 [travis-url]: https://travis-ci.org/tldr-pages/tldr-node-client
 [travis-image]: https://img.shields.io/travis/tldr-pages/tldr-node-client.svg
 
-[appveyor-image]: https://ci.appveyor.com/api/projects/status/8n8ge8cei0rfs0q5?svg=true
+[appveyor-image]: https://ci.appveyor.com/api/projects/status/0flyb0c39a9fatcx/branch/master?svg=true
 [appveyor-url]: https://ci.appveyor.com/project/tldr-pages/tldr-node-client
 
 [dep-url]: https://david-dm.org/tldr-pages/tldr-node-client
