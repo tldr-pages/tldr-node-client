@@ -95,7 +95,7 @@ for a few rough guidelines.
 [travis-image]: https://img.shields.io/travis/tldr-pages/tldr-node-client.svg
 
 [appveyor-image]: https://ci.appveyor.com/api/projects/status/0flyb0c39a9fatcx/branch/master?svg=true
-[appveyor-url]: https://ci.appveyor.com/project/tldr-pages/tldr-node-client
+[appveyor-url]: https://ci.appveyor.com/project/igorshubovych/tldr-node-client-bnut4
 
 [dep-url]: https://david-dm.org/tldr-pages/tldr-node-client
 [dep-image]: https://david-dm.org/tldr-pages/tldr-node-client.svg?theme=shields.io
