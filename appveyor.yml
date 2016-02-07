@@ -19,5 +19,9 @@ test_script:
   - npm --version
   - npm test && npm run test:functional
 
+cache:
+  - node_modules
+  - '%APPDATA%\npm-cache'
+
 # Don't actually build.
 build: off
