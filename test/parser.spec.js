@@ -1,4 +1,6 @@
 var parser = require('../lib/parser');
+var sinon = require('sinon');
+var index = require('../lib/index');
 
 describe('Parser', function() {
 
@@ -133,6 +135,57 @@ describe('Parser', function() {
     page.examples[1].code.should.eql('wc -l < {{users-file}}');
     page.examples[2].code.should.eql('cat {{file}} >> {{target-file}}');
     page.examples[3].code.should.eql('bc <<< "1 + 1"');
+  });
+
+  describe('See also section', function() {
+
+    beforeEach(function() {
+      var hasPage = sinon.stub(index, 'hasPage');
+      hasPage.withArgs('lsb_release').returns(true);
+      hasPage.withArgs('ln').returns(true);
+      hasPage.withArgs('cp').returns(false);
+      hasPage.withArgs('mv').returns(false);
+    });
+
+    afterEach(function() {
+      index.hasPage.restore();
+    });
+
+    it('should parse seeAlso commands when mentioned in description', function() {
+      var page = parser.parse(
+        '\n# uname' +
+        '\n> See also `lsb_release`, `mv`'
+      );
+      page.seeAlso.should.eql(['lsb_release']);
+    });
+
+    it('should parse seeAlso commands when mentioned in examples', function() {
+      var page = parser.parse(
+        '\n# uname' +
+        '\n> Description for uname' +
+        '\n' +
+        '\n- example 1, see `ln` for details' +
+        '\n' +
+        '\n`cmd1 --foo`'
+      );
+      page.seeAlso.should.eql(['ln']);
+    });
+
+    it('should have only unique seeAlso commands when mentioned a few times', function() {
+      var page = parser.parse(
+        '\n# uname' +
+        '\n> Description for uname, see `lsb_release`, `ln`' +
+        '\n' +
+        '\n- example 1, see `ln`, `lsb_release` for details' +
+        '\n' +
+        '\n`cmd1 --foo`' +
+        '\n' +
+        '\n- example 2, see `ln` for details' +
+        '\n' +
+        '\n`cmd1 --foo`'
+      );
+      page.seeAlso.should.eql(['lsb_release', 'ln']);
+    });
   });
 
 });
