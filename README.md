@@ -94,8 +94,8 @@ for a few rough guidelines.
 [travis-url]: https://travis-ci.org/tldr-pages/tldr-node-client
 [travis-image]: https://img.shields.io/travis/tldr-pages/tldr-node-client.svg?label=linux
 
-[appveyor-image]: https://ci.appveyor.com/api/projects/status/0flyb0c39a9fatcx/branch/master?svg=true
-[appveyor-url]: https://img.shields.io/appveyor/ci/igorshubovych/tldr-node-client-bnut4.svg?label=windows
+[appveyor-image]: https://img.shields.io/appveyor/ci/igorshubovych/tldr-node-client-bnut4.svg?label=windows
+[appveyor-url]: https://ci.appveyor.com/project/igorshubovych/tldr-node-client-bnut4
 
 [dep-url]: https://david-dm.org/tldr-pages/tldr-node-client
 [dep-image]: https://david-dm.org/tldr-pages/tldr-node-client.svg?theme=shields.io
