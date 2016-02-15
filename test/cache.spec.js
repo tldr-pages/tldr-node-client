@@ -34,7 +34,7 @@ describe('Cache', function() {
 
     it('should return list of pages supported for OSX', function(done) {
       cache.list('osx', function(err, files) {
-        files.length.should.eql(6);
+        (Boolean(err)).should.equal(false);
         files.should.deepEqual([
           'common/a.md',
           'common/b.md',
@@ -49,7 +49,7 @@ describe('Cache', function() {
 
     it('should return list of pages supported for Linux', function(done) {
       cache.list('linux', function(err, files) {
-        files.length.should.eql(7);
+        (Boolean(err)).should.equal(false);
         files.should.deepEqual([
           'common/a.md',
           'common/b.md',
@@ -65,7 +65,7 @@ describe('Cache', function() {
 
     it('should return list of pages supported for SunOS', function(done) {
       cache.list('sunos', function(err, files) {
-        files.length.should.eql(7);
+        (Boolean(err)).should.equal(false);
         files.should.deepEqual([
           'common/a.md',
           'common/b.md',
@@ -81,7 +81,7 @@ describe('Cache', function() {
 
     it('should return list of all pages', function(done) {
       cache.list('', function(err, files) {
-        files.length.should.eql(12);
+        (Boolean(err)).should.equal(false);
         files.should.deepEqual([
           'common/a.md',
           'common/b.md',
