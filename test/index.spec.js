@@ -41,6 +41,30 @@ describe('Index', function() {
     index.hasPage('mv').should.equal(false);
   });
 
+  it('should return correct list of all pages', function() {
+    index.commands().should.deepEqual([
+      'cp', 'dd', 'du', 'git', 'ln', 'ls', 'svcs', 'top'
+    ]);
+  });
+
+  it('should return correct list of pages for Linux', function() {
+    index.commandsFor('linux').should.deepEqual([
+      'cp', 'dd', 'du', 'git', 'ln', 'ls', 'top'
+    ]);
+  });
+
+  it('should return correct list of pages for OSX', function() {
+    index.commandsFor('osx').should.deepEqual([
+      'cp', 'dd', 'du', 'git', 'ln', 'ls', 'top'
+    ]);
+  });
+
+  it('should return correct list of pages for SunOS', function() {
+    index.commandsFor('sunos').should.deepEqual([
+      'cp', 'dd', 'du', 'git', 'ln', 'ls', 'svcs'
+    ]);
+  });
+
   it('should return correct short index on getShortIndex()', function() {
     index.getShortIndex().should.deepEqual({
       cp: ['common'],
