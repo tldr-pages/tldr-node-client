@@ -47,4 +47,21 @@ describe('Render', function() {
     text.should.containEql(' bye'.blackBG.red);
   });
 
+  it('should correctly render see also section', function() {
+    var text = render.toANSI({
+      name: 'uname',
+      description: 'Description for `uname`.\n' +
+                   'See also `lsb_release`.',
+      examples: [{
+        description: '1st example. You need `sudo` to run this',
+        code: 'uname {{token}}'
+      }],
+      seeAlso: [
+        'lsb_release',
+        'sudo'
+      ]
+    });
+    text.should.containEql('See also: lsb_release, sudo');
+  });
+
 });
