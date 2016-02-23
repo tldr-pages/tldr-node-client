@@ -85,7 +85,7 @@ As a contributor, you can also point to your own fork or branch:
 ## Contributing
 
 Contribution are most welcome!
-Have a look [over here](https://github.com/tldr-pages/tldr-node-client/blob/master/CONTRIBUTING.md)
+Have a look [over here](https://github.com/tldr-pages/tldr-node-client/blob/master/.github/CONTRIBUTING.md)
 for a few rough guidelines.
 
 [npm-url]: https://www.npmjs.com/package/tldr
