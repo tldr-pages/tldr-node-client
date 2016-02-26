@@ -82,6 +82,29 @@ As a contributor, you can also point to your own fork or branch:
 }
 ```
 
+## FAQ
+
+#### Colors under Cygwin
+
+Colors can't be shown under Mintty or PuTTY, because the dependency `colors.js` has a bug.  
+Please show support to [this pull request](https://github.com/Marak/colors.js/pull/154), so it can be merged.
+
+Meanwhile, you can do one of the following to fix this issue:
+
+* Add the following script to your shell's rc file (`.zshrc`, `.bashrc`, etc.): (RECOMMENDED)  
+```bash
+tldr_path="$(which tldr)"
+function tldr() {
+	eval "$tldr_path" $@ "--color"
+}
+```
+* Add `alias tldr="tldr --color=true"` to your shell's rc file.
+* Prepend `process.stdout.isTTY = true;` to `tldr.js` (NOT RECOMMENDED)
+* Fix `colors.js`'s logic (NOT RECOMMENDED)
+  * Go to `%appdata%\npm\node_modules\tldr\node_modules\colors\lib\system\`
+  * Overwrite `supports-colors.js` with [supports-colors.js](https://raw.githubusercontent.com/RShadowhand/colors.js/master/lib/system/supports-colors.js) from my repo.
+* Use `CMD.exe`.
+
 ## Contributing
 
 Contribution are most welcome!
