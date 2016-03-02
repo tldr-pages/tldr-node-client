@@ -6,6 +6,7 @@ var sinon = require('sinon');
 describe('Index', function() {
 
   beforeEach(function() {
+    index.clearRuntimeIndex();
     sinon.stub(wrench, 'readdirSyncRecursive')
       .returns([
         'index.json',
