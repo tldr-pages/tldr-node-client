@@ -14,7 +14,14 @@ A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/t
 ## Installing
 
 ```bash
-$ npm install -g tldr
+npm install -g tldr
+```
+
+If you have trouble with the post-install script, try the following commands:
+
+```bash
+npm install -g --ignore-scripts tldr
+tldr --update
 ```
 
 ## Usage
