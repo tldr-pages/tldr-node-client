@@ -93,12 +93,13 @@ As a contributor, you can also point to your own fork or branch:
 
 #### Colors under Cygwin
 
-Colors can't be shown under Mintty or PuTTY, because the dependency `colors.js` has a bug.  
+Colors can't be shown under Mintty or PuTTY, because the dependency `colors.js` has a bug.
 Please show support to [this pull request](https://github.com/Marak/colors.js/pull/154), so it can be merged.
 
 Meanwhile, you can do one of the following to fix this issue:
 
-* Add the following script to your shell's rc file (`.zshrc`, `.bashrc`, etc.): (RECOMMENDED)  
+* Add the following script to your shell's rc file (`.zshrc`, `.bashrc`, etc.): (RECOMMENDED)
+
 ```bash
 tldr_path="$(which tldr)"
 function tldr() {
