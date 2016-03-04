@@ -2,10 +2,12 @@ var wrench = require('wrench');
 var fs = require('fs');
 var index = require('../lib/index');
 var sinon = require('sinon');
+var should = require('should');
 
 describe('Index', function() {
 
   beforeEach(function() {
+    index.clearRuntimeIndex();
     sinon.stub(wrench, 'readdirSyncRecursive')
       .returns([
         'index.json',
@@ -33,12 +35,32 @@ describe('Index', function() {
     fs.writeFileSync.restore();
   });
 
-  it('should have cp page', function() {
-    index.hasPage('cp').should.equal(true);
+  describe('findPlatform()', function() {
+    it('should find Linux platform for dd command (as dd is specific to Linux)', function() {
+      index.findPlatform('dd', 'linux').should.equal('linux');
+    });
+
+    it('should find platform common for cp command', function() {
+      index.findPlatform('cp', 'linux').should.equal('common');
+    });
+
+    it('should not find platform for svcs command on Linux', function() {
+      should.not.exist(index.findPlatform('svcs', 'linux'));
+    });
+
+    it('should not find platform for non-existing command', function() {
+      should.not.exist(index.findPlatform('qwerty', 'linux'));
+    });
   });
 
-  it('should not have mv page', function() {
-    index.hasPage('mv').should.equal(false);
+  describe('hasPage()', function() {
+    it('should have cp page', function() {
+      index.hasPage('cp').should.equal(true);
+    });
+
+    it('should not have mv page', function() {
+      index.hasPage('mv').should.equal(false);
+    });
   });
 
   it('should return correct list of all pages', function() {
@@ -47,22 +69,24 @@ describe('Index', function() {
     ]);
   });
 
-  it('should return correct list of pages for Linux', function() {
-    index.commandsFor('linux').should.deepEqual([
-      'cp', 'dd', 'du', 'git', 'ln', 'ls', 'top'
-    ]);
-  });
+  describe('commandsFor()', function() {
+    it('should return correct list of pages for Linux', function() {
+      index.commandsFor('linux').should.deepEqual([
+        'cp', 'dd', 'du', 'git', 'ln', 'ls', 'top'
+      ]);
+    });
 
-  it('should return correct list of pages for OSX', function() {
-    index.commandsFor('osx').should.deepEqual([
-      'cp', 'dd', 'du', 'git', 'ln', 'ls', 'top'
-    ]);
-  });
+    it('should return correct list of pages for OSX', function() {
+      index.commandsFor('osx').should.deepEqual([
+        'cp', 'dd', 'du', 'git', 'ln', 'ls', 'top'
+      ]);
+    });
 
-  it('should return correct list of pages for SunOS', function() {
-    index.commandsFor('sunos').should.deepEqual([
-      'cp', 'dd', 'du', 'git', 'ln', 'ls', 'svcs'
-    ]);
+    it('should return correct list of pages for SunOS', function() {
+      index.commandsFor('sunos').should.deepEqual([
+        'cp', 'dd', 'du', 'git', 'ln', 'ls', 'svcs'
+      ]);
+    });
   });
 
   it('should return correct short index on getShortIndex()', function() {
