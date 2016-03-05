@@ -40,15 +40,15 @@
     "postinstall": "node ./bin/tldr --update",
     "start": "node ./bin/tldr",
     "example": "node ./bin/tldr tar",
-    "test": "mocha test",
-    "test:quiet": "mocha test --reporter=dot",
+    "test": "mocha test --require=env-test",
+    "test:quiet": "npm test --reporter=dot",
     "lint": "eslint lib test bin/tldr",
-    "watch": "mocha test --reporter=min --watch --growl",
+    "watch": "mocha test --require=env-test --reporter=min --watch --growl",
     "test:functional": "bash test/functional-test.sh",
     "test:all": "npm run lint && npm test && npm run test:functional"
   },
   "dependencies": {
-    "colors": "~1.1.2",
+    "chalk": "~1.1.1",
     "commander": "~2.9.0",
     "lodash.compact": "~3.0.0",
     "lodash.defaults": "~4.0.1",
@@ -65,6 +65,7 @@
     "wrench": "~1.5.8"
   },
   "devDependencies": {
+    "env-test": "*",
     "eslint": "*",
     "husky": "*",
     "mocha": "*",
