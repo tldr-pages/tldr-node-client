@@ -89,6 +89,39 @@ As a contributor, you can also point to your own fork or branch:
 }
 ```
 
+## Command-line Autocompletion
+
+Currently we only support command-line autocompletion for zsh.
+Pull requests for other shells are most welcome!
+
+### zsh
+
+It's easiest for
+[oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
+users, so let's start with that.
+
+```
+mkdir -p $ZSH_CUSTOM/tldr
+ln -s autocompletion/tldr.zsh $ZSH_CUSTOM/tldr/_tldr
+```
+
+Then add tldr to your oh-my-zsh plugins,
+usually defined in `~/.zshrc`,
+resulting in something looking like this:
+
+```
+plugins=(git tmux tldr)
+```
+
+Fret not regular zsh user!
+Copy or symlink `autocompletion/tldr.zsh` to
+`my/completions/_tldr`
+(note the filename).
+Then add the containing directory to your fpath:
+```
+fpath = (my/completions $fpath)
+```
+
 ## FAQ
 
 #### Colors under Cygwin
