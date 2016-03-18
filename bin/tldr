@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
-var tldr    = require('../lib/tldr');
-var pkg     = require('../package');
 var program = require('commander');
+var pkg = require('../package');
+var tldr = require('../lib/tldr');
+var config = require('../lib/config');
+var platform = require('../lib/platform');
 
 program
   .version(pkg.version)
@@ -21,6 +23,7 @@ program
   .option('--linux', 'Override the operating system with Linux')
   .option('--osx', 'Override the operating system with OSX')
   .option('--sunos', 'Override the operating system with SunOS')
+  .option('-t, --theme [theme]', 'Color theme (bw, bw-simple, original)')
   //
   // CACHE MANAGEMENT
   //
@@ -62,12 +65,16 @@ if (program.sunos) {
   program.os = 'sunos';
 }
 
+
 if (program.os) {
-  var config = require('../lib/config');
-  var platform = require('../lib/platform');
   if (platform.isSupported(program.os)) {
     config.get().platform = program.os;
   }
+}
+
+if (program.theme) {
+  // TODO: Validate theme
+  config.get().theme = program.theme;
 }
 
 if (program.list) {
