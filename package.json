@@ -4,13 +4,8 @@
   "description": "Simplified and community-driven man pages",
   "author": "Romain Prieto",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/tldr-pages/tldr-node-client.git"
-  },
-  "bugs": {
-    "url": "https://github.com/tldr-pages/tldr-node-client/issues"
-  },
+  "repository": "tldr-pages/tldr-node-client",
+  "bugs": "https://github.com/tldr-pages/tldr-node-client/issues",
   "keywords": [
     "man",
     "unix",
@@ -24,7 +19,7 @@
   ],
   "homepage": "http://tldr-pages.github.io",
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.10"
   },
   "main": "./bin/tldr",
   "bin": {
