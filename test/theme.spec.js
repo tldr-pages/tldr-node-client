@@ -3,7 +3,7 @@ var chalk = require('chalk');
 
 describe('Theme', function() {
 
-  describe('Redering', function() {
+  describe('Rendering', function() {
 
     var theme = new Theme({
       name: 'green, bold',
