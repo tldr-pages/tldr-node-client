@@ -17,12 +17,13 @@ A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/t
 npm install -g tldr
 ```
 
-If you have trouble with the post-install script, try the following commands:
+If you are installing with sudo, pass the `--user` parameter:
 
 ```bash
-npm install -g --ignore-scripts tldr
-tldr --update
+sudo npm install -g tldr --user=$(whoami)
 ```
+
+This is required because we populate the page cache after installation. And npm by default downgrades the post-install user permission level to `nobody` when run as root.
 
 ## Usage
 
