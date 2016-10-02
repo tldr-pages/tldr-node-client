@@ -102,7 +102,7 @@ users, so let's start with that.
 
 ```
 mkdir -p $ZSH_CUSTOM/tldr
-ln -s autocompletion/tldr.zsh $ZSH_CUSTOM/tldr/_tldr
+ln -s bin/autocompletion.zsh $ZSH_CUSTOM/tldr/_tldr
 ```
 
 Then add tldr to your oh-my-zsh plugins,
@@ -114,7 +114,7 @@ plugins=(git tmux tldr)
 ```
 
 Fret not regular zsh user!
-Copy or symlink `autocompletion/tldr.zsh` to
+Copy or symlink `bin/autocompletion.zsh` to
 `my/completions/_tldr`
 (note the filename).
 Then add the containing directory to your fpath:

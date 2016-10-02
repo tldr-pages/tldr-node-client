@@ -22,8 +22,7 @@
     "node": ">=0.10"
   },
   "main": "./bin/tldr",
-    "files": [
-    "autocompletion",
+  "files": [
     "bin",
     "config.json",
     "lib",
