@@ -20,7 +20,7 @@ npm install -g tldr
 If you are installing with sudo, pass the `--user` parameter:
 
 ```bash
-sudo npm install -g tldr --user=<logged_in_user>
+sudo npm install -g tldr --user=$(whoami)
 ```
 
 This is required because we populate the page cache after installation. And npm by default downgrades the post-install user permission level to `nobody` when run as root.
