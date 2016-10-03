@@ -9,7 +9,7 @@
 
 A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/tldr).
 
-![tldr screenshot](http://raw.github.com/tldr-pages/tldr-node-client/master/screenshot.png)
+![tldr screenshot](screenshot.png)
 
 ## Installing
 
