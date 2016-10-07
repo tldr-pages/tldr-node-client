@@ -62,7 +62,7 @@
     "lodash.partial": "~4.1.2",
     "lodash.sample": "~4.1.0",
     "lodash.unescape": "~4.0.0",
-    "marked": "~0.3.5",
+    "marked": "~0.3.6",
     "ms": "~0.7.1",
     "os-homedir": "~1.0.1",
     "request": "~2.75.0",
