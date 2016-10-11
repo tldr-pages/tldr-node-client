@@ -1,7 +1,7 @@
 var cache = require('../lib/cache');
 var should = require('should');
 var sinon = require('sinon');
-var fs = require('fs');
+var fs = require('fs-extra');
 var index = require('../lib/index');
 var platform = require('../lib/platform');
 
