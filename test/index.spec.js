@@ -1,14 +1,13 @@
-var wrench = require('wrench');
-var fs = require('fs');
+var fs = require('fs-extra');
 var index = require('../lib/index');
+var utils = require('../lib/utils');
 var sinon = require('sinon');
 var should = require('should');
 
 describe('Index', function() {
-
   beforeEach(function() {
     index.clearRuntimeIndex();
-    sinon.stub(wrench, 'readdirSyncRecursive')
+    sinon.stub(utils, 'walkSync')
       .returns([
         'index.json',
         'common/cp.md',
@@ -30,7 +29,7 @@ describe('Index', function() {
   });
 
   afterEach(function() {
-    wrench.readdirSyncRecursive.restore();
+    utils.walkSync.restore();
     fs.readFileSync.restore();
     fs.writeFileSync.restore();
   });
