@@ -1,0 +1,18 @@
+name: tldr
+version: master
+summary: Simplified and community-driven man pages
+description: |
+  Node.js command line client for TLDR-pages
+
+grade: stable
+confinement: strict
+
+apps:
+  tldr:
+    command: tldr
+    plugs: [network]
+
+parts:
+  tldr-node-client:
+    source: .
+    plugin: nodejs
