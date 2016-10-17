@@ -23,7 +23,7 @@ program
   .option('--linux', 'Override the operating system with Linux')
   .option('--osx', 'Override the operating system with OSX')
   .option('--sunos', 'Override the operating system with SunOS')
-  .option('-t, --theme [theme]', 'Color theme (bw, bw-simple, original)')
+  .option('-t, --theme [theme]', 'Color theme (simple, base16, ocean)')
   //
   // CACHE MANAGEMENT
   //

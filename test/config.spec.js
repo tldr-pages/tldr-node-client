@@ -16,10 +16,17 @@ describe('Config', function() {
 
   var CUSTOM_INVALID =
     '{' +
-    '  "colors": {' +
-    '    "text": "pretty" ' +
+    '"themes": {' +
+    '  "simple": {' +
+    '    "name": "bold,underline",' +
+    '    "description": "#876992",' +
+    '    "exampleDescription": "",' +
+    '    "exampleCode": "",' +
+    '    "exampleToken": "underline"' +
     '  }' +
+    '}' +
     '}';
+
 
   beforeEach(function() {
     sinon.stub(fs, 'readFileSync');

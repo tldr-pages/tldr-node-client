@@ -1,41 +1,42 @@
 {
   "pagesRepository": "tldr-pages/tldr",
   "url": "http://tldr-pages.github.io/assets/tldr.zip",
-  "colors": {
-    "text": "green",
-    "command-background": "black",
-    "command-foreground": "red",
-    "command-token": "white"
-  },
   "themes": {
-    "bw": {
-      "name": "bold, underline",
+    "simple": {
+      "name": "bold,underline",
       "description": "bold",
       "exampleDescription": "",
       "exampleCode": "",
-      "exampleArgument": "underline"
+      "exampleToken": "underline"
     },
-    "plain": {
-      "name": "",
-      "description": "",
-      "exampleDescription": "",
-      "exampleCode": "",
-      "exampleArgument": ""
-    },
-    "original": {
+    "base16": {
       "name": "bold",
       "description": "",
       "exampleDescription": "green",
       "exampleCode": "red",
-      "exampleArgument": ""
+      "exampleToken": "cyan"
     },
-    "simple": {
+    "ocean": {
       "name": "bold,cyan",
       "description": "",
       "exampleDescription": "green",
-      "exampleCode": "",
-      "exampleArgument": "dim"
+      "exampleCode": "cyan",
+      "exampleToken": "dim"
+    },
+    "inverse": {
+      "name": "bold,inverse",
+      "description": "inverse",
+      "exampleDescription": "black",
+      "exampleCode": "inverse",
+      "exampleToken": "green,bgBlack,inverse"
+    },
+    "matrix": {
+      "name": "bold",
+      "description": "underline",
+      "exampleDescription": "green,bgBlack",
+      "exampleCode": "green,bgBlack",
+      "exampleToken": "green,bold,bgBlack"
     }
   },
-  "theme": "bw"
+  "theme": "simple"
 }
