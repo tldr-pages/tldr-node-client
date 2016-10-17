@@ -10,7 +10,7 @@ describe('Theme', function() {
       description: 'red, underline',
       exampleDescription: 'blue',
       exampleCode: 'bold',
-      exampleArgument: 'yellow,dim,underline'
+      exampleToken: 'yellow,dim,underline'
     });
 
     it('should render name with green and bold', function () {
@@ -38,7 +38,7 @@ describe('Theme', function() {
     });
 
     it('should render example argument with yellow, dim, underline', function() {
-      theme.renderExampleArgument('text')
+      theme.renderExampleToken('text')
         .should.equal(
           chalk.yellow.dim.underline('text'));
     });

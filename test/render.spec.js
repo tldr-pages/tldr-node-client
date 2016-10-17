@@ -7,7 +7,8 @@ var config = require('../lib/config');
 describe('Render', function() {
 
   beforeEach(function() {
-    config.get().theme = 'plain';
+    config.reset();
+    config.get().theme = 'base16';
   });
 
   it('surrounds the output with blank lines', function() {
