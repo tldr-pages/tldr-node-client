@@ -6,21 +6,21 @@ describe('Theme', function() {
   describe('Rendering', function() {
 
     var theme = new Theme({
-      name: 'green, bold',
-      description: 'red, underline',
+      commandName: 'green, bold',
+      mainDescription: 'red, underline',
       exampleDescription: 'blue',
       exampleCode: 'bold',
       exampleToken: 'yellow,dim,underline'
     });
 
     it('should render name with green and bold', function () {
-      theme.renderName('text')
+      theme.renderCommandName('text')
         .should.equal(
           chalk.green.bold('text'));
     });
 
     it('should render description with red and underline', function () {
-      theme.renderDescription('text')
+      theme.renderMainDescription('text')
         .should.equal(
           chalk.red.underline('text'));
     });
