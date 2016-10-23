@@ -51,17 +51,29 @@ As a contributor, you might also need the following commands:
 
 ## Configuration
 
-You can configure the `tldr` client by adding a `.tldrrc` file in your HOME directory.
-This file has to be valid JSON:
+You can configure the `tldr` client by adding a `.tldrrc` file in your HOME directory. Start by copying the `config.json` file from the repo.
+
+You can choose any of the themes by changing the `"theme"` variable, or you can create your own theme and add it to the `"themes"` section. Note the the colors and text effects you can choose are limited. Refer [here](https://github.com/chalk/chalk#styles) for all options.
 
 ```json
 {
-  "colors": {
-    "text": "green",
-    "command-background": "black",
-    "command-foreground": "red",
-    "command-token": "white"
-  }
+  "themes": {
+    "ocean": {
+      "commandName": "bold, cyan",
+      "mainDescription": "",
+      "exampleDescription": "green",
+      "exampleCode": "cyan",
+      "exampleToken": "dim"
+    },
+    "myOwnCoolTheme": {
+      "commandName": "bold, red",
+      "mainDescription": "underline",
+      "exampleDescription": "yellow",
+      "exampleCode": "underline, green",
+      "exampleToken": ""
+    }
+  },
+  "theme": "ocean"
 }
 ```
 
