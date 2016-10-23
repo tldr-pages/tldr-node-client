@@ -18,8 +18,8 @@ describe('Config', function() {
     '{' +
     '"themes": {' +
     '  "simple": {' +
-    '    "name": "bold,underline",' +
-    '    "description": "#876992",' +
+    '    "commandName": "bold,underline",' +
+    '    "mainDescription": "#876992",' +
     '    "exampleDescription": "",' +
     '    "exampleCode": "",' +
     '    "exampleToken": "underline"' +
@@ -52,7 +52,7 @@ describe('Config', function() {
   it('should validate the custom config format', function() {
     fs.readFileSync.onCall(0).returns(DEFAULT);
     fs.readFileSync.onCall(1).returns(CUSTOM_INVALID);
-    config.get.should.throw(/Invalid ANSI color/);
+    config.get.should.throw(/Invalid theme value/);
   });
 
 });
