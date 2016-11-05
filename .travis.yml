@@ -6,8 +6,15 @@ node_js:
   - "4.0"
   - "4.1"
   - "stable"
+include:
+  - env: BUILD=1
+    sudo: required
+    services:
+      - docker
 script:
   - npm test && npm run test:functional
+after_success:
+  - if [ ! -z "$BUILD" ]; then docker run -v $(pwd):/cwd snapcore/snapcraft sh -c 'cd /cwd && snapcraft'; fi
 cache:
   directories:
     - node_modules
