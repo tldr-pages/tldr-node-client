@@ -6,11 +6,12 @@ node_js:
   - "4.0"
   - "4.1"
   - "stable"
-include:
-  - env: BUILD=1
-    sudo: required
-    services:
-      - docker
+matrix:
+  include:
+    - env: BUILD=1
+      sudo: required
+      services:
+        - docker
 script:
   - npm test && npm run test:functional
 after_success:
