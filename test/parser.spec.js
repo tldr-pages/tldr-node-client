@@ -41,9 +41,9 @@ describe('Parser', function() {
       '\n# tar' +
       '\n> archiving utility' +
       '\n' +
-      '\n- create an archive' +
+      '\ncreate an archive' +
       '\n' +
-      '\n`tar cf {{file.tar}}`'
+      '\n    tar cf {{file.tar}}'
     );
     page.examples.should.have.length(1);
     page.examples[0].description.should.eql('create an archive');
@@ -52,9 +52,9 @@ describe('Parser', function() {
 
   it('does not escape HTML in the examples either', function() {
     var page = parser.parse(
-      '\n- this & that' +
+      '\nthis & that' +
       '\n' +
-      '\n`cmd & data`'
+      '\n    cmd & data'
     );
     page.examples.should.have.length(1);
     page.examples[0].description.should.eql('this & that');
@@ -66,24 +66,24 @@ describe('Parser', function() {
       '\n# tar' +
       '\n> archiving utility' +
       '\n' +
-      '\n- create an archive' +
+      '\ncreate an archive' +
       '\n' +
-      '\n`tar cf {{file.tar}}`' +
+      '\n    tar cf {{file.tar}}' +
       '\n' +
-      '\n- extract an archive' +
+      '\nextract an archive' +
       '\n' +
-      '\n`tar xf {{file}}`'
+      '\n    tar xf {{file}}'
     );
     page.examples.should.have.length(2);
   });
 
   it('leaves out malformed examples', function() {
     var page = parser.parse(
-      '\n- example 1' +
+      '\nexample 1' +
       '\n' +
-      '\n`cmd --foo`' +
+      '\n    cmd --foo' +
       '\n' +
-      '\n- example 2'
+      '\nexample 2'
     );
     page.examples.should.have.length(1);
   });
@@ -101,13 +101,13 @@ describe('Parser', function() {
       '\n# uname' +
       '\n> See also' +
       '\n' +
-      '\n- example 1, see `inline_cmd1` for details' +
+      '\nexample 1, see `inline_cmd1` for details' +
       '\n' +
-      '\n`cmd1 --foo`' +
+      '\n    cmd1 --foo' +
       '\n' +
-      '\n- example 2, see `inline_cmd2` for details' +
+      '\nexample 2, see `inline_cmd2` for details' +
       '\n' +
-      '\n`cmd2 --foo`'
+      '\n    cmd2 --foo'
     );
     page.examples[0].description.should.eql('example 1, see inline_cmd1 for details');
     page.examples[1].description.should.eql('example 2, see inline_cmd2 for details');
@@ -115,21 +115,21 @@ describe('Parser', function() {
 
   it('should parse code examples with unix redirects ">", "<", ">>" and "<<<"', function() {
     var page = parser.parse(
-      '\n- Concatenate several files into the target file.' +
+      '\nConcatenate several files into the target file.' +
       '\n' +
-      '\n`cat {{file1}} {{file2}} > {{target-file}}`' +
+      '\n    cat {{file1}} {{file2}} > {{target-file}}' +
       '\n' +
-      '\n- Concatenate several files into the target file.' +
+      '\nConcatenate several files into the target file.' +
       '\n' +
-      '\n`wc -l < {{users-file}}`' +
+      '\n    wc -l < {{users-file}}' +
       '\n' +
-      '\n- Output one file into the target file.' +
+      '\nOutput one file into the target file.' +
       '\n' +
-      '\n`cat {{file}} >> {{target-file}}`' +
+      '\n    cat {{file}} >> {{target-file}}' +
       '\n' +
-      '\n- Calculate the result of expression' +
+      '\nCalculate the result of expression' +
       '\n' +
-      '\n`bc <<< "1 + 1"`'
+      '\n    bc <<< "1 + 1"'
     );
     page.examples[0].code.should.eql('cat {{file1}} {{file2}} > {{target-file}}');
     page.examples[1].code.should.eql('wc -l < {{users-file}}');
@@ -164,9 +164,9 @@ describe('Parser', function() {
         '\n# uname' +
         '\n> Description for uname' +
         '\n' +
-        '\n- example 1, see `ln` for details' +
+        '\nexample 1, see `ln` for details' +
         '\n' +
-        '\n`cmd1 --foo`'
+        '\n    cmd1 --foo'
       );
       page.seeAlso.should.eql(['ln']);
     });
@@ -176,13 +176,13 @@ describe('Parser', function() {
         '\n# uname' +
         '\n> Description for uname, see `lsb_release`, `ln`' +
         '\n' +
-        '\n- example 1, see `ln`, `lsb_release` for details' +
+        '\nexample 1, see `ln`, `lsb_release` for details' +
         '\n' +
-        '\n`cmd1 --foo`' +
+        '\n    cmd1 --foo' +
         '\n' +
-        '\n- example 2, see `ln` for details' +
+        '\nexample 2, see `ln` for details' +
         '\n' +
-        '\n`cmd1 --foo`'
+        '\n    cmd1 --foo'
       );
       page.seeAlso.should.eql(['lsb_release', 'ln']);
     });
