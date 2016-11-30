@@ -19,3 +19,10 @@ after_success:
 cache:
   directories:
     - node_modules
+    - .encrypted
+deploy:
+  on:
+    branch: master
+  provider: script
+  script: if [ ! -z "$BUILD" ]; then ./.travis-push.sh; fi
+  skip_cleanup: true
