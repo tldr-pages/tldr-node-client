@@ -14,17 +14,8 @@ A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/t
 ## Installing
 
 ```bash
-npm install -g tldr
+sudo npm install -g tldr
 ```
-
-If you are installing with sudo, pass the `--user` parameter:
-
-```bash
-sudo npm install -g tldr --user=$(whoami)
-```
-
-This is required because we populate the page cache after installation. And npm by default downgrades the post-install user permission level to `nobody` when run as root.
-
 ## Usage
 
 To see tldr pages:
