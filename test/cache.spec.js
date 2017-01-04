@@ -8,12 +8,15 @@ var platform = require('../lib/platform');
 
 describe('Cache', () => {
 
-  it('should return a positive number on lastUpdate', (done) => {
-    cache.lastUpdated((err, stats) => {
-      should.not.exist(err);
-      should.exist(stats);
-      stats.mtime.should.be.aboveOrEqual(0);
-      done();
+  it('should return a positive number on lastUpdate', function(done) {
+    this.timeout(5000);
+    cache.update(function(err) {
+      cache.lastUpdated((err, stats) => {
+        should.not.exist(err);
+        should.exist(stats);
+        stats.mtime.should.be.aboveOrEqual(0);
+        done();
+      });
     });
   });
 
