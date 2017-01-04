@@ -6,7 +6,6 @@
     "semi": [2, "always"],
     "no-console": 0,
     "array-callback-return": 2,
-    "consistent-return": 2,
     "complexity": [2, 10],
     "curly": 2,
     "default-case": 2,
@@ -68,7 +67,6 @@
     "no-delete-var": 2,
     "no-label-var": 2,
     "no-shadow-restricted-names": 2,
-    "no-shadow": 2,
     "no-undef-init": 2,
     "no-undef": 2,
     "no-undefined": 2,
@@ -82,6 +80,9 @@
   "env": {
     "node": true,
     "mocha": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6
   },
   "extends": "eslint:recommended"
 }
