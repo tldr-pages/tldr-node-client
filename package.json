@@ -1,6 +1,6 @@
 {
   "name": "tldr",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Simplified and community-driven man pages",
   "author": "Romain Prieto",
   "license": "MIT",
@@ -37,7 +37,6 @@
   "scripts": {
     "precommit": "npm run lint && npm run test:quiet",
     "prepush": "npm run test:quiet",
-    "postinstall": "node ./bin/tldr --update",
     "start": "node ./bin/tldr",
     "example": "node ./bin/tldr tar",
     "test": "mocha test --require=env-test",
