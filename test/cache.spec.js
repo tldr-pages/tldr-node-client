@@ -9,8 +9,10 @@ var platform = require('../lib/platform');
 describe('Cache', () => {
 
   it('should return a positive number on lastUpdate', function(done) {
+    /* eslint-disable */ // To allow setting timeout of 5 secs
     this.timeout(5000);
     cache.update(function(err) {
+    /* eslint-enable */
       cache.lastUpdated((err, stats) => {
         should.not.exist(err);
         should.exist(stats);
@@ -34,22 +36,9 @@ describe('Cache', () => {
         top: ['linux', 'osx'],
         svcs: ['sunos']
       });
-      sinon.stub(index, 'getClassicIndex').returns({
-        commands: [
-          { name: 'cp', platform: ['common'] },
-          { name: 'dd', platform: ['linux', 'osx', 'sunos'] },
-          { name: 'du', platform: ['linux', 'osx', 'sunos'] },
-          { name: 'git', platform: ['common'] },
-          { name: 'ln', platform: ['common'] },
-          { name: 'ls', platform: ['common'] },
-          { name: 'svcs', platform: ['sunos'] },
-          { name: 'top', platform: ['linux', 'osx'] }
-        ]
-      });
     });
 
     afterEach(function() {
-      index.getClassicIndex.restore();
       index.getShortIndex.restore();
     });
 
@@ -58,7 +47,9 @@ describe('Cache', () => {
         return cb(null, '# ls\n> ls page');
       });
       sinon.stub(platform, 'getPreferredPlatformFolder').returns('osx');
-      sinon.stub(index, 'findPlatform').returns('osx');
+      sinon.stub(index, 'findPlatform', (page, preferredPlatform, done) => {
+        return done('osx');
+      });
       cache.getPage('ls', (err, content) => {
         should.not.exist(err);
         should.exist(content);
@@ -75,7 +66,9 @@ describe('Cache', () => {
         return cb(null, '# svcs\n> svcs');
       });
       sinon.stub(platform, 'getPreferredPlatformFolder').returns('osx');
-      sinon.stub(index, 'findPlatform').returns(null);
+      sinon.stub(index, 'findPlatform', (page, preferredPlatform, done) => {
+        return done(null);
+      });
       cache.getPage('svc', (err, content) => {
         should.not.exist(err);
         should.not.exist(content);
@@ -91,7 +84,9 @@ describe('Cache', () => {
         return cb(null, '# svcs\n> svcs');
       });
       sinon.stub(platform, 'getPreferredPlatformFolder').returns('sunos');
-      sinon.stub(index, 'findPlatform').returns('svcs');
+      sinon.stub(index, 'findPlatform', (page, preferredPlatform, done) => {
+        return done('svcs');
+      });
       cache.getPage('svcs', (err, content) => {
         should.not.exist(err);
         should.exist(content);
