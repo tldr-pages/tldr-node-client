@@ -24,96 +24,101 @@ describe('Index', function() {
         'sunos/du.md',
         'sunos/svcs.md'
       ]);
-    sinon.stub(fs, 'readFileSync').throws('TypeError');
-    sinon.stub(fs, 'writeFileSync').returns(true);
+    sinon.stub(fs, 'readFile', (path, encoding, cb) => {
+      return cb('dummy error', null);
+    });
+    sinon.stub(fs, 'writeFile', (path, contents, cb) => {
+      return cb();
+    });
   });
 
   afterEach(function() {
     utils.walkSync.restore();
-    fs.readFileSync.restore();
-    fs.writeFileSync.restore();
+    fs.readFile.restore();
+    fs.writeFile.restore();
   });
 
   describe('findPlatform()', function() {
-    it('should find Linux platform for dd command (as dd is specific to Linux)', function() {
-      index.findPlatform('dd', 'linux').should.equal('linux');
+    it('should find Linux platform for dd command', (done) => {
+      index.findPlatform('dd', 'linux', (folder) => {
+        folder.should.equal('linux');
+        done();
+      });
     });
 
-    it('should find platform common for cp command', function() {
-      index.findPlatform('cp', 'linux').should.equal('common');
+    it('should find platform common for cp command', (done) => {
+      index.findPlatform('cp', 'linux', (folder) => {
+        folder.should.equal('common');
+        done();
+      });
     });
 
-    it('should not find platform for svcs command on Linux', function() {
-      should.not.exist(index.findPlatform('svcs', 'linux'));
+    it('should not find platform for svcs command on Linux', (done) => {
+      index.findPlatform('svcs', 'linux', (folder) => {
+        should.not.exist(folder);
+        done();
+      });
     });
 
-    it('should not find platform for non-existing command', function() {
-      should.not.exist(index.findPlatform('qwerty', 'linux'));
+    it('should not find platform for non-existing command', (done) => {
+      index.findPlatform('qwerty', 'linux', (folder) => {
+        should.not.exist(folder);
+        done();
+      });
     });
   });
 
-  describe('hasPage()', function() {
-    it('should have cp page', function() {
-      index.hasPage('cp').should.equal(true);
+  it('should return correct list of all pages', (done) => {
+    index.commands((commands) => {
+      commands.should.deepEqual([
+        'cp', 'dd', 'du', 'git', 'ln', 'ls', 'svcs', 'top'
+      ]);
+      done();
     });
-
-    it('should not have mv page', function() {
-      index.hasPage('mv').should.equal(false);
-    });
-  });
-
-  it('should return correct list of all pages', function() {
-    index.commands().should.deepEqual([
-      'cp', 'dd', 'du', 'git', 'ln', 'ls', 'svcs', 'top'
-    ]);
   });
 
   describe('commandsFor()', function() {
-    it('should return correct list of pages for Linux', function() {
-      index.commandsFor('linux').should.deepEqual([
-        'cp', 'dd', 'du', 'git', 'ln', 'ls', 'top'
-      ]);
+    it('should return correct list of pages for Linux', (done) => {
+      index.commandsFor('linux', (commands) => {
+        commands.should.deepEqual([
+          'cp', 'dd', 'du', 'git', 'ln', 'ls', 'top'
+        ]);
+        done();
+      });
     });
 
-    it('should return correct list of pages for OSX', function() {
-      index.commandsFor('osx').should.deepEqual([
-        'cp', 'dd', 'du', 'git', 'ln', 'ls', 'top'
-      ]);
+    it('should return correct list of pages for OSX', (done) => {
+      index.commandsFor('osx', (commands) => {
+        commands.should.deepEqual([
+          'cp', 'dd', 'du', 'git', 'ln', 'ls', 'top'
+        ]);
+        done();
+      });
     });
 
-    it('should return correct list of pages for SunOS', function() {
-      index.commandsFor('sunos').should.deepEqual([
-        'cp', 'dd', 'du', 'git', 'ln', 'ls', 'svcs'
-      ]);
-    });
-  });
-
-  it('should return correct short index on getShortIndex()', function() {
-    index.getShortIndex().should.deepEqual({
-      cp: ['common'],
-      git: ['common'],
-      ln: ['common'],
-      ls: ['common'],
-      dd: ['linux', 'osx', 'sunos'],
-      du: ['linux', 'osx', 'sunos'],
-      top: ['linux', 'osx'],
-      svcs: ['sunos']
+    it('should return correct list of pages for SunOS', (done) => {
+      index.commandsFor('sunos', (commands) => {
+        commands.should.deepEqual([
+          'cp', 'dd', 'du', 'git', 'ln', 'ls', 'svcs'
+        ]);
+        done();
+      });
     });
   });
 
-  it('should return correct classic index on getClassicIndex()', function() {
-    index.getClassicIndex().should.deepEqual({
-      commands: [
-        { name: 'cp', platform: ['common'] },
-        { name: 'dd', platform: ['linux', 'osx', 'sunos'] },
-        { name: 'du', platform: ['linux', 'osx', 'sunos'] },
-        { name: 'git', platform: ['common'] },
-        { name: 'ln', platform: ['common'] },
-        { name: 'ls', platform: ['common'] },
-        { name: 'svcs', platform: ['sunos'] },
-        { name: 'top', platform: ['linux', 'osx'] }
-      ]
+  it('should return correct short index on getShortIndex()', (done) => {
+    index.getShortIndex((idx) => {
+      idx.should.deepEqual({
+        cp: ['common'],
+        git: ['common'],
+        ln: ['common'],
+        ls: ['common'],
+        dd: ['linux', 'osx', 'sunos'],
+        du: ['linux', 'osx', 'sunos'],
+        top: ['linux', 'osx'],
+        svcs: ['sunos']
+      });
+      done();
     });
   });
-
 });
