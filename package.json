@@ -57,8 +57,6 @@
     "lodash.isempty": "~4.4.0",
     "lodash.last": "~3.0.0",
     "lodash.map": "~4.6.0",
-    "lodash.memoize": "~4.1.2",
-    "lodash.partial": "~4.2.1",
     "lodash.sample": "~4.2.1",
     "lodash.unescape": "~4.0.0",
     "marked": "~0.3.6",
