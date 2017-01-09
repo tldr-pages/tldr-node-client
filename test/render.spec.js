@@ -1,18 +1,17 @@
-/*eslint-disable no-unused-vars */
-var should = require('should');
-/*eslint-disable no-unused-vars */
-var render = require('../lib/render');
-var config = require('../lib/config');
+'use strict';
 
-describe('Render', function() {
+const render = require('../lib/render');
+const config = require('../lib/config');
 
-  beforeEach(function() {
+describe('Render', () => {
+
+  beforeEach(() => {
     config.reset();
     config.get().theme = 'base16';
   });
 
-  it('surrounds the output with blank lines', function() {
-    var text = render.toANSI({
+  it('surrounds the output with blank lines', () => {
+    let text = render.toANSI({
       name: 'tar',
       description: 'archive utility',
       examples: []
@@ -21,8 +20,8 @@ describe('Render', function() {
     text.should.endWith('\n');
   });
 
-  it('contains the command name', function() {
-    var text = render.toANSI({
+  it('contains the command name', () => {
+    let text = render.toANSI({
       name: 'tar',
       description: 'archive utility',
       examples: []
@@ -31,8 +30,8 @@ describe('Render', function() {
     text.should.containEql('archive utility');
   });
 
-  it('contains the description name', function() {
-    var text = render.toANSI({
+  it('contains the description name', () => {
+    let text = render.toANSI({
       name: 'tar',
       description: 'archive utility\nwith support for compression',
       examples: []
@@ -41,8 +40,8 @@ describe('Render', function() {
     text.should.containEql('with support for compression');
   });
 
-  it('highlights replaceable {{tokens}}', function() {
-    var text = render.toANSI({
+  it('highlights replaceable {{tokens}}', () => {
+    let text = render.toANSI({
       name: 'tar',
       description: 'archive utility',
       examples: [{
@@ -55,8 +54,8 @@ describe('Render', function() {
     text.should.containEql(' bye');
   });
 
-  it('should correctly render see also section', function() {
-    var text = render.toANSI({
+  it('should correctly render see also section', () => {
+    let text = render.toANSI({
       name: 'uname',
       description: 'Description for `uname`.\n' +
                    'See also `lsb_release`.',
@@ -71,5 +70,4 @@ describe('Render', function() {
     });
     text.should.containEql('See also: lsb_release, sudo');
   });
-
 });

@@ -1,11 +1,13 @@
-var fs = require('fs-extra');
-var index = require('../lib/index');
-var utils = require('../lib/utils');
-var sinon = require('sinon');
-var should = require('should');
+'use strict';
 
-describe('Index', function() {
-  beforeEach(function() {
+const fs = require('fs-extra');
+const index = require('../lib/index');
+const utils = require('../lib/utils');
+const sinon = require('sinon');
+const should = require('should');
+
+describe('Index', () => {
+  beforeEach(() => {
     index.clearRuntimeIndex();
     sinon.stub(utils, 'walkSync')
       .returns([
@@ -32,13 +34,13 @@ describe('Index', function() {
     });
   });
 
-  afterEach(function() {
+  afterEach(() => {
     utils.walkSync.restore();
     fs.readFile.restore();
     fs.writeFile.restore();
   });
 
-  describe('findPlatform()', function() {
+  describe('findPlatform()', () => {
     it('should find Linux platform for dd command', (done) => {
       index.findPlatform('dd', 'linux', (folder) => {
         folder.should.equal('linux');
@@ -77,7 +79,7 @@ describe('Index', function() {
     });
   });
 
-  describe('commandsFor()', function() {
+  describe('commandsFor()', () => {
     it('should return correct list of pages for Linux', (done) => {
       index.commandsFor('linux', (commands) => {
         commands.should.deepEqual([
