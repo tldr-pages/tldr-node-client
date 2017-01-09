@@ -1,17 +1,18 @@
-var cache = require('../lib/cache');
-var should = require('should');
-var sinon = require('sinon');
-var fs = require('fs-extra');
-var index = require('../lib/index');
-var platform = require('../lib/platform');
+'use strict';
+
+const cache = require('../lib/cache');
+const should = require('should');
+const sinon = require('sinon');
+const fs = require('fs-extra');
+const index = require('../lib/index');
+const platform = require('../lib/platform');
 
 
 describe('Cache', () => {
-
   it('should return a positive number on lastUpdate', function(done) {
     /* eslint-disable */ // To allow setting timeout of 5 secs
     this.timeout(5000);
-    cache.update(function(err) {
+    cache.update((err) => {
     /* eslint-enable */
       cache.lastUpdated((err, stats) => {
         should.not.exist(err);
@@ -22,10 +23,8 @@ describe('Cache', () => {
     });
   });
 
-  describe('getPage()', function() {
-
-    beforeEach(function() {
-      // index.clearRuntimeIndex();
+  describe('getPage()', () => {
+    beforeEach(() => {
       sinon.stub(index, 'getShortIndex').returns({
         cp: ['common'],
         git: ['common'],
@@ -38,7 +37,7 @@ describe('Cache', () => {
       });
     });
 
-    afterEach(function() {
+    afterEach(() => {
       index.getShortIndex.restore();
     });
 
@@ -106,5 +105,4 @@ describe('Cache', () => {
       });
     });
   });
-
 });
