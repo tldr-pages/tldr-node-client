@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-var program = require('commander');
-var pkg = require('../package');
-var tldr = require('../lib/tldr');
-var config = require('../lib/config');
-var platform = require('../lib/platform');
+const program = require('commander');
+const pkg = require('../package');
+const tldr = require('../lib/tldr');
+const config = require('../lib/config');
+const platform = require('../lib/platform');
 
 program
   .version(pkg.version)
