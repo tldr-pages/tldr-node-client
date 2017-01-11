@@ -1,8 +1,8 @@
 'use strict';
 
-const os     = require('os');
+const os = require('os');
 const config = require('../lib/config');
-const sinon  = require('sinon');
+const sinon = require('sinon');
 const platform = require('../lib/platform');
 
 describe('Platform', () => {

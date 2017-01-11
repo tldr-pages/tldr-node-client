@@ -1,7 +1,7 @@
 'use strict';
 
-const fs     = require('fs');
-const sinon  = require('sinon');
+const fs = require('fs');
+const sinon = require('sinon');
 const config = require('../lib/config');
 
 describe('Config', function() {
