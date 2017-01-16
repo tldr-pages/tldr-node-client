@@ -6,7 +6,7 @@ node_js:
   - "6"
   - "stable"
 script:
-  - npm test && npm run test:functional
+  - npm run test:all
 cache:
   directories:
     - node_modules
