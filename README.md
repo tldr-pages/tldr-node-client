@@ -29,6 +29,7 @@ To see tldr pages:
 - `tldr --list-all` show all available pages
 - `tldr --random` show a page at random
 - `tldr --random-example` show a single random example
+- `tldr --markdown` show the original markdown format page
 
 The client caches a copy of all pages locally, in `~/.tldr`.
 There are more commands to control the local cache:

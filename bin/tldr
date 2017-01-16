@@ -19,6 +19,7 @@ program
   .option('-r, --random', 'Show a random command')
   .option('-e, --random-example', 'Show a random example')
   .option('-f, --render [file]', 'Render a specific markdown [file]')
+  .option('-m, --markdown', 'Output in markdown format')
   .option('-o, --os [type]', 'Override the operating system [linux, osx, sunos]')
   .option('--linux', 'Override the operating system with Linux')
   .option('--osx', 'Override the operating system with OSX')
