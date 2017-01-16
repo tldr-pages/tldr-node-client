@@ -12,6 +12,7 @@ _arguments \
   '(- *)'{-1,--single-column}'[list one command per line (used with -l or -a)]' \
   '(- *)'{-r,--random}'[show a random command]' \
   '(- *)'{-e,--random-example}'[show a random example]' \
+  '(- *)'{-m,--markdown}'[show the original markdown format page]' \
   '(-f --render)'{-f,--render}'[render a specific markdown file]:markdown file:_files -/' \
   '(-o --os)'{-o,--os}"[override operating system]:os:${oses}" \
   '--linux[override operating system with Linux]' \
