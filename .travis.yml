@@ -5,8 +5,23 @@ node_js:
   - "5"
   - "6"
   - "stable"
+matrix:
+  include:
+    - env: BUILD=1
+      sudo: required
+      services:
+        - docker
 script:
   - npm test && npm run test:functional
+after_success:
+  - if [ ! -z "$BUILD" ]; then docker run -v $(pwd):/cwd snapcore/snapcraft sh -c 'cd /cwd && snapcraft'; fi
 cache:
   directories:
     - node_modules
+    - .encrypted
+deploy:
+  on:
+    branch: master
+  provider: script
+  script: if [ ! -z "$BUILD" ]; then ./.travis-push.sh; fi
+  skip_cleanup: true

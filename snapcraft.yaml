@@ -4,7 +4,6 @@ summary: Simplified and community-driven man pages
 description: |
   Node.js command line client for TLDR-pages
 
-grade: stable
 confinement: strict
 
 apps:
