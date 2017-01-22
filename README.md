@@ -10,6 +10,7 @@
 A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/tldr).
 
 ![tldr screenshot](screenshot.png)
+*tldr-node-client's output for the `tar` page, using a custom color theme*
 
 ## Installing
 
@@ -43,9 +44,9 @@ As a contributor, you might also need the following commands:
 
 ## Configuration
 
-You can configure the `tldr` client by adding a `.tldrrc` file in your HOME directory. Start by copying the `config.json` file from the repo.
+You can configure the `tldr` client by adding a `.tldrrc` file in your HOME directory. You can copy the contents of the `config.json` file from the repo to get the basic structure to start with, and modify it to suit your needs.
 
-You can choose any of the themes by changing the `"theme"` variable, or you can create your own theme and add it to the `"themes"` section. Note the the colors and text effects you can choose are limited. Refer [here](https://github.com/chalk/chalk#styles) for all options.
+The default color theme is the one named `"simple"`. You can change the theme by assigning a different value to the `"theme"` variable -- either to choose one of the pre-configured themes, or to a new theme that you have previously created in the `"themes"` section. Note the the colors and text effects you can choose are limited. Refer to the [chalk documentation](https://github.com/chalk/chalk#styles) for all options.
 
 ```json
 {
