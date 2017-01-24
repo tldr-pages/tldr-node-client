@@ -119,6 +119,8 @@ describe('Parser', () => {
 
 \`cmd2 --foo\``
     );
+    page.examples[0].code.should.eql('cmd1 --foo');
+    page.examples[1].code.should.eql('cmd2 --foo');
     page.examples[0].description.should.eql('example 1, see inline_cmd1 for details');
     page.examples[1].description.should.eql('example 2, see inline_cmd2 for details');
   });
