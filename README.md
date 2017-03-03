@@ -107,8 +107,8 @@ It's easiest for
 users, so let's start with that.
 
 ```
-mkdir -p $ZSH_CUSTOM/tldr
-ln -s bin/autocompletion.zsh $ZSH_CUSTOM/tldr/_tldr
+mkdir -p $ZSH_CUSTOM/plugins/tldr
+ln -s bin/autocompletion.zsh $ZSH_CUSTOM/plugins/tldr/_tldr
 ```
 
 Then add tldr to your oh-my-zsh plugins,
