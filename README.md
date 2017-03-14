@@ -15,7 +15,7 @@ A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/t
 ## Installing
 
 ```bash
-sudo npm install -g tldr
+npm install -g tldr
 ```
 ## Usage
 
