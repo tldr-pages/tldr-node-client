@@ -130,6 +130,12 @@ fpath = (my/completions $fpath)
 
 ## FAQ
 
+#### `npm install -g tldr` throws an error
+
+You probably have a permission problem, which you can solve [Here](https://docs.npmjs.com/getting-started/fixing-npm-permissions).
+
+You can also use `sudo npm install -g tldr` to install, but [this pull request](https://github.com/tldr-pages/tldr-node-client/pull/142) will show you why you shoudn't.
+
 #### Colors under Cygwin
 
 Colors can't be shown under Mintty or PuTTY, because the dependency `colors.js` has a bug.
