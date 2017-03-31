@@ -15,7 +15,7 @@ A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/t
 ## Installing
 
 ```bash
-sudo npm install -g tldr
+npm install -g tldr
 ```
 ## Usage
 
@@ -129,6 +129,10 @@ fpath = (my/completions $fpath)
 ```
 
 ## FAQ
+
+#### `npm install -g tldr` throws an error
+
+You probably have a permission problem, which you can solve [Here](https://docs.npmjs.com/getting-started/fixing-npm-permissions).
 
 #### Colors under Cygwin
 
