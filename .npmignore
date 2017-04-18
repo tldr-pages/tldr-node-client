@@ -1,0 +1,8 @@
+.github/
+.idea/
+test/
+.editorconfig
+.eslintrc.json
+.travis.yml
+appveyor.yml
+screenshot.png
