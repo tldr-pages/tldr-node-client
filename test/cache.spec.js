@@ -10,8 +10,8 @@ const platform = require('../lib/platform');
 
 describe('Cache', () => {
   it('should return a positive number on lastUpdate', function(done) {
-    /* eslint-disable */ // To allow setting timeout of 5 secs
-    this.timeout(5000);
+    /* eslint-disable */ // To allow setting timeout of 30 secs
+    this.timeout(30000);
     cache.update((err) => {
     /* eslint-enable */
       cache.lastUpdated((err, stats) => {
