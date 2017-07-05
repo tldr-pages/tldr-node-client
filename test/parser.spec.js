@@ -13,8 +13,7 @@ describe('Parser', () => {
   });
 
   it('parses the description', () => {
-    let page = parser.parse(
-`
+    let page = parser.parse(`
 # tar
 > archiving utility`
     );
@@ -22,8 +21,7 @@ describe('Parser', () => {
   });
 
   it('can parse the description on multiple lines', () => {
-    let page = parser.parse(
-`
+    let page = parser.parse(`
 # tar
 > archiving utility
 > with support for compression`
@@ -32,8 +30,7 @@ describe('Parser', () => {
   });
 
   it('does not escape HTML entities', () => {
-    let page = parser.parse(
-`
+    let page = parser.parse(`
 # tar
 > compress & decompress`
     );
@@ -41,8 +38,7 @@ describe('Parser', () => {
   });
 
   it('parses example descriptions and codes', () => {
-    let page = parser.parse(
-`
+    let page = parser.parse(`
 # tar
 > archiving utility
 
@@ -56,8 +52,7 @@ describe('Parser', () => {
   });
 
   it('does not escape HTML in the examples either', () => {
-    let page = parser.parse(
-`
+    let page = parser.parse(`
 - this & that
 
 \`cmd & data\``
@@ -68,8 +63,7 @@ describe('Parser', () => {
   });
 
   it('parses all the examples', () => {
-    let page = parser.parse(
-`
+    let page = parser.parse(`
 # tar
 > archiving utility
 
@@ -85,8 +79,7 @@ describe('Parser', () => {
   });
 
   it('leaves out malformed examples', () => {
-    let page = parser.parse(
-`
+    let page = parser.parse(`
 - example 1
 
 \`cmd --foo\`
@@ -97,8 +90,7 @@ describe('Parser', () => {
   });
 
   it('should parse description with inline code', () => {
-    let page = parser.parse(
-`
+    let page = parser.parse(`
 # uname
 > See also \`lsb_release\``
     );
@@ -106,8 +98,7 @@ describe('Parser', () => {
   });
 
   it('should parse examples with inline code', () => {
-    let page = parser.parse(
-`
+    let page = parser.parse(`
 # uname
 > See also
 
@@ -126,8 +117,7 @@ describe('Parser', () => {
   });
 
   it('should parse code examples with unix redirects ">", "<", ">>" and "<<<"', () => {
-    let page = parser.parse(
-`
+    let page = parser.parse(`
 - Concatenate several files into the target file.
 
 \`cat {{file1}} {{file2}} > {{target-file}}\`
@@ -165,8 +155,7 @@ describe('Parser', () => {
     });
 
     it('should parse seeAlso commands when mentioned in description', () => {
-      let page = parser.parse(
-`
+      let page = parser.parse(`
 # uname
 > See also \`lsb_release\`, \`mv\``
       );
@@ -174,8 +163,7 @@ describe('Parser', () => {
     });
 
     it('should parse seeAlso commands when mentioned in examples', () => {
-      let page = parser.parse(
-`
+      let page = parser.parse(`
 # uname
 > Description for uname
 
@@ -187,8 +175,7 @@ describe('Parser', () => {
     });
 
     it('should have only unique seeAlso commands when mentioned a few times', () => {
-      let page = parser.parse(
-`
+      let page = parser.parse(`
 # uname
 > Description for uname, see \`lsb_release\`, \`ln\`
 
