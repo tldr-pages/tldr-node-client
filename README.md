@@ -3,9 +3,8 @@
 [![NPM version][npm-image]][npm-url]
 [![Travs CI Build Status][travis-image]][travis-url]
 [![AppVeyor CI Build status][appveyor-image]][appveyor-url]
-[![David DM Dependency Status][dep-image]][dep-url]
-[![David DM devDependency Status][dev-dep-image]][dev-dep-url]
 [![Gitter chat][gitter-image]][gitter-url]
+[![Snap Status](https://build.snapcraft.io/badge/tldr-pages/tldr-node-client.svg)](https://build.snapcraft.io/user/tldr-pages/tldr-node-client)
 
 A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/tldr).
 
