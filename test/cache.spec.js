@@ -42,11 +42,11 @@ describe('Cache', () => {
     });
 
     it('should return page contents for ls', (done) => {
-      sinon.stub(fs, 'readFile', (path, encoding, cb) => {
+      sinon.stub(fs, 'readFile').callsFake((path, encoding, cb) => {
         return cb(null, '# ls\n> ls page');
       });
       sinon.stub(platform, 'getPreferredPlatformFolder').returns('osx');
-      sinon.stub(index, 'findPlatform', (page, preferredPlatform, done) => {
+      sinon.stub(index, 'findPlatform').callsFake((page, preferredPlatform, done) => {
         return done('osx');
       });
       cache.getPage('ls', (err, content) => {
@@ -61,11 +61,11 @@ describe('Cache', () => {
     });
 
     it('should return empty contents for svcs on OSX', (done) =>{
-      sinon.stub(fs, 'readFile', (path, encoding, cb) => {
+      sinon.stub(fs, 'readFile').callsFake((path, encoding, cb) => {
         return cb(null, '# svcs\n> svcs');
       });
       sinon.stub(platform, 'getPreferredPlatformFolder').returns('osx');
-      sinon.stub(index, 'findPlatform', (page, preferredPlatform, done) => {
+      sinon.stub(index, 'findPlatform').callsFake((page, preferredPlatform, done) => {
         return done(null);
       });
       cache.getPage('svc', (err, content) => {
@@ -79,11 +79,11 @@ describe('Cache', () => {
     });
 
     it('should return page contents for svcs on SunOS', (done) => {
-      sinon.stub(fs, 'readFile', (path, encoding, cb) => {
+      sinon.stub(fs, 'readFile').callsFake((path, encoding, cb) => {
         return cb(null, '# svcs\n> svcs');
       });
       sinon.stub(platform, 'getPreferredPlatformFolder').returns('sunos');
-      sinon.stub(index, 'findPlatform', (page, preferredPlatform, done) => {
+      sinon.stub(index, 'findPlatform').callsFake((page, preferredPlatform, done) => {
         return done('svcs');
       });
       cache.getPage('svcs', (err, content) => {

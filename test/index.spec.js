@@ -26,10 +26,10 @@ describe('Index', () => {
         'sunos/du.md',
         'sunos/svcs.md'
       ]);
-    sinon.stub(fs, 'readFile', (path, encoding, cb) => {
+    sinon.stub(fs, 'readFile').callsFake((path, encoding, cb) => {
       return cb('dummy error', null);
     });
-    sinon.stub(fs, 'writeFile', (path, contents, cb) => {
+    sinon.stub(fs, 'writeFile').callsFake((path, contents, cb) => {
       return cb();
     });
   });
