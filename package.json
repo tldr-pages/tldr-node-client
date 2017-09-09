@@ -63,11 +63,11 @@
     "unzip2": "~0.2.5"
   },
   "devDependencies": {
-    "env-test": "*",
-    "eslint": "*",
-    "husky": "*",
-    "mocha": "*",
-    "should": "*",
-    "sinon": "*"
+    "env-test": "^1.0.0",
+    "eslint": "^4.6.1",
+    "husky": "^0.14.3",
+    "mocha": "^3.5.0",
+    "should": "^13.0.1",
+    "sinon": "^3.2.1"
   }
 }
