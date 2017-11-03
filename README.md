@@ -16,6 +16,17 @@ A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/t
 ```bash
 npm install -g tldr
 ```
+
+## Install from the snap store
+
+In any of the [supported Linux distros](https://snapcraft.io/docs/core/install):
+
+```bash
+sudo snap install tldr --edge
+```
+
+(Note that this is an experimental and unstable release, at the moment)
+
 ## Usage
 
 To see tldr pages:
