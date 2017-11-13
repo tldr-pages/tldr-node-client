@@ -25,6 +25,7 @@ program
   .option('--osx', 'Override the operating system with OSX')
   .option('--sunos', 'Override the operating system with SunOS')
   .option('-t, --theme [theme]', 'Color theme (simple, base16, ocean)')
+  .option('-s, --search [keywords]', 'Search manuals using keywords')
   //
   // CACHE MANAGEMENT
   //
@@ -89,9 +90,13 @@ if (program.list) {
 } else if (program.clearCache) {
   tldr.clearCache();
 } else if (program.update) {
-  tldr.updateCache();
+  // tldr.updateCache();
+  tldr.updateIndex();
 } else if (program.render) {
   tldr.render(program.render);
+} else if (program.search) {
+  program.args.unshift(program.search);
+  tldr.search(program.args);
 } else if (program.args.length >= 1) {
   tldr.get(program.args, program);
 } else {
