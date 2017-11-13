@@ -90,7 +90,7 @@ if (program.list) {
 } else if (program.clearCache) {
   tldr.clearCache();
 } else if (program.update) {
-  // tldr.updateCache();
+  tldr.updateCache();
   tldr.updateIndex();
 } else if (program.render) {
   tldr.render(program.render);
