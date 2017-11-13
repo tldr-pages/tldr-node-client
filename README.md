@@ -95,13 +95,11 @@ The default platform value can be overwritten with command-line option:
 tldr du --os=osx
 ```
 
-As a contributor, you can also point to your own fork or branch:
+As a contributor, you can also point to your own fork containing the `tldr.zip` file. The file is just a zipped version of the entire tldr repo:
 
 ```js
 {
-  "repository" : "myfork/tldr",
-  // or
-  "repository" : "myfork/tldr#mybranch",
+  "repository" : "http://myrepo/assets/tldr.zip",
 }
 ```
 

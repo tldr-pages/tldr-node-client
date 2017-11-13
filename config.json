@@ -1,6 +1,5 @@
 {
-  "pagesRepository": "tldr-pages/tldr",
-  "url": "http://tldr-pages.github.io/assets/tldr.zip",
+  "repository": "http://tldr-pages.github.io/assets/tldr.zip",
   "themes": {
     "simple": {
       "commandName": "bold, underline",

@@ -47,9 +47,9 @@
     "test:all": "npm run lint && npm test && npm run test:functional"
   },
   "dependencies": {
-    "chalk": "~1.1.1",
+    "chalk": "~2.3.0",
     "commander": "~2.9.0",
-    "fs-extra": "^0.30.0",
+    "fs-extra": "^4.0.2",
     "lodash.defaults": "~4.2.0",
     "lodash.get": "~4.4.2",
     "lodash.identity": "~3.0.0",
