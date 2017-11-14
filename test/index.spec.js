@@ -26,12 +26,10 @@ describe('Index', () => {
         'sunos/du.md',
         'sunos/svcs.md'
       ]);
-    sinon.stub(fs, 'readFile').callsFake((path, encoding, cb) => {
-      return cb('dummy error', null);
-    });
-    sinon.stub(fs, 'writeFile').callsFake((path, contents, cb) => {
-      return cb();
-    });
+    sinon.stub(fs, 'readFile')
+      .rejects('dummy error');
+    sinon.stub(fs, 'writeFile')
+      .resolves('');
   });
 
   afterEach(() => {
@@ -109,18 +107,23 @@ describe('Index', () => {
   });
 
   it('should return correct short index on getShortIndex()', (done) => {
-    index.getShortIndex((idx) => {
-      idx.should.deepEqual({
-        cp: ['common'],
-        git: ['common'],
-        ln: ['common'],
-        ls: ['common'],
-        dd: ['linux', 'osx', 'sunos'],
-        du: ['linux', 'osx', 'sunos'],
-        top: ['linux', 'osx'],
-        svcs: ['sunos']
+    index.getShortIndex()
+      .then((idx) => {
+        idx.should.deepEqual({
+          cp: ['common'],
+          git: ['common'],
+          ln: ['common'],
+          ls: ['common'],
+          dd: ['linux', 'osx', 'sunos'],
+          du: ['linux', 'osx', 'sunos'],
+          top: ['linux', 'osx'],
+          svcs: ['sunos']
+        });
+        done();
+      })
+      .catch((err) => {
+        console.error(err);
+        done();
       });
-      done();
-    });
   });
 });
