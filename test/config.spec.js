@@ -9,13 +9,13 @@ describe('Config', () => {
   const DEFAULT =
 `
 {
-  "repository": "tldr-pages/tldr"
+  "repository": "http://tldr-pages.github.io/assets/tldr.zip"
 }`;
 
   const CUSTOM =
 `
 {
-  "repository": "myfork/tldr"
+  "repository": "http://myrepo/assets/tldr.zip"
 }`;
 
   const CUSTOM_INVALID =
@@ -45,13 +45,13 @@ describe('Config', () => {
   it('should load the default config', () => {
     fs.readFileSync.onCall(0).returns(DEFAULT);
     fs.readFileSync.onCall(1).throws('Not found');
-    config.get().repository.should.eql('tldr-pages/tldr');
+    config.get().repository.should.eql('http://tldr-pages.github.io/assets/tldr.zip');
   });
 
   it('should override the defaults with content from .tldrrc', () => {
     fs.readFileSync.onCall(0).returns(DEFAULT);
     fs.readFileSync.onCall(1).returns(CUSTOM);
-    config.get().repository.should.eql('myfork/tldr');
+    config.get().repository.should.eql('http://myrepo/assets/tldr.zip');
   });
 
   it('should validate the custom config format', () => {
