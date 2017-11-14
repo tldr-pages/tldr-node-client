@@ -25,7 +25,7 @@ program
   .option('--osx', 'Override the operating system with OSX')
   .option('--sunos', 'Override the operating system with SunOS')
   .option('-t, --theme [theme]', 'Color theme (simple, base16, ocean)')
-  .option('-s, --search [keywords]', 'Search manuals using keywords')
+  .option('-s, --search [keywords]', 'Search pages using keywords')
   //
   // CACHE MANAGEMENT
   //
@@ -37,6 +37,7 @@ program.on('--help', () => {
   console.log('');
   console.log('    $ tldr tar');
   console.log('    $ tldr du --os=linux');
+  console.log('    $ tldr search "create symbolic link to file"');
   console.log('    $ tldr --list');
   console.log('    $ tldr --list-all');
   console.log('    $ tldr --random');
