@@ -50,6 +50,7 @@
     "chalk": "~2.3.0",
     "commander": "~2.9.0",
     "fs-extra": "^4.0.2",
+    "glob": "^7.1.2",
     "lodash.defaults": "~4.2.0",
     "lodash.get": "~4.4.2",
     "lodash.identity": "~3.0.0",
@@ -58,6 +59,7 @@
     "lodash.unescape": "~4.0.0",
     "marked": "~0.3.6",
     "ms": "~0.7.1",
+    "natural": "^0.5.4",
     "os-homedir": "~1.0.1",
     "request": "~2.75.0",
     "unzip2": "~0.2.5"
