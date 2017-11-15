@@ -33,6 +33,7 @@ To see tldr pages:
 
 - `tldr <command>` show examples for this command
 - `tldr <command> --os=<platform>` show command page for the given platform (`linux`, `osx`, `sunos`)
+- `tldr --search "<query>"` search all pages for the query
 - `tldr --linux <command>` show command page for Linux
 - `tldr  --osx <command>` show command page for OSX
 - `tldr --sunos <command>` show command page for SunOS
@@ -45,7 +46,7 @@ To see tldr pages:
 The client caches a copy of all pages locally, in `~/.tldr`.
 There are more commands to control the local cache:
 
-- `tldr --update` download the latest pages
+- `tldr --update` download the latest pages and generate search index
 - `tldr --clear-cache` delete the entire local cache
 
 As a contributor, you might also need the following commands:
