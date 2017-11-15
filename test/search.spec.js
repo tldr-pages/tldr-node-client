@@ -109,12 +109,12 @@ let fakes = {
     },
   },
   index: {
-    getShortIndex: (done => {
+    getShortIndex: (() => {
       let idx = {};
       testData.files.forEach(elem => {
         idx[utils.parsePagename(elem.path)] = elem.platforms;
       });
-      return done(idx);
+      return Promise.resolve(idx);
     }),
   },
   fs: {
