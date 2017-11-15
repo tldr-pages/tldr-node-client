@@ -11,6 +11,7 @@ _arguments \
   '(- *)'{-a,--list-all}'[list all commands]' \
   '(- *)'{-1,--single-column}'[list one command per line (used with -l or -a)]' \
   '(- *)'{-r,--random}'[show a random command]' \
+  '(- *)'{-s,--search}'[search all pages for query]' \
   '(- *)'{-e,--random-example}'[show a random example]' \
   '(- *)'{-m,--markdown}'[show the original markdown format page]' \
   '(-f --render)'{-f,--render}'[render a specific markdown file]:markdown file:_files -/' \
