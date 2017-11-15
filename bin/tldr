@@ -37,7 +37,7 @@ program.on('--help', () => {
   console.log('');
   console.log('    $ tldr tar');
   console.log('    $ tldr du --os=linux');
-  console.log('    $ tldr search "create symbolic link to file"');
+  console.log('    $ tldr --search "create symbolic link to file"');
   console.log('    $ tldr --list');
   console.log('    $ tldr --list-all');
   console.log('    $ tldr --random');
