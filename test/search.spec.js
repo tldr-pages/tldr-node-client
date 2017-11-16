@@ -1,7 +1,7 @@
 'use strict';
 
 const search = require('../lib/search');
-const should = require('should'); // eslint-disable-line
+const should = require('should');
 const sinon = require('sinon');
 const path = require('path');
 const fs = require('fs-extra');
@@ -145,8 +145,8 @@ let fakes = {
   },
 };
 
-let restoreStubs = stubs => {
-  stubs.forEach(stub => {
+let restoreStubs = (stubs) => {
+  stubs.forEach((stub) => {
     stub.restore();
   });
 };
@@ -167,7 +167,8 @@ describe('Search', () => {
       testData.corpus = data;
       console.log.restore();
       done();
-    }).catch(error => {
+    }).catch((error) => {
+      should.not.exist(error);
       console.log.restore();
       done(error);
     }).then(() => {
@@ -197,7 +198,8 @@ describe('Search', () => {
         done();
         return Promise.resolve();
       });
-    }).catch(error => {
+    }).catch((error) => {
+      should.not.exist(error);
       console.log.restore();
       done(error);
     }).then(() => {
