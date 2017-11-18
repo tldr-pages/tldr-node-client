@@ -143,6 +143,8 @@ fpath = (my/completions $fpath)
 
 You probably have a permission problem, which you can solve [Here](https://docs.npmjs.com/getting-started/fixing-npm-permissions).
 
+Or if that does not solve your issue, add the option `--unsafe-perm` to the command.
+
 #### Colors under Cygwin
 
 Colors can't be shown under Mintty or PuTTY, because the dependency `colors.js` has a bug.
