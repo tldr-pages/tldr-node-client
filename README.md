@@ -22,10 +22,14 @@ npm install -g tldr
 In any of the [supported Linux distros](https://snapcraft.io/docs/core/install):
 
 ```bash
-sudo snap install tldr --edge
+sudo snap install tldr
 ```
 
-(Note that this is an experimental and unstable release, at the moment)
+If you want to help testing the latest changes, and get the newer features earlier, you can install the snap from the edge channel:
+
+```bash
+sudo snap install tldr --edge
+```
 
 ## Usage
 
