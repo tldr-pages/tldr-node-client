@@ -143,11 +143,42 @@ fpath = (my/completions $fpath)
 
 ## FAQ
 
-#### `npm install -g tldr` throws an error
+#### Installation Issues
 
-You probably have a permission problem, which you can solve [Here](https://docs.npmjs.com/getting-started/fixing-npm-permissions).
+- If you are trying to install as non-root user (`npm install -g tldr`) and get something like - 
+ 
+ ```
+ Error: EACCES: permission denied, access '/usr/local/lib/node_modules/tldr'
+ ```
+ 
+ Then most probably your npm's default installation directory has improper permissions. You can resolve it by clicking [here](https://docs.npmjs.com/getting-started/fixing-npm-permissions)
+ 
+- If you are trying to install as a root user (`sudo npm install -g tldr`) and get something like - 
 
-Or if that does not solve your issue, add the option `--unsafe-perm` to the command.
+```
+as root -> 
+gyp WARN EACCES attempting to reinstall using temporary dev dir "/usr/local/lib/node_modules/tldr/node_modules/webworker-threads/.node-gyp"
+gyp WARN EACCES user "root" does not have permission to access the dev dir "/usr/local/lib/node_modules/tldr/node_modules/webworker-threads/.node-gyp/8.9.1"
+```
+
+You need to add the option `--unsafe-perm` to your command. This is because when npm goes to the postinstall step, it downgrades the permission levels to "nobody". Probably you should fix your installation directory permissions and install as a non-root user in the first place.
+
+- If you see an error related to `webworker-threads` like -
+
+```
+/usr/local/lib/node_modules/tldr/node_modules/natural/lib/natural/classifiers/classifier.js:32
+    if (e.code !== 'MODULE_NOT_FOUND') throw e;
+```
+Most probably you need to reinstall `node-gyp` and `webworker-threads`. Try this -
+
+```
+sudo -H npm uninstall -g tldr
+sudo -H npm uninstall -g webworker-threads
+npm install -g node-gyp
+npm install -g webworker-threads
+npm install -g tldr
+```
+For further context, take a look at this [issue](https://github.com/tldr-pages/tldr-node-client/issues/179)
 
 #### Colors under Cygwin
 
