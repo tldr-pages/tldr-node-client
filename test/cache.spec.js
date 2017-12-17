@@ -46,9 +46,7 @@ describe('Cache', () => {
         return cb(null, '# ls\n> ls page');
       });
       sinon.stub(platform, 'getPreferredPlatformFolder').returns('osx');
-      sinon.stub(index, 'findPlatform').callsFake((page, preferredPlatform, done) => {
-        return done('osx');
-      });
+      sinon.stub(index, 'findPlatform').resolves('osx');
       cache.getPage('ls', (err, content) => {
         should.not.exist(err);
         should.exist(content);
@@ -65,9 +63,7 @@ describe('Cache', () => {
         return cb(null, '# svcs\n> svcs');
       });
       sinon.stub(platform, 'getPreferredPlatformFolder').returns('osx');
-      sinon.stub(index, 'findPlatform').callsFake((page, preferredPlatform, done) => {
-        return done(null);
-      });
+      sinon.stub(index, 'findPlatform').resolves(null);
       cache.getPage('svc', (err, content) => {
         should.not.exist(err);
         should.not.exist(content);
@@ -83,9 +79,7 @@ describe('Cache', () => {
         return cb(null, '# svcs\n> svcs');
       });
       sinon.stub(platform, 'getPreferredPlatformFolder').returns('sunos');
-      sinon.stub(index, 'findPlatform').callsFake((page, preferredPlatform, done) => {
-        return done('svcs');
-      });
+      sinon.stub(index, 'findPlatform').resolves('svcs');
       cache.getPage('svcs', (err, content) => {
         should.not.exist(err);
         should.exist(content);
