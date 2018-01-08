@@ -45,4 +45,45 @@ describe('Theme', () => {
           chalk.yellow.dim.underline('text'));
     });
   });
+
+  describe('Rendering with new theme colors', () => {
+
+    let theme = new Theme({
+      commandName: 'greenBright, bold',
+      mainDescription: 'greenBright, bold',
+      exampleDescription: 'greenBright',
+      exampleCode: 'redBright',
+      exampleToken: 'white'
+    });
+
+    it('should render name with greenBright and bold', () => {
+      theme.renderCommandName('text')
+        .should.equal(
+          chalk.greenBright.bold('text'));
+    });
+
+    it('should render description with greenBright and bold', () => {
+      theme.renderMainDescription('text')
+        .should.equal(
+          chalk.greenBright.bold('text'));
+    });
+
+    it('should render example description with greenBright', () => {
+      theme.renderExampleDescription('text')
+        .should.equal(
+          chalk.greenBright('text'));
+    });
+
+    it('should render example code with redBright', () => {
+      theme.renderExampleCode('text')
+        .should.equal(
+          chalk.redBright('text'));
+    });
+
+    it('should render example argument with white', () => {
+      theme.renderExampleToken('text')
+        .should.equal(
+          chalk.white('text'));
+    });
+  });
 });
