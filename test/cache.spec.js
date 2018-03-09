@@ -9,18 +9,16 @@ const platform = require('../lib/platform');
 
 
 describe('Cache', () => {
-  it('should return a positive number on lastUpdate', function(done) {
-    /* eslint-disable */ // To allow setting timeout of 30 secs
+  it('should return a positive number on lastUpdate', function () {
+    // To allow setting timeout of 30 secs
+    // eslint-disable-next-line no-magic-numbers
     this.timeout(30000);
-    cache.update((err) => {
-    /* eslint-enable */
-      cache.lastUpdated((err, stats) => {
-        should.not.exist(err);
+    return cache.update()
+      .then(() => cache.lastUpdated())
+      .then((stats) => {
         should.exist(stats);
         stats.mtime.should.be.aboveOrEqual(0);
-        done();
       });
-    });
   });
 
   describe('getPage()', () => {
@@ -41,62 +39,50 @@ describe('Cache', () => {
       index.getShortIndex.restore();
     });
 
-    it('should return page contents for ls', (done) => {
-      sinon.stub(fs, 'readFile').callsFake((path, encoding, cb) => {
-        return cb(null, '# ls\n> ls page');
-      });
+    it('should return page contents for ls', () => {
+      sinon.stub(fs, 'readFile').resolves('# ls\n> ls page');
       sinon.stub(platform, 'getPreferredPlatformFolder').returns('osx');
       sinon.stub(index, 'findPlatform').resolves('osx');
-      cache.getPage('ls', (err, content) => {
-        should.not.exist(err);
-        should.exist(content);
-        content.should.startWith('# ls');
-        fs.readFile.restore();
-        platform.getPreferredPlatformFolder.restore();
-        index.findPlatform.restore();
-        done();
-      });
+      return cache.getPage('ls')
+        .then((content) => {
+          should.exist(content);
+          content.should.startWith('# ls');
+          fs.readFile.restore();
+          platform.getPreferredPlatformFolder.restore();
+          index.findPlatform.restore();
+        });
     });
 
-    it('should return empty contents for svcs on OSX', (done) =>{
-      sinon.stub(fs, 'readFile').callsFake((path, encoding, cb) => {
-        return cb(null, '# svcs\n> svcs');
-      });
+    it('should return empty contents for svcs on OSX', () =>{
+      sinon.stub(fs, 'readFile').resolves('# svcs\n> svcs');
       sinon.stub(platform, 'getPreferredPlatformFolder').returns('osx');
       sinon.stub(index, 'findPlatform').resolves(null);
-      cache.getPage('svc', (err, content) => {
-        should.not.exist(err);
-        should.not.exist(content);
-        fs.readFile.restore();
-        platform.getPreferredPlatformFolder.restore();
-        index.findPlatform.restore();
-        done();
-      });
+      return cache.getPage('svc')
+        .then((content) => {
+          should.not.exist(content);
+          fs.readFile.restore();
+          platform.getPreferredPlatformFolder.restore();
+          index.findPlatform.restore();
+        });
     });
 
-    it('should return page contents for svcs on SunOS', (done) => {
-      sinon.stub(fs, 'readFile').callsFake((path, encoding, cb) => {
-        return cb(null, '# svcs\n> svcs');
-      });
+    it('should return page contents for svcs on SunOS', () => {
+      sinon.stub(fs, 'readFile').resolves('# svcs\n> svcs');
       sinon.stub(platform, 'getPreferredPlatformFolder').returns('sunos');
       sinon.stub(index, 'findPlatform').resolves('svcs');
-      cache.getPage('svcs', (err, content) => {
-        should.not.exist(err);
-        should.exist(content);
-        content.should.startWith('# svcs');
-        fs.readFile.restore();
-        platform.getPreferredPlatformFolder.restore();
-        index.findPlatform.restore();
-        done();
-      });
+      return cache.getPage('svcs')
+        .then((content) => {
+          should.exist(content);
+          content.should.startWith('# svcs');
+          fs.readFile.restore();
+          platform.getPreferredPlatformFolder.restore();
+          index.findPlatform.restore();
+        });
     });
 
-    it('should return empty contents for non-existing page', (done) => {
-      cache.getPage('qwerty', (err, content) => {
-        should.not.exist(err);
-        should.not.exist(content);
-        done();
-      });
+    it('should return empty contents for non-existing page', () => {
+      return cache.getPage('qwerty')
+        .then((content) => should.not.exist(content));
     });
   });
 });
