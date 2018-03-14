@@ -39,22 +39,30 @@ describe('Index', () => {
   describe('findPlatform()', () => {
     it('should find Linux platform for dd command', () => {
       return index.findPlatform('dd', 'linux')
-        .then((folder) => folder.should.equal('linux'));
+        .then((folder) => {
+          return folder.should.equal('linux');
+        });
     });
 
     it('should find platform common for cp command', () => {
       return index.findPlatform('cp', 'linux')
-        .then((folder) => folder.should.equal('common'));
+        .then((folder) => {
+          return folder.should.equal('common');
+        });
     });
 
     it('should not find platform for svcs command on Linux', () => {
       return index.findPlatform('svcs', 'linux')
-        .then((folder) => should.not.exist(folder));
+        .then((folder) => {
+          return should.not.exist(folder);
+        });
     });
 
     it('should not find platform for non-existing command', () => {
       return index.findPlatform('qwerty', 'linux')
-        .then((folder) => should.not.exist(folder));
+        .then((folder) => {
+          return should.not.exist(folder);
+        });
     });
   });
 

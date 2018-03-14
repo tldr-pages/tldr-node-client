@@ -14,7 +14,9 @@ describe('Cache', () => {
     // eslint-disable-next-line no-magic-numbers
     this.timeout(30000);
     return cache.update()
-      .then(() => cache.lastUpdated())
+      .then(() => {
+        return cache.lastUpdated();
+      })
       .then((stats) => {
         should.exist(stats);
         stats.mtime.should.be.aboveOrEqual(0);
@@ -82,7 +84,9 @@ describe('Cache', () => {
 
     it('should return empty contents for non-existing page', () => {
       return cache.getPage('qwerty')
-        .then((content) => should.not.exist(content));
+        .then((content) => {
+          return should.not.exist(content);
+        });
     });
   });
 });
