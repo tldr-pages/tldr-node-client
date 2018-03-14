@@ -102,7 +102,7 @@ let fakes = {
   utils: {
     glob: () => {
       let filenames = [];
-      testData.files.forEach(elem => {
+      testData.files.forEach((elem) => {
         filenames.push(elem.path);
       });
       return Promise.resolve(filenames);
@@ -111,7 +111,7 @@ let fakes = {
   index: {
     getShortIndex: (() => {
       let idx = {};
-      testData.files.forEach(elem => {
+      testData.files.forEach((elem) => {
         idx[utils.parsePagename(elem.path)] = elem.platforms;
       });
       return Promise.resolve(idx);
@@ -130,7 +130,7 @@ let fakes = {
     },
     readFile: (readpath) => {
       return new Promise((resolve, reject) => {
-        let file = testData.files.find(elem => {
+        let file = testData.files.find((elem) => {
           return elem.path === readpath;
         });
         if (file) {
@@ -160,7 +160,7 @@ describe('Search', () => {
     stubs.push(sinon.stub(utils, 'glob').callsFake(fakes.utils.glob));
     stubs.push(sinon.stub(fs, 'readFile').callsFake(fakes.fs.readFile));
     stubs.push(sinon.stub(fs, 'writeFile').callsFake(fakes.fs.writeFile));
-    search.createIndex().then(data => {
+    search.createIndex().then((data) => {
       Object.keys(data.tfidf).length.should.equal(20); // eslint-disable-line
       Object.keys(data.invertedIndex).length.should.equal(56); // eslint-disable-line
       data.invertedIndex['roxi'][0].should.equal('/path/to/file-11.md');
@@ -181,17 +181,17 @@ describe('Search', () => {
     stubs.push(sinon.stub(fs, 'readFile').callsFake(fakes.fs.readFile));
     stubs.push(sinon.stub(fs, 'writeFile').callsFake(fakes.fs.writeFile));
     stubs.push(sinon.stub(index, 'getShortIndex').callsFake(fakes.index.getShortIndex));
-    search.getResults('Anthony').then(data => {
+    search.getResults('Anthony').then((data) => {
       data.length.should.equal(4); // eslint-disable-line
       data[0].file.should.equal('/path/to/file-09.md');
       return Promise.resolve();
     }).then(() => {
-      return search.getResults('textnotfound').then(data => {
+      return search.getResults('textnotfound').then((data) => {
         data.length.should.equal(0);
         return Promise.resolve();
       });
     }).then(() => {
-      return search.getResults('Joe and Roxie').then(data => {
+      return search.getResults('Joe and Roxie').then((data) => {
         data.length.should.equal(8); // eslint-disable-line
         data[1].file.should.equal('/path/to/file-16.md');
         console.log.restore();
