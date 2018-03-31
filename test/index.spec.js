@@ -32,7 +32,7 @@ describe('Index building', () => {
 
   describe('failure', () => {
     before(() => {
-      sinon.stub(utils, 'walkSync').throws('dummy error');
+      sinon.stub(utils, 'walk').rejects('dummy error');
     });
 
     it('shortIndex should not be created', () => {
@@ -43,7 +43,7 @@ describe('Index building', () => {
 
   describe('success', () => {
     before(() => {
-      sinon.stub(utils, 'walkSync').returns(pages);
+      sinon.stub(utils, 'walk').resolves(pages);
     });
 
     it('correct shortIndex should be created', () => {
@@ -53,7 +53,7 @@ describe('Index building', () => {
   });
 
   afterEach(() => {
-    utils.walkSync.restore();
+    utils.walk.restore();
     fs.readJson.restore();
     fs.writeJson.restore();
   });
@@ -62,13 +62,13 @@ describe('Index building', () => {
 describe('Index', () => {
   beforeEach(() => {
     index.clearRuntimeIndex();
-    sinon.stub(utils, 'walkSync').returns(pages);
+    sinon.stub(utils, 'walk').resolves(pages);
     sinon.stub(fs, 'readJson').rejects('dummy error');
     sinon.stub(fs, 'writeJson').resolves('');
   });
 
   afterEach(() => {
-    utils.walkSync.restore();
+    utils.walk.restore();
     fs.readJson.restore();
     fs.writeJson.restore();
   });
