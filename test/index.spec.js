@@ -6,26 +6,63 @@ const utils = require('../lib/utils');
 const sinon = require('sinon');
 const should = require('should');
 
+const pages = [
+  'index.json',
+  'common/cp.md',
+  'common/git.md',
+  'common/ln.md',
+  'common/ls.md',
+  'linux/dd.md',
+  'linux/du.md',
+  'linux/top.md',
+  'osx/dd.md',
+  'osx/du.md',
+  'osx/top.md',
+  'sunos/dd.md',
+  'sunos/du.md',
+  'sunos/svcs.md'
+];
+
+describe('Index building', () => {
+  beforeEach(() => {
+    index.rebuildPagesIndex();
+    sinon.stub(fs, 'readJson').rejects('dummy error');
+    sinon.stub(fs, 'writeJson').resolves('');
+  });
+
+  describe('failure', () => {
+    before(() => {
+      sinon.stub(utils, 'walkSync').throws('dummy error');
+    });
+
+    it('shortIndex should not be created', () => {
+      return index.hasPage('cp').should.be.false() &&
+        index.hasPage('dummy').should.be.false();
+    });
+  });
+
+  describe('success', () => {
+    before(() => {
+      sinon.stub(utils, 'walkSync').returns(pages);
+    });
+
+    it('correct shortIndex should be created', () => {
+      return index.hasPage('cp').should.be.true() &&
+        index.hasPage('dummy').should.be.false();
+    });
+  });
+
+  afterEach(() => {
+    utils.walkSync.restore();
+    fs.readJson.restore();
+    fs.writeJson.restore();
+  });
+});
+
 describe('Index', () => {
   beforeEach(() => {
     index.clearRuntimeIndex();
-    sinon.stub(utils, 'walkSync')
-      .returns([
-        'index.json',
-        'common/cp.md',
-        'common/git.md',
-        'common/ln.md',
-        'common/ls.md',
-        'linux/dd.md',
-        'linux/du.md',
-        'linux/top.md',
-        'osx/dd.md',
-        'osx/du.md',
-        'osx/top.md',
-        'sunos/dd.md',
-        'sunos/du.md',
-        'sunos/svcs.md'
-      ]);
+    sinon.stub(utils, 'walkSync').returns(pages);
     sinon.stub(fs, 'readJson').rejects('dummy error');
     sinon.stub(fs, 'writeJson').resolves('');
   });
