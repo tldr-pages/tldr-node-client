@@ -4,9 +4,6 @@ const cache = require('../lib/cache');
 const should = require('should');
 const sinon = require('sinon');
 const fs = require('fs-extra');
-const os = require('os');
-const path = require('path');
-const config = require('../lib/config');
 const index = require('../lib/index');
 const remote = require('../lib/remote');
 const platform = require('../lib/platform');
@@ -36,13 +33,12 @@ describe('Cache', () => {
 
     it('should use randomly created temp folder', () => {
       sinon.spy(fs, 'ensureDir');
-      const CACHE_FOLDER = path.join(config.get().cache, 'cache');
       const count = 16;
       return Promise.all(Array.from({ length: count }).map(() => {
         return cache.update();
       })).then(() => {
         let calls = fs.ensureDir.getCalls().filter((call) => {
-          return !call.calledWith(CACHE_FOLDER);
+          return !call.calledWith(cache.CACHE_FOLDER);
         });
         calls.should.have.length(count);
         let tempFolders = calls.map((call) => {
@@ -55,9 +51,8 @@ describe('Cache', () => {
 
     it('should remove temporary storage after cache gets updated', () => {
       sinon.spy(fs, 'remove');
-      const TEMP_FOLDER = path.join(os.tmpdir(), 'tldr');
       return cache.update().then(() => {
-        fs.remove.calledWith(TEMP_FOLDER).should.be.true();
+        fs.remove.calledWith(cache.TEMP_FOLDER).should.be.true();
         fs.remove.restore();
       });
     });
