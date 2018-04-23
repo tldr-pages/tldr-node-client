@@ -26,13 +26,14 @@ describe('Cache', () => {
 
   describe('update()', () => {
     beforeEach(() => {
+      sinon.spy(fs, 'ensureDir');
+      sinon.spy(fs, 'remove');
       sinon.stub(fs, 'copy').resolves();
       sinon.stub(remote, 'download').resolves();
       sinon.stub(index, 'rebuildPagesIndex').resolves();
     });
 
     it('should use randomly created temp folder', () => {
-      sinon.spy(fs, 'ensureDir');
       const count = 16;
       return Promise.all(Array.from({ length: count }).map(() => {
         return cache.update();
@@ -45,19 +46,22 @@ describe('Cache', () => {
           return call.args[0];
         });
         tempFolders.should.have.length(new Set(tempFolders).size);
-        fs.ensureDir.restore();
       });
     });
 
-    it('should remove temporary storage after cache gets updated', () => {
-      sinon.spy(fs, 'remove');
+    it('should remove temp folder after cache gets updated', () => {
       return cache.update().then(() => {
-        fs.remove.calledWith(cache.TEMP_FOLDER).should.be.true();
-        fs.remove.restore();
+        let createFolder = fs.ensureDir.getCalls().find((call) => {
+          return !call.calledWith(cache.CACHE_FOLDER);
+        });
+        let removeFolder = fs.remove.getCall(0);
+        removeFolder.args[0].should.be.equal(createFolder.args[0]);
       });
     });
 
     afterEach(() => {
+      fs.ensureDir.restore();
+      fs.remove.restore();
       fs.copy.restore();
       remote.download.restore();
       index.rebuildPagesIndex.restore();
