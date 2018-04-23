@@ -4,7 +4,10 @@ const cache = require('../lib/cache');
 const should = require('should');
 const sinon = require('sinon');
 const fs = require('fs-extra');
+const os = require('os');
+const path = require('path');
 const index = require('../lib/index');
+const remote = require('../lib/remote');
 const platform = require('../lib/platform');
 
 
@@ -21,6 +24,44 @@ describe('Cache', () => {
         should.exist(stats);
         stats.mtime.should.be.aboveOrEqual(0);
       });
+  });
+
+  describe('update()', () => {
+    it('should use randomly created temp folder', () => {
+      sinon.stub(fs, 'ensureDir').callsFake((tempFolder) => {
+        let err = new Error('dummy');
+        err.code = 'dummy';
+        err.folder = tempFolder;
+        return Promise.reject(err);
+      });
+
+      const count = 16;
+      return Promise.all(Array.from({ length: count }).map(() => {
+        return cache.update().catch((err) => {
+          if (err.code !== 'dummy') throw err;
+          return err.folder;
+        });
+      })).then((folders) => {
+        folders.should.have.length(new Set(folders).size);
+        fs.ensureDir.restore();
+      });
+    });
+
+    it('should remove temporary storage after cache gets updated', () => {
+      sinon.spy(fs, 'remove');
+      sinon.stub(fs, 'copy').resolves();
+      sinon.stub(remote, 'download').resolves();
+      sinon.stub(index, 'rebuildPagesIndex').resolves();
+
+      const TEMP_FOLDER = path.join(os.tmpdir(), 'tldr');
+      return cache.update().then(() => {
+        fs.remove.calledWith(TEMP_FOLDER).should.be.true();
+        fs.remove.restore();
+        fs.copy.restore();
+        remote.download.restore();
+        index.rebuildPagesIndex.restore();
+      });
+    });
   });
 
   describe('getPage()', () => {
