@@ -6,6 +6,7 @@ const sinon = require('sinon');
 const fs = require('fs-extra');
 const os = require('os');
 const path = require('path');
+const config = require('../lib/config');
 const index = require('../lib/index');
 const remote = require('../lib/remote');
 const platform = require('../lib/platform');
@@ -27,40 +28,44 @@ describe('Cache', () => {
   });
 
   describe('update()', () => {
-    it('should use randomly created temp folder', () => {
-      sinon.stub(fs, 'ensureDir').callsFake((tempFolder) => {
-        let err = new Error('dummy');
-        err.code = 'dummy';
-        err.folder = tempFolder;
-        return Promise.reject(err);
-      });
+    beforeEach(() => {
+      sinon.stub(fs, 'copy').resolves();
+      sinon.stub(remote, 'download').resolves();
+      sinon.stub(index, 'rebuildPagesIndex').resolves();
+    });
 
+    it('should use randomly created temp folder', () => {
+      sinon.spy(fs, 'ensureDir');
+      const CACHE_FOLDER = path.join(config.get().cache, 'cache');
       const count = 16;
       return Promise.all(Array.from({ length: count }).map(() => {
-        return cache.update().catch((err) => {
-          if (err.code !== 'dummy') throw err;
-          return err.folder;
+        return cache.update();
+      })).then(() => {
+        let calls = fs.ensureDir.getCalls().filter((call) => {
+          return !call.calledWith(CACHE_FOLDER);
         });
-      })).then((folders) => {
-        folders.should.have.length(new Set(folders).size);
+        calls.should.have.length(count);
+        let tempFolders = calls.map((call) => {
+          return call.args[0];
+        });
+        tempFolders.should.have.length(new Set(tempFolders).size);
         fs.ensureDir.restore();
       });
     });
 
     it('should remove temporary storage after cache gets updated', () => {
       sinon.spy(fs, 'remove');
-      sinon.stub(fs, 'copy').resolves();
-      sinon.stub(remote, 'download').resolves();
-      sinon.stub(index, 'rebuildPagesIndex').resolves();
-
       const TEMP_FOLDER = path.join(os.tmpdir(), 'tldr');
       return cache.update().then(() => {
         fs.remove.calledWith(TEMP_FOLDER).should.be.true();
         fs.remove.restore();
-        fs.copy.restore();
-        remote.download.restore();
-        index.rebuildPagesIndex.restore();
       });
+    });
+
+    afterEach(() => {
+      fs.copy.restore();
+      remote.download.restore();
+      index.rebuildPagesIndex.restore();
     });
   });
 
