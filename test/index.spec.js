@@ -25,9 +25,9 @@ const pages = [
 
 describe('Index building', () => {
   beforeEach(() => {
-    index.rebuildPagesIndex();
     sinon.stub(fs, 'readJson').rejects('dummy error');
     sinon.stub(fs, 'writeJson').resolves('');
+    return index.rebuildPagesIndex();
   });
 
   describe('failure', () => {
