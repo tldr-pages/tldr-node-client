@@ -4,7 +4,7 @@ node_js:
   - "6"
   - "7"
   - "8"
-  - "stable"
+  # - "stable"
 script:
   - npm run test:all
 cache:
