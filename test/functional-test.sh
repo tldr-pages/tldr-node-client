@@ -14,8 +14,7 @@ function tldr-render-pages {
   tldr --list-all
 }
 
-tldr --update && \
-  tldr-render-pages && \
+tldr --render $HOME/.tldr/cache/pages/common/ssh.md && \
+tldr --update && tldr-render-pages && \
 tldr --clear-cache && \
-tldr --update && \
-  tldr-render-pages
+tldr --update && tldr-render-pages
