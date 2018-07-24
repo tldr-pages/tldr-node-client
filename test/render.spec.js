@@ -2,12 +2,25 @@
 
 const render = require('../lib/render');
 const config = require('../lib/config');
+const sinon = require('sinon');
 
 describe('Render', () => {
 
   beforeEach(() => {
-    config.reset();
-    config.get().theme = 'base16';
+    sinon.stub(config, 'reset');
+    config.reset.returns(`{
+      "base16": {
+        "commandName": "bold",
+        "mainDescription": "",
+        "exampleDescription": "green",
+        "exampleCode": "red",
+        "exampleToken": "cyan"
+      }
+    }`);
+  });
+
+  afterEach(() => {
+    config.reset.restore();
   });
 
   it('surrounds the output with blank lines', () => {
