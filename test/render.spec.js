@@ -7,20 +7,22 @@ const sinon = require('sinon');
 describe('Render', () => {
 
   beforeEach(() => {
-    sinon.stub(config, 'reset');
-    config.reset.returns(`{
-      "base16": {
-        "commandName": "bold",
-        "mainDescription": "",
-        "exampleDescription": "green",
-        "exampleCode": "red",
-        "exampleToken": "cyan"
-      }
-    }`);
+    sinon.stub(config, 'get').returns({
+      'themes': {
+        'base16': {
+          'commandName': 'bold',
+          'mainDescription': '',
+          'exampleDescription': 'green',
+          'exampleCode': 'red',
+          'exampleToken': 'cyan'
+        }
+      },
+      'theme': 'base16'
+    });
   });
 
   afterEach(() => {
-    config.reset.restore();
+    config.get.restore();
   });
 
   it('surrounds the output with blank lines', () => {
