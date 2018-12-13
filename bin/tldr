@@ -88,7 +88,7 @@ if (program.list) {
 } else if (program.listAll) {
   tldr.listAll(program.singleColumn);
 } else if (program.random) {
-  tldr.random();
+  tldr.random(program);
 } else if (program.randomExample) {
   tldr.randomExample();
 } else if (program.clearCache) {
