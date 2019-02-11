@@ -1,7 +1,7 @@
 # tldr-node-client
 
 [![NPM version][npm-image]][npm-url]
-[![Travs CI Build Status][travis-image]][travis-url]
+[![Travis CI Build Status][travis-image]][travis-url]
 [![AppVeyor CI Build status][appveyor-image]][appveyor-url]
 [![Gitter chat][gitter-image]][gitter-url]
 [![Snap Status](https://build.snapcraft.io/badge/tldr-pages/tldr-node-client.svg)](https://build.snapcraft.io/user/tldr-pages/tldr-node-client)
