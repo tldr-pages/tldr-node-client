@@ -1,9 +1,15 @@
 sudo: false
 language: node_js
+os:
+  - "osx"
+  - "linux"
+  - "windows"
 node_js:
   - "7"
   - "8"
   - "9"
+  - "10"
+  - "11"
   - "stable"
 script:
   - npm run test:all
