@@ -1,25 +1,22 @@
 'use strict';
 
-const fs = require('fs');
+const assert = require('assert');
+const fs = require('fs-extra');
 const sinon = require('sinon');
 const config = require('../lib/config');
 
 describe('Config', () => {
 
-  const DEFAULT =
-`
-{
-  "repository": "http://tldr-pages.github.io/assets/tldr.zip"
-}`;
+  const DEFAULT_CFG = {
+    repository: 'http://tldr-pages.github.io/assets/tldr.zip'
+  };
 
-  const CUSTOM =
-`
-{
-  "repository": "http://myrepo/assets/tldr.zip"
-}`;
+  const CUSTOM_CFG = {
+    repository: 'http://myrepo/assets/tldr.zip'
+  };
 
   const CUSTOM_INVALID =
-`
+    `
 {
   "themes": {
     "simple": {
@@ -43,21 +40,28 @@ describe('Config', () => {
   });
 
   it('should load the default config', () => {
-    fs.readFileSync.onCall(0).returns(DEFAULT);
-    fs.readFileSync.onCall(1).throws('Not found');
-    config.get().repository.should.eql('http://tldr-pages.github.io/assets/tldr.zip');
+    fs.readFileSync.onCall(0).returns(JSON.stringify(DEFAULT_CFG));
+    const err = new Error('Not found');
+    err.code = 'ENOENT';
+    fs.readFileSync.onCall(1).throws(err);
+    const result = config.get().repository;
+    assert.strictEqual(result, DEFAULT_CFG.repository);
   });
 
   it('should override the defaults with content from .tldrrc', () => {
-    fs.readFileSync.onCall(0).returns(DEFAULT);
-    fs.readFileSync.onCall(1).returns(CUSTOM);
-    config.get().repository.should.eql('http://myrepo/assets/tldr.zip');
+    fs.readFileSync.onCall(0).returns(JSON.stringify(DEFAULT_CFG));
+    fs.readFileSync.onCall(1).returns(JSON.stringify(CUSTOM_CFG));
+
+    const result = config.get().repository;
+    assert.strictEqual(result, CUSTOM_CFG.repository);
   });
 
   it('should validate the custom config format', () => {
-    fs.readFileSync.onCall(0).returns(DEFAULT);
+    fs.readFileSync.onCall(0).returns(JSON.stringify(DEFAULT_CFG));
     fs.readFileSync.onCall(1).returns(CUSTOM_INVALID);
-    config.get.should.throw(/Invalid theme value/);
+    assert.throws(() => {
+      config.get();
+    }, /Invalid theme value/);
   });
 
 });

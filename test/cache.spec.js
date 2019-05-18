@@ -39,7 +39,7 @@ describe('Cache', () => {
         return cache.update();
       })).then(() => {
         let calls = fs.ensureDir.getCalls().filter((call) => {
-          return !call.calledWith(cache.CACHE_FOLDER);
+          return !call.calledWith(cache.getCacheFolder());
         });
         calls.should.have.length(count);
         let tempFolders = calls.map((call) => {
@@ -52,7 +52,7 @@ describe('Cache', () => {
     it('should remove temp folder after cache gets updated', () => {
       return cache.update().then(() => {
         let createFolder = fs.ensureDir.getCalls().find((call) => {
-          return !call.calledWith(cache.CACHE_FOLDER);
+          return !call.calledWith(cache.getCacheFolder());
         });
         let removeFolder = fs.remove.getCall(0);
         removeFolder.args[0].should.be.equal(createFolder.args[0]);
