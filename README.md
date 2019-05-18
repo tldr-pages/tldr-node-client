@@ -46,8 +46,8 @@ To see tldr pages:
 - `tldr --random` show a page at random
 - `tldr --random-example` show a single random example
 - `tldr --markdown` show the original markdown format page
+- `tldr --config-file <path>` load a custom config file (default ~/.tldrrc)')
 
-The client caches a copy of all pages locally, in `~/.tldr`.
 There are more commands to control the local cache:
 
 - `tldr --update` download the latest pages and generate search index
@@ -60,6 +60,8 @@ As a contributor, you might also need the following commands:
 ## Configuration
 
 You can configure the `tldr` client by adding a `.tldrrc` file in your HOME directory. You can copy the contents of the `config.json` file from the repo to get the basic structure to start with, and modify it to suit your needs.
+
+### Themes
 
 The default color theme is the one named `"simple"`. You can change the theme by assigning a different value to the `"theme"` variable -- either to one of the pre-configured themes, or to a new theme that you have previously created in the `"themes"` section. Note that the colors and text effects you can choose are limited. Refer to the [chalk documentation](https://github.com/chalk/chalk#styles) for all options.
 
@@ -83,7 +85,21 @@ The default color theme is the one named `"simple"`. You can change the theme by
   },
   "theme": "ocean"
 }
+
 ```
+
+### Cache
+
+The client caches a copy of all pages locally, in `~/.tldr`,
+this line in the config file will override the default behaviour:
+
+```json
+{
+  "cache": "/path/to/cache"
+}
+```
+
+### Platforms
 
 If you regularly need pages for a different platform (e.g. Linux),
 you can put it in the config file:
@@ -106,6 +122,20 @@ As a contributor, you can also point to your own fork containing the `tldr.zip` 
 {
   "repository" : "http://myrepo/assets/tldr.zip",
 }
+```
+
+### Custom config file
+
+You can have differents config files and choose which one to use at runtime with the option:
+
+```bash
+tldr --config-file ".mytldrrc"
+```
+
+For practical use you can define an alias:
+
+```bash
+alias mytldr='tldr --config-file ".mytldrrc"'
 ```
 
 ## Command-line Autocompletion
