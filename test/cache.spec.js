@@ -39,7 +39,8 @@ describe('Cache', () => {
         return cache.update();
       })).then(() => {
         let calls = fs.ensureDir.getCalls().filter((call) => {
-          return !call.calledWith(cache.getCacheFolder());
+          const cacheFolder = cache.getCacheFolder();
+          return !call.calledWith(cacheFolder);
         });
         calls.should.have.length(count);
         let tempFolders = calls.map((call) => {
