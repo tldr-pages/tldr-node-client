@@ -21,6 +21,6 @@ tldr --update && tldr-render-pages && \
 tldr --clear-cache && \
 tldr --update && tldr-render-pages
 
-option="--config-file ./test/.mytldrrc"
+option="--config ./test/.mytldrrc"
 rm -rf ./tmp
 tldr-render-pages

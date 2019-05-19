@@ -46,7 +46,7 @@ To see tldr pages:
 - `tldr --random` show a page at random
 - `tldr --random-example` show a single random example
 - `tldr --markdown` show the original markdown format page
-- `tldr --config-file <path>` load a custom config file (default ~/.tldrrc)')
+- `tldr --config <path>` load a custom config file (default ~/.tldrrc)')
 
 There are more commands to control the local cache:
 
@@ -129,13 +129,13 @@ As a contributor, you can also point to your own fork containing the `tldr.zip` 
 You can have differents config files and choose which one to use at runtime with the option:
 
 ```bash
-tldr --config-file ".mytldrrc"
+tldr --config ".mytldrrc"
 ```
 
 For practical use you can define an alias:
 
 ```bash
-alias mytldr='tldr --config-file ".mytldrrc"'
+alias mytldr='tldr --config ".mytldrrc"'
 ```
 
 ## Command-line Autocompletion

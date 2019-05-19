@@ -13,7 +13,7 @@ program
   //
   // BASIC OPTIONS
   //
-  .option('--config-file <path>', 'Load a custom config file (default ~/.tldrrc)')
+  .option('--config <path>', 'Load a custom config file (default ~/.tldrrc)')
   .option('-l, --list', 'List all commands for the chosen platform in the cache')
   .option('-a, --list-all', 'List all commands in the cache')
   .option('-1, --single-column', 'List single command per line (use with options -l or -a)')
@@ -43,7 +43,7 @@ const help = `
     $ tldr --list-all
     $ tldr --random
     $ tldr --random-example
-    $ tldr --config-file ".mytldrrc" tar
+    $ tldr --config ".mytldrrc" tar
 
   To control the cache:
 
@@ -61,8 +61,8 @@ program.on('--help', () => {
 
 program.parse(process.argv);
 
-if (program.configFile) {
-  config.set(program.configFile);
+if (program.config) {
+  config.set(program.config);
 }
 
 if (program.linux) {
