@@ -35,8 +35,6 @@
     "test": "test"
   },
   "scripts": {
-    "precommit": "npm run lint && npm run test:quiet",
-    "prepush": "npm run test:quiet",
     "start": "node ./bin/tldr",
     "example": "node ./bin/tldr tar",
     "test": "mocha test --require=env-test",
@@ -67,5 +65,11 @@
     "mocha": "^4.0.1",
     "should": "^13.2.3",
     "sinon": "^7.3.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run test:quiet",
+      "pre-push": "npm run test:quiet"
+    }
   }
 }
