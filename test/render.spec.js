@@ -3,6 +3,7 @@
 const render = require('../lib/render');
 const config = require('../lib/config');
 const sinon = require('sinon');
+const should = require('should');
 
 describe('Render', () => {
 
@@ -22,7 +23,7 @@ describe('Render', () => {
   });
 
   afterEach(() => {
-    config.get.restore();
+    sinon.restore();
   });
 
   it('surrounds the output with blank lines', () => {
@@ -84,5 +85,29 @@ describe('Render', () => {
       ]
     });
     text.should.containEql('See also: lsb_release, sudo');
+  });
+
+  it('should return an error for invalid theme', () => {
+    config.get.restore();
+    sinon.stub(config, 'get').returns({
+      'themes': {
+        'base16': {
+          'commandName': 'bold',
+          'mainDescription': '',
+          'exampleDescription': 'green',
+          'exampleCode': 'red',
+          'exampleToken': 'cyan'
+        }
+      },
+      'theme': 'bad'
+    });
+
+    let spy = sinon.spy(console, 'error');
+    let text = render.toANSI({
+      name: 'tar',
+      description: 'archive utility',
+    });
+    should.not.exist(text);
+    spy.getCall(0).args[0].should.equal('invalid theme: bad');
   });
 });
