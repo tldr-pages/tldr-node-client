@@ -4,9 +4,9 @@ os:
   - "osx"
   - "linux"
 node_js:
-  - "9"
   - "10"
   - "11"
+  - "12"
   - "stable"
 script:
   - npm run test:all
