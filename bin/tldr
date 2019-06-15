@@ -13,6 +13,7 @@ program
   //
   // BASIC OPTIONS
   //
+  .option('-c, --config [path]', 'Load a custom config file (default ~/.tldrrc)')
   .option('-l, --list', 'List all commands for the chosen platform in the cache')
   .option('-a, --list-all', 'List all commands in the cache')
   .option('-1, --single-column', 'List single command per line (use with options -l or -a)')
@@ -58,6 +59,10 @@ program.on('--help', () => {
 });
 
 program.parse(process.argv);
+
+if (program.config) {
+  config.set(program.config);
+}
 
 if (program.linux) {
   program.os = 'linux';
