@@ -147,11 +147,11 @@ fpath = (my/completions $fpath)
 
 - If you are trying to install as non-root user (`npm install -g tldr`) and get something like - 
  
- ```
- Error: EACCES: permission denied, access '/usr/local/lib/node_modules/tldr'
- ```
+```
+Error: EACCES: permission denied, access '/usr/local/lib/node_modules/tldr'
+```
  
- Then most probably your npm's default installation directory has improper permissions. You can resolve it by clicking [here](https://docs.npmjs.com/getting-started/fixing-npm-permissions)
+Then most probably your npm's default installation directory has improper permissions. You can resolve it by clicking [here](https://docs.npmjs.com/getting-started/fixing-npm-permissions)
  
 - If you are trying to install as a root user (`sudo npm install -g tldr`) and get something like - 
 
@@ -192,7 +192,7 @@ Meanwhile, you can do one of the following to fix this issue:
 ```bash
 tldr_path="$(which tldr)"
 function tldr() {
-	eval "$tldr_path" $@ "--color"
+  eval "$tldr_path" $@ "--color"
 }
 ```
 * Add `alias tldr="tldr --color=true"` to your shell's rc file.

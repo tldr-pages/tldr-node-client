@@ -102,7 +102,7 @@ describe('Render', () => {
       'theme': 'bad'
     });
 
-    let spy = sinon.spy(console, 'error');
+    let spy = sinon.stub(console, 'error');
     let text = render.toANSI({
       name: 'tar',
       description: 'archive utility',

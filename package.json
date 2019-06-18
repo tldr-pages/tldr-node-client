@@ -18,17 +18,16 @@
   ],
   "homepage": "http://tldr-pages.github.io",
   "engines": {
-    "node": ">=6.12.0"
+    "node": ">=8.16.0"
   },
-  "main": "bin/tldr",
+  "main": "lib/tldr.js",
   "files": [
-    "bin",
-    "config.json",
     "lib",
-    "LICENSE.md"
+    "bin",
+    "config.json"
   ],
   "bin": {
-    "tldr": "./bin/tldr"
+    "tldr": "./bin/cli.js"
   },
   "preferGlobal": true,
   "directories": {
@@ -38,8 +37,8 @@
     "start": "node ./bin/tldr",
     "example": "node ./bin/tldr tar",
     "test": "mocha test --require=env-test",
-    "test:quiet": "npm test --reporter=dot",
-    "lint": "eslint lib test bin/tldr",
+    "test:quiet": "npm test -- --reporter=dot",
+    "lint": "eslint .",
     "watch": "mocha test --require=env-test --reporter=min --watch --growl",
     "test:functional": "bash test/functional-test.sh",
     "test:all": "npm run lint && npm test && npm run test:functional"
