@@ -2,7 +2,7 @@
 
 shopt -s expand_aliases
 
-alias tldr="node bin/tldr"
+alias tldr="node bin/cli.js"
 
 function tldr-render-pages {
   tldr zip && \
