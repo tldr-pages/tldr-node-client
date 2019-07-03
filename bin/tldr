@@ -79,7 +79,6 @@ if (program.os) {
 }
 
 if (program.theme) {
-  // TODO: Validate theme
   config.get().theme = program.theme;
 }
 
