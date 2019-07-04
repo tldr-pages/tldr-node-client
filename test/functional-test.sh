@@ -8,6 +8,8 @@ function tldr-render-pages {
   tldr zip && \
   tldr du --os=linux && \
   tldr du --os=osx && \
+  tldr du --os=linux --markdown && \
+  tldr du --os=osx --markdown && \
   tldr --random && \
   tldr --random-example && \
   tldr --list && \
