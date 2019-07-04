@@ -1,8 +1,10 @@
 'use strict';
 
 const cache = require('../lib/cache');
+const config = require('../lib/config');
 const should = require('should');
 const sinon = require('sinon');
+const path = require('path');
 const fs = require('fs-extra');
 const index = require('../lib/index');
 const remote = require('../lib/remote');
@@ -35,11 +37,12 @@ describe('Cache', () => {
 
     it('should use randomly created temp folder', () => {
       const count = 16;
+      const cacheFolder = path.join(config.get().cache, 'cache');
       return Promise.all(Array.from({ length: count }).map(() => {
         return cache.update();
       })).then(() => {
         let calls = fs.ensureDir.getCalls().filter((call) => {
-          return !call.calledWith(cache.CACHE_FOLDER);
+          return !call.calledWith(cacheFolder);
         });
         calls.should.have.length(count);
         let tempFolders = calls.map((call) => {
@@ -50,9 +53,10 @@ describe('Cache', () => {
     });
 
     it('should remove temp folder after cache gets updated', () => {
+      const cacheFolder = path.join(config.get().cache, 'cache');
       return cache.update().then(() => {
         let createFolder = fs.ensureDir.getCalls().find((call) => {
-          return !call.calledWith(cache.CACHE_FOLDER);
+          return !call.calledWith(cacheFolder);
         });
         let removeFolder = fs.remove.getCall(0);
         removeFolder.args[0].should.be.equal(createFolder.args[0]);
