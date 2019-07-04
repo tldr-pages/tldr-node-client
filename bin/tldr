@@ -2,7 +2,7 @@
 
 const program = require('commander');
 const pkg = require('../package');
-const tldr = require('../lib/tldr');
+const Tldr = require('../lib/tldr');
 const config = require('../lib/config');
 const platform = require('../lib/platform');
 
@@ -71,16 +71,18 @@ if (program.sunos) {
   program.os = 'sunos';
 }
 
-
+let cfg = config.get();
 if (program.os) {
   if (platform.isSupported(program.os)) {
-    config.get().platform = program.os;
+    cfg.platform = program.os;
   }
 }
 
 if (program.theme) {
-  config.get().theme = program.theme;
+  cfg.theme = program.theme;
 }
+
+const tldr = new Tldr(cfg);
 
 if (program.list) {
   tldr.list(program.singleColumn);

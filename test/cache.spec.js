@@ -1,6 +1,6 @@
 'use strict';
 
-const cache = require('../lib/cache');
+const Cache = require('../lib/cache');
 const config = require('../lib/config');
 const should = require('should');
 const sinon = require('sinon');
@@ -16,6 +16,7 @@ describe('Cache', () => {
     // To allow setting timeout of 30 secs
     // eslint-disable-next-line no-magic-numbers
     this.timeout(30000);
+    const cache = new Cache(config.get());
     return cache.update()
       .then(() => {
         return cache.lastUpdated();
@@ -33,16 +34,17 @@ describe('Cache', () => {
       sinon.stub(fs, 'copy').resolves();
       sinon.stub(remote, 'download').resolves();
       sinon.stub(index, 'rebuildPagesIndex').resolves();
+      this.cacheFolder = path.join(config.get().cache, 'cache');
     });
 
     it('should use randomly created temp folder', () => {
       const count = 16;
-      const cacheFolder = path.join(config.get().cache, 'cache');
+      const cache = new Cache(config.get());
       return Promise.all(Array.from({ length: count }).map(() => {
         return cache.update();
       })).then(() => {
         let calls = fs.ensureDir.getCalls().filter((call) => {
-          return !call.calledWith(cacheFolder);
+          return !call.calledWith(this.cacheFolder);
         });
         calls.should.have.length(count);
         let tempFolders = calls.map((call) => {
@@ -53,10 +55,10 @@ describe('Cache', () => {
     });
 
     it('should remove temp folder after cache gets updated', () => {
-      const cacheFolder = path.join(config.get().cache, 'cache');
+      const cache = new Cache(config.get());
       return cache.update().then(() => {
         let createFolder = fs.ensureDir.getCalls().find((call) => {
-          return !call.calledWith(cacheFolder);
+          return !call.calledWith(this.cacheFolder);
         });
         let removeFolder = fs.remove.getCall(0);
         removeFolder.args[0].should.be.equal(createFolder.args[0]);
@@ -94,6 +96,7 @@ describe('Cache', () => {
       sinon.stub(fs, 'readFile').resolves('# ls\n> ls page');
       sinon.stub(platform, 'getPreferredPlatformFolder').returns('osx');
       sinon.stub(index, 'findPlatform').resolves('osx');
+      const cache = new Cache(config.get());
       return cache.getPage('ls')
         .then((content) => {
           should.exist(content);
@@ -108,6 +111,7 @@ describe('Cache', () => {
       sinon.stub(fs, 'readFile').resolves('# svcs\n> svcs');
       sinon.stub(platform, 'getPreferredPlatformFolder').returns('osx');
       sinon.stub(index, 'findPlatform').resolves(null);
+      const cache = new Cache(config.get());
       return cache.getPage('svc')
         .then((content) => {
           should.not.exist(content);
@@ -121,6 +125,7 @@ describe('Cache', () => {
       sinon.stub(fs, 'readFile').resolves('# svcs\n> svcs');
       sinon.stub(platform, 'getPreferredPlatformFolder').returns('sunos');
       sinon.stub(index, 'findPlatform').resolves('svcs');
+      const cache = new Cache(config.get());
       return cache.getPage('svcs')
         .then((content) => {
           should.exist(content);
@@ -132,6 +137,7 @@ describe('Cache', () => {
     });
 
     it('should return empty contents for non-existing page', () => {
+      const cache = new Cache(config.get());
       return cache.getPage('qwerty')
         .then((content) => {
           return should.not.exist(content);
