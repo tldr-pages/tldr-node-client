@@ -35,7 +35,6 @@ describe('Config', () => {
 
   beforeEach(() => {
     sinon.stub(fs, 'readFileSync');
-    config.reset();
   });
 
   afterEach(() => {
