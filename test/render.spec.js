@@ -1,14 +1,13 @@
 'use strict';
 
 const render = require('../lib/render');
-const config = require('../lib/config');
 const sinon = require('sinon');
 const should = require('should');
 
 describe('Render', () => {
 
   beforeEach(() => {
-    sinon.stub(config, 'get').returns({
+    this.config = {
       'themes': {
         'base16': {
           'commandName': 'bold',
@@ -19,7 +18,7 @@ describe('Render', () => {
         }
       },
       'theme': 'base16'
-    });
+    };
   });
 
   afterEach(() => {
@@ -31,7 +30,7 @@ describe('Render', () => {
       name: 'tar',
       description: 'archive utility',
       examples: []
-    });
+    }, this.config);
     text.should.startWith('\n');
     text.should.endWith('\n');
   });
@@ -41,7 +40,7 @@ describe('Render', () => {
       name: 'tar',
       description: 'archive utility',
       examples: []
-    });
+    }, this.config);
     text.should.containEql('tar');
     text.should.containEql('archive utility');
   });
@@ -51,7 +50,7 @@ describe('Render', () => {
       name: 'tar',
       description: 'archive utility\nwith support for compression',
       examples: []
-    });
+    }, this.config);
     text.should.containEql('archive utility');
     text.should.containEql('with support for compression');
   });
@@ -64,7 +63,7 @@ describe('Render', () => {
         description: 'create',
         code: 'hello {{token}} bye'
       }]
-    });
+    }, this.config);
     text.should.containEql('hello ');
     text.should.containEql('token');
     text.should.containEql(' bye');
@@ -83,13 +82,12 @@ describe('Render', () => {
         'lsb_release',
         'sudo'
       ]
-    });
+    }, this.config);
     text.should.containEql('See also: lsb_release, sudo');
   });
 
   it('should return an error for invalid theme', () => {
-    config.get.restore();
-    sinon.stub(config, 'get').returns({
+    const config = {
       'themes': {
         'base16': {
           'commandName': 'bold',
@@ -100,13 +98,13 @@ describe('Render', () => {
         }
       },
       'theme': 'bad'
-    });
+    };
 
     let spy = sinon.spy(console, 'error');
     let text = render.toANSI({
       name: 'tar',
       description: 'archive utility',
-    });
+    }, config);
     should.not.exist(text);
     spy.getCall(0).args[0].should.equal('invalid theme: bad');
   });
