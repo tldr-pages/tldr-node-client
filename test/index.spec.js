@@ -7,20 +7,24 @@ const sinon = require('sinon');
 const should = require('should');
 
 const pages = [
-  'index.json',
-  'common/cp.md',
-  'common/git.md',
-  'common/ln.md',
-  'common/ls.md',
-  'linux/dd.md',
-  'linux/du.md',
-  'linux/top.md',
-  'osx/dd.md',
-  'osx/du.md',
-  'osx/top.md',
-  'sunos/dd.md',
-  'sunos/du.md',
-  'sunos/svcs.md'
+  '/index.json',
+  '/pages/linux/apk.md',
+  '/pages.zh/linux/apk.md',
+  '/pages/common/cp.md',
+  '/pages.it/common/cp.md',
+  '/pages.ta/common/cp.md',
+  '/pages/common/git.md',
+  '/pages/common/ln.md',
+  '/pages/common/ls.md',
+  '/pages/linux/dd.md',
+  '/pages/linux/du.md',
+  '/pages/linux/top.md',
+  '/pages/osx/dd.md',
+  '/pages/osx/du.md',
+  '/pages/osx/top.md',
+  '/pages/sunos/dd.md',
+  '/pages/sunos/du.md',
+  '/pages/sunos/svcs.md'
 ];
 
 describe('Index building', () => {
@@ -73,30 +77,67 @@ describe('Index', () => {
     fs.writeJson.restore();
   });
 
-  describe('findPlatform()', () => {
-    it('should find Linux platform for dd command', () => {
-      return index.findPlatform('dd', 'linux')
+  describe('findPage()', () => {
+    it('should find Linux platform for apk command for Chinese', () => {
+      return index.findPage('apk', 'linux', 'zh')
         .then((folder) => {
-          return folder.should.equal('linux');
+          return folder.should.equal('pages.zh/linux');
         });
     });
 
-    it('should find platform common for cp command', () => {
-      return index.findPlatform('cp', 'linux')
+    it('should find Linux platform for dd command', () => {
+      return index.findPage('dd', 'linux', 'en')
         .then((folder) => {
-          return folder.should.equal('common');
+          return folder.should.equal('pages/linux');
+        });
+    });
+
+    it('should find platform common for cp command for English', () => {
+      return index.findPage('cp', 'linux', 'en')
+        .then((folder) => {
+          return folder.should.equal('pages/common');
+        });
+    });
+
+    it('should find platform common for cp command for Tamil', () => {
+      return index.findPage('cp', 'linux', 'ta')
+        .then((folder) => {
+          return folder.should.equal('pages.ta/common');
+        });
+    });
+
+    it('should find platform common for cp command for Italian', () => {
+      return index.findPage('cp', 'linux', 'it')
+        .then((folder) => {
+          return folder.should.equal('pages.it/common');
+        });
+    });
+
+
+    it('should find platform common for cp command for Italian given common platform', () => {
+      return index.findPage('cp', 'common', 'it')
+        .then((folder) => {
+          return folder.should.equal('pages.it/common');
+        });
+    });
+
+
+    it('should find platform common for cp command for English given a bad language', () => {
+      return index.findPage('cp', 'linux', 'notexist')
+        .then((folder) => {
+          return folder.should.equal('pages/common');
         });
     });
 
     it('should not find platform for svcs command on Linux', () => {
-      return index.findPlatform('svcs', 'linux')
+      return index.findPage('svcs', 'linux', 'en')
         .then((folder) => {
           return should.not.exist(folder);
         });
     });
 
     it('should not find platform for non-existing command', () => {
-      return index.findPlatform('qwerty', 'linux')
+      return index.findPage('qwerty', 'linux', 'en')
         .then((folder) => {
           return should.not.exist(folder);
         });
@@ -107,7 +148,7 @@ describe('Index', () => {
     return index.commands()
       .then((commands) => {
         commands.should.deepEqual([
-          'cp', 'dd', 'du', 'git', 'ln', 'ls', 'svcs', 'top'
+          'apk', 'cp', 'dd', 'du', 'git', 'ln', 'ls', 'svcs', 'top'
         ]);
       });
   });
@@ -117,7 +158,7 @@ describe('Index', () => {
       return index.commandsFor('linux')
         .then((commands) => {
           commands.should.deepEqual([
-            'cp', 'dd', 'du', 'git', 'ln', 'ls', 'top'
+            'apk', 'cp', 'dd', 'du', 'git', 'ln', 'ls', 'top'
           ]);
         });
     });
@@ -145,14 +186,15 @@ describe('Index', () => {
     return index.getShortIndex()
       .then((idx) => {
         idx.should.deepEqual({
-          cp: ['common'],
-          git: ['common'],
-          ln: ['common'],
-          ls: ['common'],
-          dd: ['linux', 'osx', 'sunos'],
-          du: ['linux', 'osx', 'sunos'],
-          top: ['linux', 'osx'],
-          svcs: ['sunos']
+          apk: {languages: ['en', 'zh'], platforms: ['linux']},
+          cp: {languages: ['en', 'it', 'ta'], platforms: ['common']},
+          git: {languages: ['en'], platforms: ['common']},
+          ln: {languages: ['en'], platforms: ['common']},
+          ls: {languages: ['en'], platforms: ['common']},
+          dd: {languages: ['en'], platforms: ['linux', 'osx', 'sunos']},
+          du: {languages: ['en'], platforms: ['linux', 'osx', 'sunos']},
+          top: {languages: ['en'], platforms: ['linux', 'osx']},
+          svcs: {languages: ['en'], platforms: ['sunos']},
         });
       });
   });

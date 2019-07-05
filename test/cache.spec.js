@@ -95,7 +95,7 @@ describe('Cache', () => {
     it('should return page contents for ls', () => {
       sinon.stub(fs, 'readFile').resolves('# ls\n> ls page');
       sinon.stub(platform, 'getPreferredPlatformFolder').returns('osx');
-      sinon.stub(index, 'findPlatform').resolves('osx');
+      sinon.stub(index, 'findPage').resolves('osx');
       const cache = new Cache(config.get());
       return cache.getPage('ls')
         .then((content) => {
@@ -103,28 +103,28 @@ describe('Cache', () => {
           content.should.startWith('# ls');
           fs.readFile.restore();
           platform.getPreferredPlatformFolder.restore();
-          index.findPlatform.restore();
+          index.findPage.restore();
         });
     });
 
     it('should return empty contents for svcs on OSX', () =>{
       sinon.stub(fs, 'readFile').resolves('# svcs\n> svcs');
       sinon.stub(platform, 'getPreferredPlatformFolder').returns('osx');
-      sinon.stub(index, 'findPlatform').resolves(null);
+      sinon.stub(index, 'findPage').resolves(null);
       const cache = new Cache(config.get());
       return cache.getPage('svc')
         .then((content) => {
           should.not.exist(content);
           fs.readFile.restore();
           platform.getPreferredPlatformFolder.restore();
-          index.findPlatform.restore();
+          index.findPage.restore();
         });
     });
 
     it('should return page contents for svcs on SunOS', () => {
       sinon.stub(fs, 'readFile').resolves('# svcs\n> svcs');
       sinon.stub(platform, 'getPreferredPlatformFolder').returns('sunos');
-      sinon.stub(index, 'findPlatform').resolves('svcs');
+      sinon.stub(index, 'findPage').resolves('svcs');
       const cache = new Cache(config.get());
       return cache.getPage('svcs')
         .then((content) => {
@@ -132,7 +132,7 @@ describe('Cache', () => {
           content.should.startWith('# svcs');
           fs.readFile.restore();
           platform.getPreferredPlatformFolder.restore();
-          index.findPlatform.restore();
+          index.findPage.restore();
         });
     });
 
