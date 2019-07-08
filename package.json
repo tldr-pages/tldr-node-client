@@ -45,6 +45,7 @@
     "test:all": "npm run lint && npm test && npm run test:functional"
   },
   "dependencies": {
+    "bcp-47": "^1.0.5",
     "chalk": "^2.4.2",
     "commander": "^2.20.0",
     "fs-extra": "^8.0.1",
