@@ -31,6 +31,8 @@ If you want to help testing the latest changes, and get the newer features earli
 sudo snap install tldr --edge
 ```
 
+Note that the snap package is not fully tested and supported. It may be likely you encounter issues while using it. It is recommended to use the npm package instead.
+
 ## Usage
 
 To see tldr pages:
