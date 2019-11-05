@@ -5,7 +5,7 @@ description: |
   Node.js command line client for TLDR-pages
 
 grade: stable
-confinement: classic
+confinement: strict
 
 apps:
   tldr:
