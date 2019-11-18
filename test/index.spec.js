@@ -85,6 +85,13 @@ describe('Index', () => {
         });
     });
 
+    it('should find Linux platform for apk command for Chinese given Windows', () => {
+      return index.findPage('apk', 'windows', 'zh')
+        .then((folder) => {
+          return folder.should.equal('pages.zh/linux');
+        });
+    });
+
     it('should find Linux platform for dd command', () => {
       return index.findPage('dd', 'linux', 'en')
         .then((folder) => {
@@ -113,6 +120,19 @@ describe('Index', () => {
         });
     });
 
+    it('should find platform common for cp command for Italian given Windows', () => {
+      return index.findPage('cp', 'windows', 'it')
+        .then((folder) => {
+          return folder.should.equal('pages.it/common');
+        });
+    });
+
+    it('should find platform common for ls command for Italian', () => {
+      return index.findPage('ls', 'linux', 'it')
+        .then((folder) => {
+          return folder.should.equal('pages/common');
+        });
+    });
 
     it('should find platform common for cp command for Italian given common platform', () => {
       return index.findPage('cp', 'common', 'it')
@@ -121,7 +141,6 @@ describe('Index', () => {
         });
     });
 
-
     it('should find platform common for cp command for English given a bad language', () => {
       return index.findPage('cp', 'linux', 'notexist')
         .then((folder) => {
@@ -129,10 +148,10 @@ describe('Index', () => {
         });
     });
 
-    it('should not find platform for svcs command on Linux', () => {
+    it('should find platform for svcs command on Linux', () => {
       return index.findPage('svcs', 'linux', 'en')
         .then((folder) => {
-          return should.not.exist(folder);
+          return folder.should.equal('pages/sunos');
         });
     });
 
@@ -186,15 +205,15 @@ describe('Index', () => {
     return index.getShortIndex()
       .then((idx) => {
         idx.should.deepEqual({
-          apk: {languages: ['en', 'zh'], platforms: ['linux']},
-          cp: {languages: ['en', 'it', 'ta'], platforms: ['common']},
-          git: {languages: ['en'], platforms: ['common']},
-          ln: {languages: ['en'], platforms: ['common']},
-          ls: {languages: ['en'], platforms: ['common']},
-          dd: {languages: ['en'], platforms: ['linux', 'osx', 'sunos']},
-          du: {languages: ['en'], platforms: ['linux', 'osx', 'sunos']},
-          top: {languages: ['en'], platforms: ['linux', 'osx']},
-          svcs: {languages: ['en'], platforms: ['sunos']},
+          apk: {targets: [{language: 'en', os: 'linux'}, {language: 'zh', os: 'linux'}]},
+          cp: {targets: [{language: 'en', os: 'common'}, {language: 'it', os: 'common'}, {language: 'ta', os: 'common'}]},
+          dd: {targets: [{language: 'en', os: 'linux'}, {language: 'en', os: 'osx'}, {language: 'en', os: 'sunos'}]},
+          du: {targets: [{language: 'en', os: 'linux'}, {language: 'en', os: 'osx'}, {language: 'en', os: 'sunos'}]},
+          git: {targets: [{language: 'en', os: 'common'}]},
+          ln: {targets: [{language: 'en', os: 'common'}]},
+          ls: {targets: [{language: 'en', os: 'common'}]},
+          svcs: {targets: [{language: 'en', os: 'sunos'}]},
+          top: {targets: [{language: 'en', os: 'linux'}, {language: 'en', os: 'osx'}]},
         });
       });
   });
