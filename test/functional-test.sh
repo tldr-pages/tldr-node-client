@@ -10,8 +10,8 @@ function tldr-render-pages {
   tldr du --os=osx && \
   tldr du --os=linux --markdown && \
   tldr du --os=osx --markdown && \
-  unset LANG tldr --random && \
-  unset LANG tldr --random-example && \
+  LANG= tldr --random && \
+  LANG= tldr --random-example && \
   tldr --list && \
   tldr --list-all
 }
