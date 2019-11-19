@@ -61,6 +61,8 @@ As a contributor, you might also need the following commands:
 
 Tldr pages defaults to showing pages in the current language of the operating system, or English if that's not available. To view tldr pages for a different language, set an environment variable `LANG` containing a valid [POSIX locale](https://www.gnu.org/software/gettext/manual/html_node/Locale-Names.html#Locale-Names) (such as `zh`, `pt_BR`, or `fr`) and then run the above commands as usual. In most `*nix` systems, this variable will already be set.
 
+It is suggested that the `LANG` environment variable be set system-wide if this isn't already the case. Users without `sudo` access can set it locally in their `~/.profile`.
+
 - `LANG=zh tldr <command>`
 
 For the list of available translations, please refer to the main [tldr](https://github.com/tldr-pages/tldr) repo.
