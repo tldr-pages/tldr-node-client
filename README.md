@@ -59,7 +59,9 @@ As a contributor, you might also need the following commands:
 
 - `tldr --render <path>` render a local page for testing purposes
 
-To view tldr pages for a different language, set an environment variable `LANG` containing a valid [BCP-47](https://tools.ietf.org/html/bcp47) code (such as `zh`, `pt-BR`, or `fr`) and then run the above commands as usual. For the list of available translations, please refer to the main [tldr](https://github.com/tldr-pages/tldr) repo.
+To view tldr pages for a different language, set an environment variable `LANG` containing a valid [POSIX locale](https://www.gnu.org/software/gettext/manual/html_node/Locale-Names.html#Locale-Names) (such as `zh`, `pt_BR`, or `fr`) and then run the above commands as usual. In most `*nix` systems, this variable will already be set.
+
+For the list of available translations, please refer to the main [tldr](https://github.com/tldr-pages/tldr) repo.
 
 - `LANG=zh tldr <command>`
 

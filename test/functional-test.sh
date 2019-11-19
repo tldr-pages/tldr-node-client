@@ -20,5 +20,5 @@ tldr --render $HOME/.tldr/cache/pages/common/ssh.md && \
 tldr --update && tldr-render-pages && \
 tldr --clear-cache && \
 tldr --update && tldr-render-pages && \
-LANG=pt-BR tldr-render-pages && \
+LANG=pt_BR tldr-render-pages && \
 tldr --search "disk space"
