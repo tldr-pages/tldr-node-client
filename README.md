@@ -41,7 +41,7 @@ To see tldr pages:
 - `tldr <command> --os=<platform>` show command page for the given platform (`linux`, `osx`, `sunos`)
 - `tldr --search "<query>"` search all pages for the query
 - `tldr --linux <command>` show command page for Linux
-- `tldr  --osx <command>` show command page for OSX
+- `tldr --osx <command>` show command page for OSX
 - `tldr --sunos <command>` show command page for SunOS
 - `tldr --list` show all pages for current platform
 - `tldr --list-all` show all available pages
@@ -58,6 +58,14 @@ There are more commands to control the local cache:
 As a contributor, you might also need the following commands:
 
 - `tldr --render <path>` render a local page for testing purposes
+
+Tldr pages defaults to showing pages in the current language of the operating system, or English if that's not available. To view tldr pages for a different language, set an environment variable `LANG` containing a valid [POSIX locale](https://www.gnu.org/software/gettext/manual/html_node/Locale-Names.html#Locale-Names) (such as `zh`, `pt_BR`, or `fr`) and then run the above commands as usual. In most `*nix` systems, this variable will already be set.
+
+It is suggested that the `LANG` environment variable be set system-wide if this isn't already the case. Users without `sudo` access can set it locally in their `~/.profile`.
+
+- `LANG=zh tldr <command>`
+
+For the list of available translations, please refer to the main [tldr](https://github.com/tldr-pages/tldr) repo.
 
 ## Configuration
 
@@ -147,25 +155,25 @@ fpath = (my/completions $fpath)
 
 #### Installation Issues
 
-- If you are trying to install as non-root user (`npm install -g tldr`) and get something like - 
- 
+- If you are trying to install as non-root user (`npm install -g tldr`) and get something like:
+
  ```
  Error: EACCES: permission denied, access '/usr/local/lib/node_modules/tldr'
  ```
- 
+
  Then most probably your npm's default installation directory has improper permissions. You can resolve it by clicking [here](https://docs.npmjs.com/getting-started/fixing-npm-permissions)
- 
-- If you are trying to install as a root user (`sudo npm install -g tldr`) and get something like - 
+
+- If you are trying to install as a root user (`sudo npm install -g tldr`) and get something like:
 
 ```
-as root -> 
+as root ->
 gyp WARN EACCES attempting to reinstall using temporary dev dir "/usr/local/lib/node_modules/tldr/node_modules/webworker-threads/.node-gyp"
 gyp WARN EACCES user "root" does not have permission to access the dev dir "/usr/local/lib/node_modules/tldr/node_modules/webworker-threads/.node-gyp/8.9.1"
 ```
 
 You need to add the option `--unsafe-perm` to your command. This is because when npm goes to the postinstall step, it downgrades the permission levels to "nobody". Probably you should fix your installation directory permissions and install as a non-root user in the first place.
 
-- If you see an error related to `webworker-threads` like -
+- If you see an error related to `webworker-threads` like:
 
 ```
 /usr/local/lib/node_modules/tldr/node_modules/natural/lib/natural/classifiers/classifier.js:32

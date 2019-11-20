@@ -10,8 +10,8 @@ function tldr-render-pages {
   tldr du --os=osx && \
   tldr du --os=linux --markdown && \
   tldr du --os=osx --markdown && \
-  tldr --random && \
-  tldr --random-example && \
+  LANG= tldr --random && \
+  LANG= tldr --random-example && \
   tldr --list && \
   tldr --list-all
 }
@@ -19,4 +19,6 @@ function tldr-render-pages {
 tldr --render $HOME/.tldr/cache/pages/common/ssh.md && \
 tldr --update && tldr-render-pages && \
 tldr --clear-cache && \
-tldr --update && tldr-render-pages
+tldr --update && tldr-render-pages && \
+LANG=pt_BR tldr-render-pages && \
+tldr --search "disk space"
