@@ -21,4 +21,5 @@ tldr --update && tldr-render-pages && \
 tldr --clear-cache && \
 tldr --update && tldr-render-pages && \
 LANG=pt_BR tldr-render-pages && \
+unset LANG && tldr-render-pages \
 tldr --search "disk space"
