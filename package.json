@@ -55,7 +55,6 @@
     "natural": "^0.6.3",
     "node-unzip-2": "^0.2.8",
     "ora": "^3.4.0",
-    "os-homedir": "^2.0.0",
     "request": "^2.88.0"
   },
   "devDependencies": {
