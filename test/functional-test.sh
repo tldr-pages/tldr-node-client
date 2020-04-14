@@ -8,14 +8,18 @@ function tldr-render-pages {
   tldr zip && \
   tldr du --os=linux && \
   tldr du --os=osx && \
-  tldr --random && \
-  tldr --random-example && \
+  tldr du --os=linux --markdown && \
+  tldr du --os=osx --markdown && \
+  LANG= tldr --random && \
+  LANG= tldr --random-example && \
   tldr --list && \
   tldr --list-all
 }
 
-tldr --update && \
-  tldr-render-pages && \
+tldr --render $HOME/.tldr/cache/pages/common/ssh.md && \
+tldr --update && tldr-render-pages && \
 tldr --clear-cache && \
-tldr --update && \
-  tldr-render-pages
+tldr --update && tldr-render-pages && \
+LANG=pt_BR tldr-render-pages && \
+unset LANG && tldr-render-pages \
+tldr --search "disk space"

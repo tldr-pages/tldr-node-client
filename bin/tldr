@@ -2,7 +2,7 @@
 
 const program = require('commander');
 const pkg = require('../package');
-const tldr = require('../lib/tldr');
+const Tldr = require('../lib/tldr');
 const config = require('../lib/config');
 const platform = require('../lib/platform');
 
@@ -32,26 +32,29 @@ program
   .option('-u, --update', 'Update the local cache')
   .option('-c, --clear-cache', 'Clear the local cache');
 
+const help = `
+  Examples:
+
+    $ tldr tar
+    $ tldr du --os=linux
+    $ tldr --search "create symbolic link to file"
+    $ tldr --list
+    $ tldr --list-all
+    $ tldr --random
+    $ tldr --random-example
+
+  To control the cache:
+
+    $ tldr --update
+    $ tldr --clear-cache
+
+  To render a local file (for testing):
+
+    $ tldr --render /path/to/file.md
+`;
+
 program.on('--help', () => {
-  console.log('Examples');
-  console.log('');
-  console.log('    $ tldr tar');
-  console.log('    $ tldr du --os=linux');
-  console.log('    $ tldr --search "create symbolic link to file"');
-  console.log('    $ tldr --list');
-  console.log('    $ tldr --list-all');
-  console.log('    $ tldr --random');
-  console.log('    $ tldr --random-example');
-  console.log('');
-  console.log('To control the cache');
-  console.log('');
-  console.log('    $ tldr --update');
-  console.log('    $ tldr --clear-cache');
-  console.log('');
-  console.log('To render a local file (for testing)');
-  console.log('');
-  console.log('    $ tldr --render /path/to/file.md');
-  console.log('');
+  console.log(help);
 });
 
 program.parse(process.argv);
@@ -68,24 +71,25 @@ if (program.sunos) {
   program.os = 'sunos';
 }
 
-
+let cfg = config.get();
 if (program.os) {
   if (platform.isSupported(program.os)) {
-    config.get().platform = program.os;
+    cfg.platform = program.os;
   }
 }
 
 if (program.theme) {
-  // TODO: Validate theme
-  config.get().theme = program.theme;
+  cfg.theme = program.theme;
 }
+
+const tldr = new Tldr(cfg);
 
 if (program.list) {
   tldr.list(program.singleColumn);
 } else if (program.listAll) {
   tldr.listAll(program.singleColumn);
 } else if (program.random) {
-  tldr.random();
+  tldr.random(program);
 } else if (program.randomExample) {
   tldr.randomExample();
 } else if (program.clearCache) {
