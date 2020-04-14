@@ -29,6 +29,15 @@ describe('Parser', () => {
     page.description.should.eql('archiving utility\nwith support for compression');
   });
 
+  it('can parse the homepage', () => {
+    let page = parser.parse(`
+# tar
+> archiving utility
+> Homepage: <https://www.gnu.org/software/tar/manual/tar.html>.`
+    );
+    page.description.should.eql('archiving utility\nHomepage: https://www.gnu.org/software/tar/manual/tar.html.');
+  });
+
   it('does not escape HTML entities', () => {
     let page = parser.parse(`
 # tar
