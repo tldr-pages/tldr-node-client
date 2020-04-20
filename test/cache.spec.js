@@ -5,6 +5,7 @@ const config = require('../lib/config');
 const should = require('should');
 const sinon = require('sinon');
 const path = require('path');
+const os = require('os');
 const fs = require('fs-extra');
 const index = require('../lib/index');
 const remote = require('../lib/remote');
@@ -37,20 +38,15 @@ describe('Cache', () => {
       this.cacheFolder = path.join(config.get().cache, 'cache');
     });
 
-    it('should use randomly created temp folder', () => {
-      const count = 16;
+    it('should created a temp folder', () => {
       const cache = new Cache(config.get());
-      return Promise.all(Array.from({ length: count }).map(() => {
-        return cache.update();
-      })).then(() => {
-        let calls = fs.ensureDir.getCalls().filter((call) => {
+
+      return cache.update().then(()=>{
+        const calls = fs.ensureDir.getCalls().filter((call) => {
           return !call.calledWith(this.cacheFolder);
         });
-        calls.should.have.length(count);
-        let tempFolders = calls.map((call) => {
-          return call.args[0];
-        });
-        tempFolders.should.have.length(new Set(tempFolders).size);
+        calls.should.have.length(1);
+        calls[0].args[0].should.startWith(os.tmpdir());
       });
     });
 

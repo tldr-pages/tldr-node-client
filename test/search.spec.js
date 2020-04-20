@@ -3,15 +3,12 @@
 const search = require('../lib/search');
 const should = require('should');
 const sinon = require('sinon');
-const path = require('path');
 const fs = require('fs-extra');
 
-const config = require('../lib/config');
 const utils = require('../lib/utils');
 const index = require('../lib/index');
 
-const CACHE_FOLDER = path.join(config.get().cache, 'cache');
-const filepath = CACHE_FOLDER + '/search-corpus.json';
+const config = require('../lib/config').get();
 
 const testData = {
   files: [{
@@ -120,7 +117,7 @@ let fakes = {
   fs: {
     writeFile: (writepath, content) => {
       return new Promise((resolve, reject) => {
-        if (writepath !== filepath) {
+        if (writepath !== config.corpusfile) {
           return reject('Incorrect File Path');
         }
         if (content) {
@@ -136,7 +133,7 @@ let fakes = {
         if (file) {
           return resolve(file.data);
         }
-        if (readpath === filepath) {
+        if (readpath === config.corpusfile) {
           return resolve(JSON.stringify(testData.corpus));
         }
         return reject('Trying to read incorrect file path: ' + readpath);
@@ -160,7 +157,7 @@ describe('Search', () => {
     stubs.push(sinon.stub(utils, 'glob').callsFake(fakes.utils.glob));
     stubs.push(sinon.stub(fs, 'readFile').callsFake(fakes.fs.readFile));
     stubs.push(sinon.stub(fs, 'writeFile').callsFake(fakes.fs.writeFile));
-    search.createIndex().then((data) => {
+    search.createIndex(config).then((data) => {
       Object.keys(data.tfidf).length.should.equal(20); // eslint-disable-line
       Object.keys(data.invertedIndex).length.should.equal(56); // eslint-disable-line
       data.invertedIndex['roxi'][0].should.equal('/path/to/file-11.md');
@@ -181,17 +178,17 @@ describe('Search', () => {
     stubs.push(sinon.stub(fs, 'readFile').callsFake(fakes.fs.readFile));
     stubs.push(sinon.stub(fs, 'writeFile').callsFake(fakes.fs.writeFile));
     stubs.push(sinon.stub(index, 'getShortIndex').callsFake(fakes.index.getShortIndex));
-    search.getResults('Anthony').then((data) => {
+    search.getResults(config, 'Anthony').then((data) => {
       data.length.should.equal(4); // eslint-disable-line
       data[0].file.should.equal('/path/to/file-09.md');
       return Promise.resolve();
     }).then(() => {
-      return search.getResults('textnotfound').then((data) => {
+      return search.getResults(config, 'textnotfound').then((data) => {
         data.length.should.equal(0);
         return Promise.resolve();
       });
     }).then(() => {
-      return search.getResults('Joe and Roxie').then((data) => {
+      return search.getResults(config, 'Joe and Roxie').then((data) => {
         data.length.should.equal(8); // eslint-disable-line
         data[1].file.should.equal('/path/to/file-16.md');
         console.log.restore();

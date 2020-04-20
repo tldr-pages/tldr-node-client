@@ -4,35 +4,33 @@ const fs = require('fs');
 const sinon = require('sinon');
 const config = require('../lib/config');
 
-describe('Config', () => {
-
-  const DEFAULT =
+const DEFAULT =
 `
 {
-  "repository": "http://tldr-pages.github.io/assets/tldr.zip"
+"repository": "http://tldr-pages.github.io/assets/tldr.zip"
 }`;
 
-  const CUSTOM =
+const CUSTOM =
 `
 {
-  "repository": "http://myrepo/assets/tldr.zip"
+"repository": "http://myrepo/assets/tldr.zip"
 }`;
 
-  const CUSTOM_INVALID =
+const CUSTOM_INVALID =
 `
 {
-  "themes": {
-    "simple": {
-      "commandName": "bold,underline",
-      "mainDescription": "#876992",
-      "exampleDescription": "",
-      "exampleCode": "",
-      "exampleToken": "underline"
-    }
+"themes": {
+  "simple": {
+    "commandName": "bold,underline",
+    "mainDescription": "#876992",
+    "exampleDescription": "",
+    "exampleCode": "",
+    "exampleToken": "underline"
   }
+}
 }`;
 
-
+describe('Config', () => {
   beforeEach(() => {
     sinon.stub(fs, 'readFileSync');
   });
@@ -58,5 +56,23 @@ describe('Config', () => {
     fs.readFileSync.onCall(1).returns(CUSTOM_INVALID);
     config.get.should.throw(/Invalid theme value/);
   });
+});
 
+describe('Config construction', () => {
+  beforeEach(() => {
+    sinon.stub(fs, 'readFileSync');
+    fs.readFileSync.returns(DEFAULT);
+  });
+
+  afterEach(() => {
+    fs.readFileSync.restore();
+  });
+
+  it('should generate randomly salted temp directory paths', () => {
+    const length = 16;
+    const tempPaths = Array.from({ length }, () => {
+      return config.get().tempFolder;
+    });
+    tempPaths.should.have.length(new Set(tempPaths).size);
+  });
 });
