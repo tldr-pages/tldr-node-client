@@ -1,6 +1,6 @@
 # This Dockerfile creates an image that allows for easy and iterative
 # testing of code. It needs to be given bin, test and lib folders
-# to run the code in situe
+# to run the code in situ
 
 # By default use 6.12.0, but allow targeting specific versions
 ARG NODE_VERSION=6.12.0

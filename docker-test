@@ -1,9 +1,17 @@
-# This script build and runs a dokcer enviroment for testing
+#!/usr/bin/env sh
+
+# This script build and runs a docker environment for testing
 # 
 # ARGS: 
 #  1: Node JS version
-#  2: Alternative npm registry url
+#  2: Alternative npm registry URL
 #
+
+which "$docker" &> /dev/null
+if $?; then
+	echo "\n\nDocker is not installed\n\n"
+	exit 127
+fi
 
 set -ex
 NODE_VERSION="${1:-6.12.0}"

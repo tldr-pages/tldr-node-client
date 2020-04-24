@@ -46,7 +46,8 @@
     "lint": "eslint lib test bin/tldr",
     "watch": "mocha test --require=env-test --reporter=min --watch --growl",
     "test:functional": "bash test/functional-test.sh",
-    "test:all": "npm run lint && npm test && npm run test:functional"
+    "test:all": "npm run lint && npm test && npm run test:functional",
+    "test:docker": "sh docker-test"
   },
   "dependencies": {
     "chalk": "^2.4.2",
