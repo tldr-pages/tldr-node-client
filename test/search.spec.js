@@ -156,7 +156,6 @@ let restoreStubs = (stubs) => {
 describe('Search', () => {
   it('should create index', function(done) {
     let stubs = [];
-    sinon.stub(console, 'log').returns();
     stubs.push(sinon.stub(utils, 'glob').callsFake(fakes.utils.glob));
     stubs.push(sinon.stub(fs, 'readFile').callsFake(fakes.fs.readFile));
     stubs.push(sinon.stub(fs, 'writeFile').callsFake(fakes.fs.writeFile));
@@ -165,11 +164,9 @@ describe('Search', () => {
       Object.keys(data.invertedIndex).length.should.equal(56); // eslint-disable-line
       data.invertedIndex['roxi'][0].should.equal('/path/to/file-11.md');
       testData.corpus = data;
-      console.log.restore();
       done();
     }).catch((error) => {
       should.not.exist(error);
-      console.log.restore();
       done(error);
     }).then(() => {
       restoreStubs(stubs);
@@ -177,7 +174,6 @@ describe('Search', () => {
   });
   it('should perform searches', function(done) {
     let stubs = [];
-    sinon.stub(console, 'log').returns();
     stubs.push(sinon.stub(fs, 'readFile').callsFake(fakes.fs.readFile));
     stubs.push(sinon.stub(fs, 'writeFile').callsFake(fakes.fs.writeFile));
     stubs.push(sinon.stub(index, 'getShortIndex').callsFake(fakes.index.getShortIndex));
@@ -194,13 +190,11 @@ describe('Search', () => {
       return search.getResults('Joe and Roxie').then((data) => {
         data.length.should.equal(8); // eslint-disable-line
         data[1].file.should.equal('/path/to/file-16.md');
-        console.log.restore();
         done();
         return Promise.resolve();
       });
     }).catch((error) => {
       should.not.exist(error);
-      console.log.restore();
       done(error);
     }).then(() => {
       restoreStubs(stubs);
