@@ -59,7 +59,8 @@
     "natural": "^0.6.3",
     "node-unzip-2": "^0.2.8",
     "ora": "^3.4.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "sanitize-html": "^1.23.0"
   },
   "devDependencies": {
     "env-test": "^1.0.0",
