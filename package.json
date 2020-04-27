@@ -43,7 +43,7 @@
     "example": "node ./bin/tldr tar",
     "test": "mocha",
     "test:quiet": "mocha --reporter=dot",
-    "lint": "eslint lib test bin/tldr",
+    "lint": "eslint lib test bin/tldr .mocharc.js",
     "watch": "mocha --reporter=min --watch --growl",
     "test:functional": "bash test/functional-test.sh",
     "test:coverage": "nyc mocha",
@@ -63,7 +63,7 @@
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "eslint": "^5.16.0",
+    "eslint": "^6.8.0",
     "husky": "^2.4.1",
     "mocha": "^6.2.3",
     "nyc": "^15.0.1",
