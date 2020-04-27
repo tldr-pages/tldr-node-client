@@ -100,12 +100,11 @@ describe('Render', () => {
       'theme': 'bad'
     };
 
-    let spy = sinon.spy(console, 'error');
     let text = render.toANSI({
       name: 'tar',
       description: 'archive utility',
     }, config);
     should.not.exist(text);
-    spy.getCall(0).args[0].should.equal('invalid theme: bad');
+    console.error.getCall(0).args[0].should.equal('invalid theme: bad');
   });
 });

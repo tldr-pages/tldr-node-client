@@ -41,11 +41,12 @@
   "scripts": {
     "start": "node ./bin/tldr",
     "example": "node ./bin/tldr tar",
-    "test": "mocha test --require=env-test",
-    "test:quiet": "npm test --reporter=dot",
+    "test": "mocha",
+    "test:quiet": "mocha --reporter=dot",
     "lint": "eslint lib test bin/tldr",
-    "watch": "mocha test --require=env-test --reporter=min --watch --growl",
+    "watch": "mocha --reporter=min --watch --growl",
     "test:functional": "bash test/functional-test.sh",
+    "test:coverage": "nyc mocha",
     "test:all": "npm run lint && npm test && npm run test:functional"
   },
   "dependencies": {
@@ -62,10 +63,10 @@
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "env-test": "^1.0.0",
     "eslint": "^5.16.0",
     "husky": "^2.4.1",
     "mocha": "^6.2.3",
+    "nyc": "^15.0.1",
     "should": "^13.2.3",
     "sinon": "^7.3.2"
   },
