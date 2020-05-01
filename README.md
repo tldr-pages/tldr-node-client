@@ -9,6 +9,7 @@
 A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/tldr).
 
 ![tldr screenshot](screenshot.png)
+
 *tldr-node-client's output for the `tar` page, using a custom color theme*
 
 ## Installing
