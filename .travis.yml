@@ -3,10 +3,12 @@ language: node_js
 os:
   - "osx"
   - "linux"
+
 node_js:
   - "10"
   - "11"
   - "12"
   - "stable"
+
 script:
   - npm run test:all
