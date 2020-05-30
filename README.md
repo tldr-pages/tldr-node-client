@@ -4,11 +4,11 @@
 [![Travis CI Build Status][travis-image]][travis-url]
 [![AppVeyor CI Build status][appveyor-image]][appveyor-url]
 [![Gitter chat][gitter-image]][gitter-url]
-[![Snap Status](https://build.snapcraft.io/badge/tldr-pages/tldr-node-client.svg)](https://build.snapcraft.io/user/tldr-pages/tldr-node-client)
 
 A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/tldr).
 
 ![tldr screenshot](screenshot.png)
+
 *tldr-node-client's output for the `tar` page, using a custom color theme*
 
 ## Installing
@@ -16,22 +16,6 @@ A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/t
 ```bash
 npm install -g tldr
 ```
-
-## Install from the snap store
-
-In any of the [supported Linux distros](https://snapcraft.io/docs/core/install):
-
-```bash
-sudo snap install tldr
-```
-
-If you want to help testing the latest changes, and get the newer features earlier, you can install the snap from the edge channel:
-
-```bash
-sudo snap install tldr --edge
-```
-
-Note that the snap package is not fully tested and supported. It may be likely you encounter issues while using it. It is recommended to use the npm package instead.
 
 ## Usage
 
@@ -202,7 +186,7 @@ Meanwhile, you can do one of the following to fix this issue:
 ```bash
 tldr_path="$(which tldr)"
 function tldr() {
-	eval "$tldr_path" $@ "--color"
+  eval "$tldr_path" $@ "--color"
 }
 ```
 * Add `alias tldr="tldr --color=true"` to your shell's rc file.
