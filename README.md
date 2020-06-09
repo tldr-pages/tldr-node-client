@@ -1,8 +1,7 @@
 # tldr-node-client
 
 [![NPM version][npm-image]][npm-url]
-[![Travis CI Build Status][travis-image]][travis-url]
-[![AppVeyor CI Build status][appveyor-image]][appveyor-url]
+[![Travis CI Build Status][gh-actions-image]][gh-actions-url]
 [![Gitter chat][gitter-image]][gitter-url]
 
 A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/tldr).
@@ -205,11 +204,8 @@ for a few rough guidelines.
 [npm-url]: https://www.npmjs.com/package/tldr
 [npm-image]: https://img.shields.io/npm/v/tldr.svg
 
-[travis-url]: https://travis-ci.org/tldr-pages/tldr-node-client
-[travis-image]: https://img.shields.io/travis/tldr-pages/tldr-node-client.svg?label=linux
-
-[appveyor-image]: https://img.shields.io/appveyor/ci/igorshubovych/tldr-node-client-bnut4.svg?label=windows
-[appveyor-url]: https://ci.appveyor.com/project/igorshubovych/tldr-node-client-bnut4
+[gh-actions-url]: https://github.com/tldr-pages/tldr-node-client/actions?query=workflow%3ATest+branch%3Amaster
+[gh-actions-image]: https://img.shields.io/github/workflow/status/tldr-pages/tldr-node-client/Test/master
 
 [dep-url]: https://david-dm.org/tldr-pages/tldr-node-client
 [dep-image]: https://david-dm.org/tldr-pages/tldr-node-client.svg?theme=shields.io
