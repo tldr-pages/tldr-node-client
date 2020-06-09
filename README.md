@@ -1,7 +1,7 @@
 # tldr-node-client
 
 [![NPM version][npm-image]][npm-url]
-[![Travis CI Build Status][gh-actions-image]][gh-actions-url]
+[![GitHub Action Build Status][gh-actions-image]][gh-actions-url]
 [![Gitter chat][gitter-image]][gitter-url]
 
 A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/tldr).
