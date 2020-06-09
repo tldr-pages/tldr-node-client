@@ -22,10 +22,10 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.npm
-        key: ${{ runner.os }}-${{ matrix.node-version }}-npm-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ matrix.os }}-${{ matrix.node-version }}-npm-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
-          ${{ runner.os }}-${{ matrix.node-version }}-npm-
-          ${{ runner.os }}-npm-
+          ${{ matrix.os }}-${{ matrix.node-version }}-npm-
+          ${{ matrix.os }}-npm-
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
