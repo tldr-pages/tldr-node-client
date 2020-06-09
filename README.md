@@ -2,6 +2,7 @@
 
 [![NPM version][npm-image]][npm-url]
 [![GitHub Action Build Status][gh-actions-image]][gh-actions-url]
+[![AppVeyor CI Build status][appveyor-image]][appveyor-url]
 [![Gitter chat][gitter-image]][gitter-url]
 
 A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/tldr).
@@ -206,6 +207,9 @@ for a few rough guidelines.
 
 [gh-actions-url]: https://github.com/tldr-pages/tldr-node-client/actions?query=workflow%3ATest+branch%3Amaster
 [gh-actions-image]: https://img.shields.io/github/workflow/status/tldr-pages/tldr-node-client/Test/master
+
+[appveyor-image]: https://img.shields.io/appveyor/ci/igorshubovych/tldr-node-client-bnut4.svg?label=windows
+[appveyor-url]: https://ci.appveyor.com/project/igorshubovych/tldr-node-client-bnut4
 
 [dep-url]: https://david-dm.org/tldr-pages/tldr-node-client
 [dep-image]: https://david-dm.org/tldr-pages/tldr-node-client.svg?theme=shields.io
