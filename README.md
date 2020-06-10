@@ -1,7 +1,7 @@
 # tldr-node-client
 
 [![NPM version][npm-image]][npm-url]
-[![Travis CI Build Status][travis-image]][travis-url]
+[![GitHub Action Build Status][gh-actions-image]][gh-actions-url]
 [![AppVeyor CI Build status][appveyor-image]][appveyor-url]
 [![Gitter chat][gitter-image]][gitter-url]
 
@@ -205,8 +205,8 @@ for a few rough guidelines.
 [npm-url]: https://www.npmjs.com/package/tldr
 [npm-image]: https://img.shields.io/npm/v/tldr.svg
 
-[travis-url]: https://travis-ci.org/tldr-pages/tldr-node-client
-[travis-image]: https://img.shields.io/travis/tldr-pages/tldr-node-client.svg?label=linux
+[gh-actions-url]: https://github.com/tldr-pages/tldr-node-client/actions?query=workflow%3ATest+branch%3Amaster
+[gh-actions-image]: https://img.shields.io/github/workflow/status/tldr-pages/tldr-node-client/Test/master
 
 [appveyor-image]: https://img.shields.io/appveyor/ci/igorshubovych/tldr-node-client-bnut4.svg?label=windows
 [appveyor-url]: https://ci.appveyor.com/project/igorshubovych/tldr-node-client-bnut4
