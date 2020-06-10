@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs-extra');
+const path = require('path');
 const index = require('../lib/index');
 const utils = require('../lib/utils');
 const sinon = require('sinon');
@@ -25,7 +26,9 @@ const pages = [
   '/pages/sunos/dd.md',
   '/pages/sunos/du.md',
   '/pages/sunos/svcs.md'
-];
+].map((x) => {
+  return path.join(x);
+});
 
 describe('Index building', () => {
   beforeEach(() => {
@@ -81,77 +84,77 @@ describe('Index', () => {
     it('should find Linux platform for apk command for Chinese', () => {
       return index.findPage('apk', 'linux', 'zh')
         .then((folder) => {
-          return folder.should.equal('pages.zh/linux');
+          return folder.should.equal(path.join('pages.zh', 'linux'));
         });
     });
 
     it('should find Linux platform for apk command for Chinese given Windows', () => {
       return index.findPage('apk', 'windows', 'zh')
         .then((folder) => {
-          return folder.should.equal('pages.zh/linux');
+          return folder.should.equal(path.join('pages.zh', 'linux'));
         });
     });
 
     it('should find Linux platform for dd command', () => {
       return index.findPage('dd', 'linux', 'en')
         .then((folder) => {
-          return folder.should.equal('pages/linux');
+          return folder.should.equal(path.join('pages', 'linux'));
         });
     });
 
     it('should find platform common for cp command for English', () => {
       return index.findPage('cp', 'linux', 'en')
         .then((folder) => {
-          return folder.should.equal('pages/common');
+          return folder.should.equal(path.join('pages', 'common'));
         });
     });
 
     it('should find platform common for cp command for Tamil', () => {
       return index.findPage('cp', 'linux', 'ta')
         .then((folder) => {
-          return folder.should.equal('pages.ta/common');
+          return folder.should.equal(path.join('pages.ta', 'common'));
         });
     });
 
     it('should find platform common for cp command for Italian', () => {
       return index.findPage('cp', 'linux', 'it')
         .then((folder) => {
-          return folder.should.equal('pages.it/common');
+          return folder.should.equal(path.join('pages.it', 'common'));
         });
     });
 
     it('should find platform common for cp command for Italian given Windows', () => {
       return index.findPage('cp', 'windows', 'it')
         .then((folder) => {
-          return folder.should.equal('pages.it/common');
+          return folder.should.equal(path.join('pages.it', 'common'));
         });
     });
 
     it('should find platform common for ls command for Italian', () => {
       return index.findPage('ls', 'linux', 'it')
         .then((folder) => {
-          return folder.should.equal('pages/common');
+          return folder.should.equal(path.join('pages', 'common'));
         });
     });
 
     it('should find platform common for cp command for Italian given common platform', () => {
       return index.findPage('cp', 'common', 'it')
         .then((folder) => {
-          return folder.should.equal('pages.it/common');
+          return folder.should.equal(path.join('pages.it', 'common'));
         });
     });
 
     it('should find platform common for cp command for English given a bad language', () => {
       return index.findPage('cp', 'linux', 'notexist')
         .then((folder) => {
-          return folder.should.equal('pages/common');
+          return folder.should.equal(path.join('pages', 'common'));
         });
     });
 
     it('should find platform for svcs command on Linux', () => {
       return index.findPage('svcs', 'linux', 'en')
         .then((folder) => {
-          return folder.should.equal('pages/sunos');
+          return folder.should.equal(path.join('pages', 'sunos'));
         });
     });
 
