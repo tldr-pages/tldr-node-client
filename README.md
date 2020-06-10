@@ -219,3 +219,4 @@ for a few rough guidelines.
 
 [gitter-url]: https://gitter.im/tldr-pages/tldr
 [gitter-image]: https://badges.gitter.im/tldr-pages/tldr.png
+\n
