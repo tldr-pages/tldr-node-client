@@ -126,6 +126,12 @@ resulting in something looking like this:
 plugins=(git tmux tldr)
 ```
 
+Alternatively, using [zplug](https://github.com/zplug/zplug)
+
+```
+zplug "tldr-pages/tldr-node-client", use:bin/completion/zsh
+```
+
 Fret not regular zsh user!
 Copy or symlink `bin/autocompletion.zsh` to
 `my/completions/_tldr`
