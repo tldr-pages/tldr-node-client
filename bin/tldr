@@ -84,29 +84,36 @@ if (program.theme) {
 
 const tldr = new Tldr(cfg);
 
+let p = null;
 if (program.list) {
-  tldr.list(program.singleColumn);
+  p = tldr.list(program.singleColumn);
 } else if (program.listAll) {
-  tldr.listAll(program.singleColumn);
+  p = tldr.listAll(program.singleColumn);
 } else if (program.random) {
-  tldr.random(program);
+  p = tldr.random(program);
 } else if (program.randomExample) {
-  tldr.randomExample();
+  p = tldr.randomExample();
 } else if (program.clearCache) {
-  tldr.clearCache();
+  p = tldr.clearCache();
 } else if (program.update) {
-  tldr.updateCache()
+  p = tldr.updateCache()
     .then(() => {
-      tldr.updateIndex();
+      return tldr.updateIndex();
     });
 } else if (program.render) {
-  tldr.render(program.render);
+  p = tldr.render(program.render);
 } else if (program.search) {
   program.args.unshift(program.search);
-  tldr.search(program.args);
+  p = tldr.search(program.args);
 } else if (program.args.length >= 1) {
-  tldr.get(program.args, program);
-} else {
-  program.outputHelp();
-  process.exit(1);
+  p = tldr.get(program.args, program);
 }
+
+if (p === null) {
+  program.outputHelp();
+  process.exitCode = 1;
+}
+p.catch((err) => {
+  console.error(err);
+  process.exitCode = 1;
+});
