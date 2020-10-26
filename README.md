@@ -9,7 +9,7 @@ A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/t
 
 ![tldr screenshot](screenshot.png)
 
-*tldr-node-client's output for the `tar` page, using a custom color theme*
+_tldr-node-client's output for the `tar` page, using a custom color theme_
 
 ## Installing
 
@@ -104,8 +104,8 @@ As a contributor, you can also point to your own fork containing the `tldr.zip` 
 
 ## Command-line Autocompletion
 
-Currently we only support command-line autocompletion for zsh.
-Pull requests for other shells are most welcome!
+Currently we only support command-line autocompletion for zsh
+and bash. Pull requests for other shells are most welcome!
 
 ### zsh
 
@@ -115,7 +115,7 @@ users, so let's start with that.
 
 ```
 mkdir -p $ZSH_CUSTOM/plugins/tldr
-ln -s bin/autocompletion.zsh $ZSH_CUSTOM/plugins/tldr/_tldr
+ln -s bin/completion/zsh/_tldr $ZSH_CUSTOM/plugins/tldr/_tldr
 ```
 
 Then add tldr to your oh-my-zsh plugins,
@@ -133,12 +133,25 @@ zplug "tldr-pages/tldr-node-client", use:bin/completion/zsh
 ```
 
 Fret not regular zsh user!
-Copy or symlink `bin/autocompletion.zsh` to
+Copy or symlink `bin/completion/zsh/_tldr` to
 `my/completions/_tldr`
 (note the filename).
 Then add the containing directory to your fpath:
+
 ```
 fpath = (my/completions $fpath)
+```
+
+### Bash
+
+```
+ln -s bin/completion/bash/tldr ~/.tldr-completion.bash
+```
+
+Now add the following line to our bashrc file:
+
+```
+source ~/.tldr-completion.bash
 ```
 
 ## FAQ
@@ -147,11 +160,11 @@ fpath = (my/completions $fpath)
 
 - If you are trying to install as non-root user (`npm install -g tldr`) and get something like:
 
- ```
- Error: EACCES: permission denied, access '/usr/local/lib/node_modules/tldr'
- ```
+```
+Error: EACCES: permission denied, access '/usr/local/lib/node_modules/tldr'
+```
 
- Then most probably your npm's default installation directory has improper permissions. You can resolve it by clicking [here](https://docs.npmjs.com/getting-started/fixing-npm-permissions)
+Then most probably your npm's default installation directory has improper permissions. You can resolve it by clicking [here](https://docs.npmjs.com/getting-started/fixing-npm-permissions)
 
 - If you are trying to install as a root user (`sudo npm install -g tldr`) and get something like:
 
@@ -169,6 +182,7 @@ You need to add the option `--unsafe-perm` to your command. This is because when
 /usr/local/lib/node_modules/tldr/node_modules/natural/lib/natural/classifiers/classifier.js:32
     if (e.code !== 'MODULE_NOT_FOUND') throw e;
 ```
+
 Most probably you need to reinstall `node-gyp` and `webworker-threads`. Try this -
 
 ```
@@ -178,6 +192,7 @@ npm install -g node-gyp
 npm install -g webworker-threads
 npm install -g tldr
 ```
+
 For further context, take a look at this [issue](https://github.com/tldr-pages/tldr-node-client/issues/179)
 
 #### Colors under Cygwin
@@ -187,7 +202,7 @@ Please show support to [this pull request](https://github.com/Marak/colors.js/pu
 
 Meanwhile, you can do one of the following to fix this issue:
 
-* Add the following script to your shell's rc file (`.zshrc`, `.bashrc`, etc.): (RECOMMENDED)
+- Add the following script to your shell's rc file (`.zshrc`, `.bashrc`, etc.): (RECOMMENDED)
 
 ```bash
 tldr_path="$(which tldr)"
@@ -195,12 +210,13 @@ function tldr() {
   eval "$tldr_path" $@ "--color"
 }
 ```
-* Add `alias tldr="tldr --color=true"` to your shell's rc file.
-* Prepend `process.stdout.isTTY = true;` to `tldr.js` (NOT RECOMMENDED)
-* Fix `colors.js`'s logic (NOT RECOMMENDED)
-  * Go to `%appdata%\npm\node_modules\tldr\node_modules\colors\lib\system\`
-  * Overwrite `supports-colors.js` with [supports-colors.js](https://raw.githubusercontent.com/RShadowhand/colors.js/master/lib/system/supports-colors.js) from my repo.
-* Use `CMD.exe`.
+
+- Add `alias tldr="tldr --color=true"` to your shell's rc file.
+- Prepend `process.stdout.isTTY = true;` to `tldr.js` (NOT RECOMMENDED)
+- Fix `colors.js`'s logic (NOT RECOMMENDED)
+  - Go to `%appdata%\npm\node_modules\tldr\node_modules\colors\lib\system\`
+  - Overwrite `supports-colors.js` with [supports-colors.js](https://raw.githubusercontent.com/RShadowhand/colors.js/master/lib/system/supports-colors.js) from my repo.
+- Use `CMD.exe`.
 
 ## Contributing
 
@@ -210,18 +226,13 @@ for a few rough guidelines.
 
 [npm-url]: https://www.npmjs.com/package/tldr
 [npm-image]: https://img.shields.io/npm/v/tldr.svg
-
 [gh-actions-url]: https://github.com/tldr-pages/tldr-node-client/actions?query=workflow%3ATest+branch%3Amaster
 [gh-actions-image]: https://img.shields.io/github/workflow/status/tldr-pages/tldr-node-client/Test/master
-
 [appveyor-image]: https://img.shields.io/appveyor/ci/igorshubovych/tldr-node-client-bnut4.svg?label=windows
 [appveyor-url]: https://ci.appveyor.com/project/igorshubovych/tldr-node-client-bnut4
-
 [dep-url]: https://david-dm.org/tldr-pages/tldr-node-client
 [dep-image]: https://david-dm.org/tldr-pages/tldr-node-client.svg?theme=shields.io
-
 [dev-dep-url]: https://david-dm.org/tldr-pages/tldr-node-client#info=devDependencies
 [dev-dep-image]: https://david-dm.org/tldr-pages/tldr-node-client/dev-status.svg?theme=shields.io
-
 [gitter-url]: https://gitter.im/tldr-pages/tldr
 [gitter-image]: https://badges.gitter.im/tldr-pages/tldr.png
