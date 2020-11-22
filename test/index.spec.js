@@ -8,26 +8,26 @@ const sinon = require('sinon');
 const should = require('should');
 
 const pages = [
-  '/index.json',
-  '/pages/linux/apk.md',
-  '/pages.zh/linux/apk.md',
-  '/pages/common/cp.md',
-  '/pages.it/common/cp.md',
-  '/pages.ta/common/cp.md',
-  '/pages/common/git.md',
-  '/pages/common/ln.md',
-  '/pages/common/ls.md',
-  '/pages/linux/dd.md',
-  '/pages/linux/du.md',
-  '/pages/linux/top.md',
-  '/pages/osx/dd.md',
-  '/pages/osx/du.md',
-  '/pages/osx/top.md',
-  '/pages/sunos/dd.md',
-  '/pages/sunos/du.md',
-  '/pages/sunos/svcs.md'
+  ['/index.json'],
+  ['/pages', 'linux', 'apk.md'],
+  ['/pages.zh', 'linux', 'apk.md'],
+  ['/pages', 'common', 'cp.md'],
+  ['/pages.it', 'common', 'cp.md'],
+  ['/pages.ta', 'common', 'cp.md'],
+  ['/pages', 'common', 'git.md'],
+  ['/pages', 'common', 'ln.md'],
+  ['/pages', 'common', 'ls.md'],
+  ['/pages', 'linux', 'dd.md'],
+  ['/pages', 'linux', 'du.md'],
+  ['/pages', 'linux', 'top.md'],
+  ['/pages', 'osx', 'dd.md'],
+  ['/pages', 'osx', 'du.md'],
+  ['/pages', 'osx', 'top.md'],
+  ['/pages', 'sunos', 'dd.md'],
+  ['/pages', 'sunos', 'du.md'],
+  ['/pages', 'sunos', 'svcs.md']
 ].map((x) => {
-  return path.join(x);
+  return path.join(...x);
 });
 
 describe('Index building', () => {
