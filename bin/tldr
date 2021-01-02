@@ -112,8 +112,9 @@ if (program.list) {
 if (p === null) {
   program.outputHelp();
   process.exitCode = 1;
+} else {
+  p.catch((err) => {
+    console.error(err);
+    process.exitCode = 1;
+  });
 }
-p.catch((err) => {
-  console.error(err);
-  process.exitCode = 1;
-});
