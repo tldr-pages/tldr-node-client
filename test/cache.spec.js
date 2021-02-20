@@ -12,21 +12,6 @@ const platform = require('../lib/platform');
 
 
 describe('Cache', () => {
-  it('should return a positive number on lastUpdate', function () {
-    // To allow setting timeout of 30 secs
-    // eslint-disable-next-line no-magic-numbers
-    this.timeout(30000);
-    const cache = new Cache(config.get());
-    return cache.update()
-      .then(() => {
-        return cache.lastUpdated();
-      })
-      .then((stats) => {
-        should.exist(stats);
-        stats.mtime.should.be.aboveOrEqual(0);
-      });
-  });
-
   describe('update()', () => {
     beforeEach(() => {
       sinon.spy(fs, 'ensureDir');
