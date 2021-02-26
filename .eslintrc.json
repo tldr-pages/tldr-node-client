@@ -1,20 +1,20 @@
 {
   "rules": {
-    "indent": [2, 2],
-    "quotes": [2, "single"],
-    "linebreak-style": [2, "unix"],
-    "semi": [2, "always"],
-    "no-console": 0,
-    "arrow-parens": [2, "always"],
-    "arrow-body-style": [2, "always"],
-    "array-callback-return": 2,
-    "no-magic-numbers": [2, {
+    "indent": ["error", 2],
+    "quotes": ["error", "single"],
+    "linebreak-style": ["error", "unix"],
+    "semi": ["error", "always"],
+    "no-console": "off",
+    "arrow-parens": ["error", "always"],
+    "arrow-body-style": ["error", "always"],
+    "array-callback-return": "error",
+    "no-magic-numbers": ["error", {
       "ignore": [-1, 0, 1, 2],
       "ignoreArrayIndexes": true,
       "detectObjects": true
     }],
-    "no-warning-comments": 1,
-    "handle-callback-err": 2
+    "no-warning-comments": "warn",
+    "handle-callback-err": "error"
   },
   "env": {
     "node": true,
