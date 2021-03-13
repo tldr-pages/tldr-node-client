@@ -21,11 +21,12 @@ npm install -g tldr
 To see tldr pages:
 
 - `tldr <command>` show examples for this command
-- `tldr <command> --os=<platform>` show command page for the given platform (`linux`, `osx`, `sunos`)
+- `tldr <command> --os=<platform>` show command page for the given platform (`linux`, `osx`, `sunos`, `windows`)
 - `tldr --search "<query>"` search all pages for the query
 - `tldr --linux <command>` show command page for Linux
 - `tldr --osx <command>` show command page for OSX
 - `tldr --sunos <command>` show command page for SunOS
+- `tldr --windows <command>` show command page for Windows
 - `tldr --list` show all pages for current platform
 - `tldr --list-all` show all available pages
 - `tldr --random` show a page at random
