@@ -10,6 +10,7 @@ function tldr-render-pages {
   tldr du --os=osx && \
   tldr du --os=linux --markdown && \
   tldr du --os=osx --markdown && \
+  tldr du --os=windows --markdown && \
   LANG= tldr --random && \
   LANG= tldr --random-example && \
   tldr --list && \
