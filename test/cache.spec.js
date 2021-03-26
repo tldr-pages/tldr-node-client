@@ -8,7 +8,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const index = require('../lib/index');
 const remote = require('../lib/remote');
-const platform = require('../lib/platform');
+const platformUtils = require('../lib/platformUtils');
 
 
 describe('Cache', () => {
@@ -79,7 +79,7 @@ describe('Cache', () => {
 
     it('should return page contents for ls', () => {
       sinon.stub(fs, 'readFile').resolves('# ls\n> ls page');
-      sinon.stub(platform, 'getPreferredPlatformFolder').returns('osx');
+      sinon.stub(platformUtils, 'getPreferredPlatformFolder').returns('osx');
       sinon.stub(index, 'findPage').resolves('osx');
       const cache = new Cache(config.get());
       return cache.getPage('ls')
@@ -87,28 +87,28 @@ describe('Cache', () => {
           should.exist(content);
           content.should.startWith('# ls');
           fs.readFile.restore();
-          platform.getPreferredPlatformFolder.restore();
+          platformUtils.getPreferredPlatformFolder.restore();
           index.findPage.restore();
         });
     });
 
     it('should return empty contents for svcs on OSX', () =>{
       sinon.stub(fs, 'readFile').resolves('# svcs\n> svcs');
-      sinon.stub(platform, 'getPreferredPlatformFolder').returns('osx');
+      sinon.stub(platformUtils, 'getPreferredPlatformFolder').returns('osx');
       sinon.stub(index, 'findPage').resolves(null);
       const cache = new Cache(config.get());
       return cache.getPage('svc')
         .then((content) => {
           should.not.exist(content);
           fs.readFile.restore();
-          platform.getPreferredPlatformFolder.restore();
+          platformUtils.getPreferredPlatformFolder.restore();
           index.findPage.restore();
         });
     });
 
     it('should return page contents for svcs on SunOS', () => {
       sinon.stub(fs, 'readFile').resolves('# svcs\n> svcs');
-      sinon.stub(platform, 'getPreferredPlatformFolder').returns('sunos');
+      sinon.stub(platformUtils, 'getPreferredPlatformFolder').returns('sunos');
       sinon.stub(index, 'findPage').resolves('svcs');
       const cache = new Cache(config.get());
       return cache.getPage('svcs')
@@ -116,7 +116,7 @@ describe('Cache', () => {
           should.exist(content);
           content.should.startWith('# svcs');
           fs.readFile.restore();
-          platform.getPreferredPlatformFolder.restore();
+          platformUtils.getPreferredPlatformFolder.restore();
           index.findPage.restore();
         });
     });
