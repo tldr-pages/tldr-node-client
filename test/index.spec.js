@@ -208,15 +208,15 @@ describe('Index', () => {
     return index.getShortIndex()
       .then((idx) => {
         idx.should.deepEqual({
-          apk: {targets: [{language: 'en', os: 'linux'}, {language: 'zh', os: 'linux'}]},
-          cp: {targets: [{language: 'en', os: 'common'}, {language: 'it', os: 'common'}, {language: 'ta', os: 'common'}]},
-          dd: {targets: [{language: 'en', os: 'linux'}, {language: 'en', os: 'osx'}, {language: 'en', os: 'sunos'}]},
-          du: {targets: [{language: 'en', os: 'linux'}, {language: 'en', os: 'osx'}, {language: 'en', os: 'sunos'}]},
-          git: {targets: [{language: 'en', os: 'common'}]},
-          ln: {targets: [{language: 'en', os: 'common'}]},
-          ls: {targets: [{language: 'en', os: 'common'}]},
-          svcs: {targets: [{language: 'en', os: 'sunos'}]},
-          top: {targets: [{language: 'en', os: 'linux'}, {language: 'en', os: 'osx'}]},
+          apk: {targets: [{language: 'en', platform: 'linux'}, {language: 'zh', platform: 'linux'}]},
+          cp: {targets: [{language: 'en', platform: 'common'}, {language: 'it', platform: 'common'}, {language: 'ta', platform: 'common'}]},
+          dd: {targets: [{language: 'en', platform: 'linux'}, {language: 'en', platform: 'osx'}, {language: 'en', platform: 'sunos'}]},
+          du: {targets: [{language: 'en', platform: 'linux'}, {language: 'en', platform: 'osx'}, {language: 'en', platform: 'sunos'}]},
+          git: {targets: [{language: 'en', platform: 'common'}]},
+          ln: {targets: [{language: 'en', platform: 'common'}]},
+          ls: {targets: [{language: 'en', platform: 'common'}]},
+          svcs: {targets: [{language: 'en', platform: 'sunos'}]},
+          top: {targets: [{language: 'en', platform: 'linux'}, {language: 'en', platform: 'osx'}]},
         });
       });
   });

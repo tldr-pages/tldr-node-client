@@ -2,7 +2,7 @@
 
 BUILTIN_THEMES="single base16 ocean"
 
-OS_TYPES="linux osx sunos windows"
+PLATFORMS="linux osx sunos windows"
 
 OPTIONS='-V
 --version
@@ -57,7 +57,7 @@ function _tldr_autocomplete {
         ;;
 
       -p|--platform)
-        COMPREPLY=(`compgen -W "$OS_TYPES" $cur`)
+        COMPREPLY=(`compgen -W "$PLATFORMS" $cur`)
         ;;
 
       -t|--theme)
