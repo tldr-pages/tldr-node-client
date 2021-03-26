@@ -2,7 +2,7 @@
 
 BUILTIN_THEMES="single base16 ocean"
 
-OS_TYPES="linux osx sunos"
+OS_TYPES="linux osx sunos windows"
 
 OPTIONS='-V
 --version
@@ -24,6 +24,7 @@ OPTIONS='-V
 --linux
 --osx
 --sunos
+--windows
 -t
 --theme
 -s

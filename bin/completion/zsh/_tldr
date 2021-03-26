@@ -2,7 +2,7 @@
 
 local -a pages oses
 pages=$(tldr -a1)
-oses='( linux osx sunos )'
+oses='( linux osx sunos windows )'
 
 _arguments \
   '(- *)'{-h,--help}'[show help]' \
@@ -19,6 +19,7 @@ _arguments \
   '--linux[override operating system with Linux]' \
   '--osx[override operating system with OSX]' \
   '--sunos[override operating system with SunOS]' \
+  '--windows[override operating system with Windows]' \
   '(- *)'{-u,--update}'[update local cache]' \
   '(- *)'{-c,--clear-cache}'[clear local cache]' \
   "*:page:(${pages})" && return 0
