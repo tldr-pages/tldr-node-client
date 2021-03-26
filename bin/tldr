@@ -20,7 +20,7 @@ program
   .option('-e, --random-example', 'Show a random example')
   .option('-f, --render [file]', 'Render a specific markdown [file]')
   .option('-m, --markdown', 'Output in markdown format')
-  .option('-o, --os [type]', 'Override the operating system [linux, osx, sunos, windows]')
+  .option('-p, --platform [type]', 'Override the operating system [linux, osx, sunos, windows]')
   .option('--linux', 'Override the operating system with Linux')
   .option('--osx', 'Override the operating system with OSX')
   .option('--sunos', 'Override the operating system with SunOS')
@@ -37,7 +37,7 @@ const help = `
   Examples:
 
     $ tldr tar
-    $ tldr du --os=linux
+    $ tldr du --platform=linux
     $ tldr --search "create symbolic link to file"
     $ tldr --list
     $ tldr --list-all

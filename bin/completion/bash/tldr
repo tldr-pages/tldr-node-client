@@ -20,7 +20,7 @@ OPTIONS='-V
 --render
 -m
 --markdown
--o
+-p
 --linux
 --osx
 --sunos
@@ -56,7 +56,7 @@ function _tldr_autocomplete {
         COMPREPLY=(`compgen -f $cur`)
         ;;
 
-      -o|--os)
+      -p|--platform)
         COMPREPLY=(`compgen -W "$OS_TYPES" $cur`)
         ;;
 
