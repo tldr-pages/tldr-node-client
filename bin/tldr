@@ -20,7 +20,7 @@ program
   .option('-e, --random-example', 'Show a random example')
   .option('-f, --render [file]', 'Render a specific markdown [file]')
   .option('-m, --markdown', 'Output in markdown format')
-  .option('-p, --platform [type]', 'Override platform [linux, osx, sunos, windows]')
+  .option('-p, --platform [platform]', 'Override platform [linux, osx, sunos, windows]')
   .option('--linux', 'Override platform with Linux')
   .option('--osx', 'Override platform with OSX')
   .option('--sunos', 'Override platform with SunOS')
