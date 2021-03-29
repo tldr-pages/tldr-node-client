@@ -5,6 +5,7 @@ const pkg = require('../package');
 const Tldr = require('../lib/tldr');
 const config = require('../lib/config');
 const platform = require('../lib/platform');
+const { TldrError } = require('../lib/errors');
 
 program
   .version(pkg.version, '-v, --version')
@@ -119,7 +120,10 @@ if (p === null) {
   process.exitCode = 1;
 } else {
   p.catch((err) => {
-    console.error(err);
-    process.exitCode = 1;
+    let output = TldrError.isTldrError(err)
+      ? err.message
+      : err.stack;
+    console.error(output);
+    process.exitCode = err.code || 1;
   });
 }
