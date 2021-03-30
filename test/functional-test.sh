@@ -6,11 +6,11 @@ alias tldr="node bin/tldr"
 
 function tldr-render-pages {
   tldr zip && \
-  tldr du --os=linux && \
-  tldr du --os=osx && \
-  tldr du --os=linux --markdown && \
-  tldr du --os=osx --markdown && \
-  tldr du --os=windows --markdown && \
+  tldr du --platform=linux && \
+  tldr du --platform=osx && \
+  tldr du --platform=linux --markdown && \
+  tldr du --platform=osx --markdown && \
+  tldr du --platform=windows --markdown && \
   LANG= tldr --random && \
   LANG= tldr --random-example && \
   tldr --list && \
