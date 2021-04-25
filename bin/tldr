@@ -8,7 +8,8 @@ const platform = require('../lib/platform');
 const { TldrError } = require('../lib/errors');
 
 program
-  .version(pkg.version, '-v, --version')
+  .version(pkg.version, '-v, --version', 'Display version')
+  .helpOption('-h, --help', 'Show this help message')
   .description(pkg.description)
   .usage('command [options]')
   //
