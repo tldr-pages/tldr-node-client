@@ -6,7 +6,7 @@ oses='( linux osx sunos windows )'
 
 _arguments \
   '(- *)'{-h,--help}'[show help]' \
-  '(- *)'{-v,--version}'[show version number]' \
+  '(- *)'{-v,--version}'[display version]' \
   '(- *)'{-l,--list}'[list all commands for chosen platform]' \
   '(- *)'{-a,--list-all}'[list all commands]' \
   '(- *)'{-1,--single-column}'[list one command per line (used with -l or -a)]' \
