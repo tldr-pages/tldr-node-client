@@ -4,7 +4,7 @@ BUILTIN_THEMES="single base16 ocean"
 
 OS_TYPES="linux osx sunos windows"
 
-OPTIONS='-V
+OPTIONS='-v
 --version
 -l
 --list
