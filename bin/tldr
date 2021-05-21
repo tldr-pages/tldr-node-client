@@ -108,7 +108,6 @@ if (program.list) {
       return tldr.updateIndex();
     });
 } else if (program.render) {
-  console.log(typeof program.render)
   if (typeof program.render !== 'string') {
     throw new MissingRenderPathError();
   }
