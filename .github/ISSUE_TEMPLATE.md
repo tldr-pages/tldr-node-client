@@ -9,5 +9,5 @@ Put any log or error output here.
 
 ## Environment
 - Operating system - macOS/Linux/Windows (add version if needed)
-- Node.js version (node --version)
-- tldr-node-client version (tldr --version) 
+- Node.js version (`node --version`)
+- tldr-node-client version (`tldr --version`) 
