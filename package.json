@@ -52,7 +52,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "chalk": "^4.1.0",
-    "commander": "^6.1.0",
+    "commander": "^8.0.0",
     "fs-extra": "^9.0.1",
     "glob": "^7.1.6",
     "lodash": "^4.17.20",

@@ -7,6 +7,8 @@ const config = require('../lib/config');
 const platform = require('../lib/platform');
 const { TldrError } = require('../lib/errors');
 
+const { Option } = program;
+
 program
   .version(pkg.version, '-v, --version', 'Display version')
   .helpOption('-h, --help', 'Show this help message')
@@ -22,7 +24,10 @@ program
   .option('-e, --random-example', 'Show a random example')
   .option('-f, --render <file>', 'Render a specific markdown [file]')
   .option('-m, --markdown', 'Output in markdown format')
-  .option('-o, --os <type>', 'Override the operating system [linux, osx, sunos, windows]')
+  .addOption(
+    new Option('-o, --os <type>', 'Override the operating system [linux, osx, sunos, windows]')
+      .choices(['linux', 'osx', 'sunos', 'windows'])
+  )
   .option('--linux', 'Override the operating system with Linux')
   .option('--osx', 'Override the operating system with OSX')
   .option('--sunos', 'Override the operating system with SunOS')
@@ -60,60 +65,59 @@ program.on('--help', () => {
   console.log(help);
 });
 
-program.parse(process.argv);
+const options = program.parse(process.argv).opts();
 
-if (program.linux) {
-  program.os = 'linux';
+if (options.linux) {
+  options.os = 'linux';
 }
 
-if (program.osx) {
-  program.os = 'osx';
+if (options.osx) {
+  options.os = 'osx';
 }
 
-if (program.sunos) {
-  program.os = 'sunos';
+if (options.sunos) {
+  options.os = 'sunos';
 }
 
-if (program.windows) {
-  program.os = 'windows';
+if (options.windows) {
+  options.os = 'windows';
 }
 
 let cfg = config.get();
-if (program.os) {
-  if (platform.isSupported(program.os)) {
-    cfg.platform = program.os;
+if (options.os) {
+  if (platform.isSupported(options.os)) {
+    cfg.platform = options.os;
   }
 }
 
-if (program.theme) {
-  cfg.theme = program.theme;
+if (options.theme) {
+  cfg.theme = options.theme;
 }
 
 const tldr = new Tldr(cfg);
 
 let p = null;
-if (program.list) {
-  p = tldr.list(program.singleColumn);
-} else if (program.listAll) {
-  p = tldr.listAll(program.singleColumn);
-} else if (program.random) {
-  p = tldr.random(program);
-} else if (program.randomExample) {
+if (options.list) {
+  p = tldr.list(options.singleColumn);
+} else if (options.listAll) {
+  p = tldr.listAll(options.singleColumn);
+} else if (options.random) {
+  p = tldr.random(options);
+} else if (options.randomExample) {
   p = tldr.randomExample();
-} else if (program.clearCache) {
+} else if (options.clearCache) {
   p = tldr.clearCache();
-} else if (program.update) {
+} else if (options.update) {
   p = tldr.updateCache()
     .then(() => {
       return tldr.updateIndex();
     });
-} else if (program.render) {
-  p = tldr.render(program.render);
-} else if (program.search) {
-  program.args.unshift(program.search);
-  p = tldr.search(program.args);
+} else if (options.render) {
+  p = tldr.render(options.render);
+} else if (options.search) {
+  p = tldr.search([ options.search, ...program.args ]);
 } else if (program.args.length >= 1) {
-  p = tldr.get(program.args, program);
+  p = tldr.get(program.args, options);
 }
 
 if (p === null) {
