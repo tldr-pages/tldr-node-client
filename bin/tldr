@@ -20,15 +20,15 @@ program
   .option('-1, --single-column', 'List single command per line (use with options -l or -a)')
   .option('-r, --random', 'Show a random command')
   .option('-e, --random-example', 'Show a random example')
-  .option('-f, --render [file]', 'Render a specific markdown [file]')
+  .option('-f, --render <file>', 'Render a specific markdown [file]')
   .option('-m, --markdown', 'Output in markdown format')
-  .option('-o, --os [type]', 'Override the operating system [linux, osx, sunos, windows]')
+  .option('-o, --os <type>', 'Override the operating system [linux, osx, sunos, windows]')
   .option('--linux', 'Override the operating system with Linux')
   .option('--osx', 'Override the operating system with OSX')
   .option('--sunos', 'Override the operating system with SunOS')
   .option('--windows', 'Override the operating system with Windows')
-  .option('-t, --theme [theme]', 'Color theme (simple, base16, ocean)')
-  .option('-s, --search [keywords]', 'Search pages using keywords')
+  .option('-t, --theme <theme>', 'Color theme (simple, base16, ocean)')
+  .option('-s, --search <keywords>', 'Search pages using keywords')
   //
   // CACHE MANAGEMENT
   //
