@@ -98,14 +98,14 @@ As a contributor, you can also point to your own fork containing the `tldr.zip` 
 
 ```js
 {
-  "repository" : "http://myrepo/assets/tldr.zip",
+  "repository" : "http://myrepo/assets/tldr.zip"
 }
 ```
 
 To prevent that a cache update is performed each time no page is found the variable `skipUpdateWhenPageNotFound` can be set to `true`:
 ```js
 {
-  "skipUpdateWhenPageNotFound": true,
+  "skipUpdateWhenPageNotFound": true
 }
 ```
 
