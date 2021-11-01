@@ -102,7 +102,7 @@ As a contributor, you can also point to your own fork containing the `tldr.zip` 
 }
 ```
 
-If you want to prevent that a cache update is performed each time no page is found for a command, then
+By default, a cache update is performed anytime a page is not found for a command. To prevent this behavior,
 you can set the configuration variable `skipUpdateWhenPageNotFound` to `true` (defaults to `false`):
 
 ```js
