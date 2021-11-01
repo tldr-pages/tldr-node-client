@@ -98,7 +98,7 @@ As a contributor, you can also point to your own fork containing the `tldr.zip` 
 
 ```js
 {
-  "repository" : "http://myrepo/assets/tldr.zip"
+  "repository": "http://myrepo/assets/tldr.zip"
 }
 ```
 
