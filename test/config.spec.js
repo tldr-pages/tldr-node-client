@@ -18,7 +18,7 @@ describe('Config', () => {
   "repository": "http://myrepo/assets/tldr.zip"
 }`;
 
-  const CUSTOM_IVALID_JSON =
+  const CUSTOM_INVALID_JSON =
 `# comments are not allowed in json
 {}`;
 
