@@ -1,7 +1,7 @@
 #compdef tldr
 
 local -a pages oses
-pages=$(for cmd in $(tldr -a1); do echo ${(q)cmd}; done)
+pages=$(tldr -a1)
 oses='( linux osx sunos windows )'
 
 _arguments \
@@ -22,4 +22,4 @@ _arguments \
   '--windows[override operating system with Windows]' \
   '(- *)'{-u,--update}'[update local cache]' \
   '(- *)'{-c,--clear-cache}'[clear local cache]' \
-  "*:page:(${pages})" && return 0
+  "*:page:(${(b)pages})" && return 0
