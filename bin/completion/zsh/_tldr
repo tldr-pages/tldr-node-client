@@ -1,7 +1,7 @@
 #compdef tldr
 
 local -a pages oses
-pages=$(tldr -a1)
+pages=$(for cmd in $(tldr -a1); do echo ${(q)cmd}; done)
 oses='( linux osx sunos windows )'
 
 _arguments \
