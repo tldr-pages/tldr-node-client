@@ -124,7 +124,8 @@ users, so let's start with that.
 
 ```
 mkdir -p $ZSH_CUSTOM/plugins/tldr
-ln -s bin/completion/zsh/_tldr $ZSH_CUSTOM/plugins/tldr/_tldr
+ln -s $(npm config get prefix)/lib/node_modules/tldr/bin/completion/zsh/_tldr $ZSH_CUSTOM/plugins/tldr/_tldr
+# yarn: ln -s $(yarn global dir)/node_modules/tldr/bin/completion/zsh/_tldr $ZSH_CUSTOM/plugins/tldr/_tldr
 ```
 
 Then add tldr to your oh-my-zsh plugins,
@@ -154,7 +155,8 @@ fpath = (my/completions $fpath)
 ### Bash
 
 ```
-ln -s bin/completion/bash/tldr ~/.tldr-completion.bash
+ln -s $(npm config get prefix)/lib/node_modules/tldr/bin/completion/bash/tldr ~/.tldr-completion.bash
+# yarn: ln -s $(yarn global dir)/node_modules/tldr/bin/completion/bash/tldr ~/.tldr-completion.bash
 ```
 
 Now add the following line to our bashrc file:
