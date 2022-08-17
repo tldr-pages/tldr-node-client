@@ -148,7 +148,7 @@ Copy or symlink `bin/completion/zsh/_tldr` to
 Then add the containing directory to your fpath:
 
 ```
-fpath = (my/completions $fpath)
+fpath=(my/completions $fpath)
 ```
 
 ### Bash
