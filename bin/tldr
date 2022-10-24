@@ -22,7 +22,7 @@ program
   .option('-e, --random-example', 'Show a random example')
   .option('-f, --render [file]', 'Render a specific markdown [file]')
   .option('-m, --markdown', 'Output in markdown format')
-  .option('-o, --os [type]', 'Override the operating system [linux, osx, sunos, windows]')
+  .option('-p, --platform [platform]', 'Override the platform [android, common, linux, osx, sunos, windows]')
   .option('--linux', 'Override the operating system with Linux')
   .option('--osx', 'Override the operating system with OSX')
   .option('--sunos', 'Override the operating system with SunOS')
@@ -39,7 +39,7 @@ const help = `
   Examples:
 
     $ tldr tar
-    $ tldr du --os=linux
+    $ tldr du --platform=linux
     $ tldr --search "create symbolic link to file"
     $ tldr --list
     $ tldr --list-all
@@ -63,25 +63,25 @@ program.on('--help', () => {
 program.parse(process.argv);
 
 if (program.linux) {
-  program.os = 'linux';
+  program.platform = 'linux';
 }
 
 if (program.osx) {
-  program.os = 'osx';
+  program.platform = 'osx';
 }
 
 if (program.sunos) {
-  program.os = 'sunos';
+  program.platform = 'sunos';
 }
 
 if (program.windows) {
-  program.os = 'windows';
+  program.platform = 'windows';
 }
 
 let cfg = config.get();
-if (program.os) {
-  if (platform.isSupported(program.os)) {
-    cfg.platform = program.os;
+if (program.platform) {
+  if (platform.isSupported(program.platform)) {
+    cfg.platform = program.platform;
   }
 }
 

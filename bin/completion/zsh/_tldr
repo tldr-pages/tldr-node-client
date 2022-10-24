@@ -2,7 +2,7 @@
 
 local -a pages oses
 pages=$(tldr -a1)
-oses='( linux osx sunos windows )'
+platforms='( android common linux osx sunos windows )'
 
 _arguments \
   '(- *)'{-h,--help}'[show help]' \
@@ -15,7 +15,7 @@ _arguments \
   '(- *)'{-e,--random-example}'[show a random example]' \
   '(- *)'{-m,--markdown}'[show the original markdown format page]' \
   '(-f --render)'{-f,--render}'[render a specific markdown file]:markdown file:_files -/' \
-  '(-o --os)'{-o,--os}"[override operating system]:os:${oses}" \
+  '(-p --platform)'{-p,--platform}"[override platform]:platform:${platforms}" \
   '--linux[override operating system with Linux]' \
   '--osx[override operating system with OSX]' \
   '--sunos[override operating system with SunOS]' \

@@ -21,7 +21,7 @@ npm install -g tldr
 To see tldr pages:
 
 - `tldr <command>` show examples for this command
-- `tldr <command> --os=<platform>` show command page for the given platform (`linux`, `osx`, `sunos`, `windows`)
+- `tldr <command> --platform=<platform>` show command page for the given platform (`android`, `common`, `linux`, `osx`, `sunos`, `windows`)
 - `tldr --search "<query>"` search all pages for the query
 - `tldr --linux <command>` show command page for Linux
 - `tldr --osx <command>` show command page for OSX
@@ -91,7 +91,7 @@ you can put it in the config file:
 The default platform value can be overwritten with command-line option:
 
 ```shell
-tldr du --os=osx
+tldr du --platform=osx
 ```
 
 As a contributor, you can also point to your own fork containing the `tldr.zip` file. The file is just a zipped version of the entire tldr repo:
