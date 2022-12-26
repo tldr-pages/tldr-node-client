@@ -75,5 +75,9 @@
       "pre-commit": "npm run lint",
       "pre-push": "npm run test:quiet"
     }
+  },
+  "funding":{
+    "type": "liberapay",
+    "url": "https://liberapay.com/tldr-pages"
   }
 }
