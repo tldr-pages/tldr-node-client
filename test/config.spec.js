@@ -18,7 +18,11 @@ describe('Config', () => {
   "repository": "http://myrepo/assets/tldr.zip"
 }`;
 
-  const CUSTOM_INVALID =
+  const CUSTOM_INVALID_JSON =
+`# comments are not allowed in json
+{}`;
+
+  const CUSTOM_INVALID_SCHEMA =
 `
 {
   "themes": {
@@ -53,9 +57,15 @@ describe('Config', () => {
     config.get().repository.should.eql('http://myrepo/assets/tldr.zip');
   });
 
-  it('should validate the custom config format', () => {
+  it('should validate the custom config JSON', () => {
     fs.readFileSync.onCall(0).returns(DEFAULT);
-    fs.readFileSync.onCall(1).returns(CUSTOM_INVALID);
+    fs.readFileSync.onCall(1).returns(CUSTOM_INVALID_JSON);
+    config.get.should.throw(/not a valid JSON object/);
+  });
+
+  it('should validate the custom config schema', () => {
+    fs.readFileSync.onCall(0).returns(DEFAULT);
+    fs.readFileSync.onCall(1).returns(CUSTOM_INVALID_SCHEMA);
     config.get.should.throw(/Invalid theme value/);
   });
 

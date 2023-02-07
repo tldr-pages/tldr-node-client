@@ -22,4 +22,4 @@ _arguments \
   '--windows[override operating system with Windows]' \
   '(- *)'{-u,--update}'[update local cache]' \
   '(- *)'{-c,--clear-cache}'[clear local cache]' \
-  "*:page:(${pages})" && return 0
+  "*:page:(${(b)pages})" && return 0
