@@ -236,7 +236,7 @@ for a few rough guidelines.
 [npm-url]: https://www.npmjs.com/package/tldr
 [npm-image]: https://img.shields.io/npm/v/tldr.svg
 [gh-actions-url]: https://github.com/tldr-pages/tldr-node-client/actions?query=workflow%3ATest+branch%3Amaster
-[gh-actions-image]: https://img.shields.io/github/workflow/status/tldr-pages/tldr-node-client/Test/master
+[gh-actions-image]: https://img.shields.io/github/actions/workflow/status/tldr-pages/tldr-node-client/test.yml?branch=master
 [dep-url]: https://david-dm.org/tldr-pages/tldr-node-client
 [dep-image]: https://david-dm.org/tldr-pages/tldr-node-client.svg?theme=shields.io
 [dev-dep-url]: https://david-dm.org/tldr-pages/tldr-node-client#info=devDependencies
