@@ -22,7 +22,7 @@
   ],
   "homepage": "http://tldr-pages.github.io",
   "engines": {
-    "node": ">=6.12.0"
+    "node": ">=14"
   },
   "main": "bin/tldr",
   "files": [
