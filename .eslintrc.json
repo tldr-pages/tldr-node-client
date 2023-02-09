@@ -19,10 +19,7 @@
   "env": {
     "node": true,
     "mocha": true,
-    "es6": true
-  },
-  "parserOptions": {
-    "ecmaVersion": 6
+    "es2019": true
   },
   "extends": "eslint:recommended"
 }
