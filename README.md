@@ -2,7 +2,7 @@
 
 [![NPM version][npm-image]][npm-url]
 [![GitHub Action Build Status][gh-actions-image]][gh-actions-url]
-[![Gitter chat][gitter-image]][gitter-url]
+[![Matrix chat][matrix-image]][matrix-url]
 
 A `Node.js` based command-line client for [tldr](https://github.com/tldr-pages/tldr).
 
@@ -241,5 +241,5 @@ for a few rough guidelines.
 [dep-image]: https://david-dm.org/tldr-pages/tldr-node-client.svg?theme=shields.io
 [dev-dep-url]: https://david-dm.org/tldr-pages/tldr-node-client#info=devDependencies
 [dev-dep-image]: https://david-dm.org/tldr-pages/tldr-node-client/dev-status.svg?theme=shields.io
-[gitter-url]: https://gitter.im/tldr-pages/tldr
-[gitter-image]: https://badges.gitter.im/tldr-pages/tldr.png
+[matrix-url]: https://matrix.to/#/#tldr-pages:matrix.org
+[matrix-image]: https://img.shields.io/matrix/tldr-pages:matrix.org?label=Chat+on+Matrix
