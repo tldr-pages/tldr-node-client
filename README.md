@@ -242,4 +242,4 @@ for a few rough guidelines.
 [dev-dep-url]: https://david-dm.org/tldr-pages/tldr-node-client#info=devDependencies
 [dev-dep-image]: https://david-dm.org/tldr-pages/tldr-node-client/dev-status.svg?theme=shields.io
 [matrix-url]: https://matrix.to/#/#tldr-pages:matrix.org
-[matrix-image]: https://img.shields.io/matrix/tldr-pages:matrix.org?label=Chat+on+Matrix
+[matrix-image]: https://img.shields.io/matrix/tldr-pages:matrix.org?label=chat+on+matrix
