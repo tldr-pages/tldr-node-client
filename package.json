@@ -63,7 +63,7 @@
     "ora": "^5.1.0"
   },
   "devDependencies": {
-    "eslint": "^7.11.0",
+    "eslint": "^8.39.0",
     "husky": "^4.3.0",
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
@@ -76,7 +76,7 @@
       "pre-push": "npm run test:quiet"
     }
   },
-  "funding":{
+  "funding": {
     "type": "liberapay",
     "url": "https://liberapay.com/tldr-pages"
   }
