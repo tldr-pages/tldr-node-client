@@ -4,7 +4,7 @@ const program = require('commander');
 const pkg = require('../package');
 const Tldr = require('../lib/tldr');
 const config = require('../lib/config');
-const Platform = require('../lib/platform');
+const platforms = require('../lib/platform');
 const { TldrError } = require('../lib/errors');
 
 program
@@ -28,6 +28,8 @@ program
   .option('--osx', 'Override the platform with OSX')
   .option('--sunos', 'Override the platform with SunOS')
   .option('--windows', 'Override the platform with Windows')
+  .alias('-o', '-p') // Alias -o to -p
+  .alias('--os', '--platform') // Alias --os to --platform
   .option('-t, --theme [theme]', 'Color theme (simple, base16, ocean)')
   .option('-s, --search [keywords]', 'Search pages using keywords')
   //
@@ -63,7 +65,7 @@ program.on('--help', () => {
 
 program.parse(process.argv);
 
-if(program.android){
+if(program.android) {
   program.platform = 'android';
 }
 
@@ -85,7 +87,7 @@ if (program.windows) {
 
 let cfg = config.get();
 if (program.platform) {
-  if (Platform.isSupported(program.platform)) {
+  if (platforms.isSupported(program.platform)) {
     cfg.platform = program.platform;
   }
 }

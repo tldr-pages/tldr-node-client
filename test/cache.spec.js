@@ -8,7 +8,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const index = require('../lib/index');
 const remote = require('../lib/remote');
-const Platform = require('../lib/platform');
+const platforms = require('../lib/platform');
 
 
 describe('Cache', () => {
@@ -80,7 +80,7 @@ describe('Cache', () => {
 
     it('should return page contents for ls', () => {
       sinon.stub(fs, 'readFile').resolves('# ls\n> ls page');
-      sinon.stub(Platform, 'getPreferredPlatformFolder').returns('osx');
+      sinon.stub(platforms, 'getPreferredPlatformFolder').returns('osx');
       sinon.stub(index, 'findPage').resolves('osx');
       const cache = new Cache(config.get());
       return cache.getPage('ls')
@@ -88,28 +88,28 @@ describe('Cache', () => {
           should.exist(content);
           content.should.startWith('# ls');
           fs.readFile.restore();
-          Platform.getPreferredPlatformFolder.restore();
+          platforms.getPreferredPlatformFolder.restore();
           index.findPage.restore();
         });
     });
 
     it('should return empty contents for svcs on OSX', () =>{
       sinon.stub(fs, 'readFile').resolves('# svcs\n> svcs');
-      sinon.stub(Platform, 'getPreferredPlatformFolder').returns('osx');
+      sinon.stub(platforms, 'getPreferredPlatformFolder').returns('osx');
       sinon.stub(index, 'findPage').resolves(null);
       const cache = new Cache(config.get());
       return cache.getPage('svc')
         .then((content) => {
           should.not.exist(content);
           fs.readFile.restore();
-          Platform.getPreferredPlatformFolder.restore();
+          platforms.getPreferredPlatformFolder.restore();
           index.findPage.restore();
         });
     });
 
     it('should return page contents for svcs on SunOS', () => {
       sinon.stub(fs, 'readFile').resolves('# svcs\n> svcs');
-      sinon.stub(Platform, 'getPreferredPlatformFolder').returns('sunos');
+      sinon.stub(platforms, 'getPreferredPlatformFolder').returns('sunos');
       sinon.stub(index, 'findPage').resolves('svcs');
       const cache = new Cache(config.get());
       return cache.getPage('svcs')
@@ -117,14 +117,14 @@ describe('Cache', () => {
           should.exist(content);
           content.should.startWith('# svcs');
           fs.readFile.restore();
-          Platform.getPreferredPlatformFolder.restore();
+          platforms.getPreferredPlatformFolder.restore();
           index.findPage.restore();
         });
     });
 
     it('should return page contents for pkg on Android', () => {
       sinon.stub(fs, 'readFile').resolves('# pkg\n> pkg');
-      sinon.stub(Platform, 'getPreferredPlatformFolder').returns('android');
+      sinon.stub(platforms, 'getPreferredPlatformFolder').returns('android');
       sinon.stub(index, 'findPage').resolves('pkg');
       const cache = new Cache(config.get());
       return cache.getPage('pkg')
@@ -132,7 +132,7 @@ describe('Cache', () => {
           should.exist(content);
           content.should.startWith('# pkg');
           fs.readFile.restore();
-          Platform.getPreferredPlatformFolder.restore();
+          platforms.getPreferredPlatformFolder.restore();
           index.findPage.restore();
         });
     });
