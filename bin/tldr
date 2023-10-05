@@ -4,7 +4,7 @@ const program = require('commander');
 const pkg = require('../package');
 const Tldr = require('../lib/tldr');
 const config = require('../lib/config');
-const platform = require('../lib/platform');
+const Platform = require('../lib/platform');
 const { TldrError } = require('../lib/errors');
 
 program
@@ -22,11 +22,12 @@ program
   .option('-e, --random-example', 'Show a random example')
   .option('-f, --render [file]', 'Render a specific markdown [file]')
   .option('-m, --markdown', 'Output in markdown format')
-  .option('-o, --os [type]', 'Override the operating system [linux, osx, sunos, windows]')
-  .option('--linux', 'Override the operating system with Linux')
-  .option('--osx', 'Override the operating system with OSX')
-  .option('--sunos', 'Override the operating system with SunOS')
-  .option('--windows', 'Override the operating system with Windows')
+  .option('-p, --platform [type]', 'Override the current platform [android, linux, osx, sunos, windows]')
+  .option('--android', 'Override the platform with Android')
+  .option('--linux', 'Override the platform with Linux')
+  .option('--osx', 'Override the platform with OSX')
+  .option('--sunos', 'Override the platform with SunOS')
+  .option('--windows', 'Override the platform with Windows')
   .option('-t, --theme [theme]', 'Color theme (simple, base16, ocean)')
   .option('-s, --search [keywords]', 'Search pages using keywords')
   //
@@ -39,7 +40,7 @@ const help = `
   Examples:
 
     $ tldr tar
-    $ tldr du --os=linux
+    $ tldr du --platform=linux
     $ tldr --search "create symbolic link to file"
     $ tldr --list
     $ tldr --list-all
@@ -62,26 +63,30 @@ program.on('--help', () => {
 
 program.parse(process.argv);
 
+if(program.android){
+  program.platform = 'android';
+}
+
 if (program.linux) {
-  program.os = 'linux';
+  program.platform = 'linux';
 }
 
 if (program.osx) {
-  program.os = 'osx';
+  program.platform = 'osx';
 }
 
 if (program.sunos) {
-  program.os = 'sunos';
+  program.platform = 'sunos';
 }
 
 if (program.windows) {
-  program.os = 'windows';
+  program.platform = 'windows';
 }
 
 let cfg = config.get();
-if (program.os) {
-  if (platform.isSupported(program.os)) {
-    cfg.platform = program.os;
+if (program.platform) {
+  if (Platform.isSupported(program.platform)) {
+    cfg.platform = program.platform;
   }
 }
 

@@ -25,7 +25,8 @@ const pages = [
   ['/pages', 'osx', 'top.md'],
   ['/pages', 'sunos', 'dd.md'],
   ['/pages', 'sunos', 'du.md'],
-  ['/pages', 'sunos', 'svcs.md']
+  ['/pages', 'sunos', 'svcs.md'],
+  ['/pages', 'android', 'pkg.md'],
 ].map((x) => {
   return path.join(...x);
 });
@@ -88,6 +89,13 @@ describe('Index', () => {
         });
     });
 
+    it('should find platform android for pkg command for English', () => {
+      return index.findPage('pkg', 'android', 'en')
+        .then((folder) => {
+          return folder.should.equal(path.join('pages', 'android'));
+        });
+    });
+
     it('should find Linux platform for apk command for Chinese given Windows', () => {
       return index.findPage('apk', 'windows', 'zh')
         .then((folder) => {
@@ -137,6 +145,7 @@ describe('Index', () => {
         });
     });
 
+
     it('should find platform common for cp command for Italian given common platform', () => {
       return index.findPage('cp', 'common', 'it')
         .then((folder) => {
@@ -170,7 +179,7 @@ describe('Index', () => {
     return index.commands()
       .then((commands) => {
         commands.should.deepEqual([
-          'apk', 'cp', 'dd', 'du', 'git', 'ln', 'ls', 'svcs', 'top'
+          'apk', 'cp', 'dd', 'du', 'git', 'ln', 'ls', 'pkg', 'svcs', 'top'
         ]);
       });
   });
@@ -208,15 +217,16 @@ describe('Index', () => {
     return index.getShortIndex()
       .then((idx) => {
         idx.should.deepEqual({
-          apk: {targets: [{language: 'en', os: 'linux'}, {language: 'zh', os: 'linux'}]},
-          cp: {targets: [{language: 'en', os: 'common'}, {language: 'it', os: 'common'}, {language: 'ta', os: 'common'}]},
-          dd: {targets: [{language: 'en', os: 'linux'}, {language: 'en', os: 'osx'}, {language: 'en', os: 'sunos'}]},
-          du: {targets: [{language: 'en', os: 'linux'}, {language: 'en', os: 'osx'}, {language: 'en', os: 'sunos'}]},
-          git: {targets: [{language: 'en', os: 'common'}]},
-          ln: {targets: [{language: 'en', os: 'common'}]},
-          ls: {targets: [{language: 'en', os: 'common'}]},
-          svcs: {targets: [{language: 'en', os: 'sunos'}]},
-          top: {targets: [{language: 'en', os: 'linux'}, {language: 'en', os: 'osx'}]},
+          apk: {targets: [{language: 'en',  platform: 'linux'}, {language: 'zh',  platform: 'linux'}]},
+          cp: {targets: [{language: 'en',  platform: 'common'}, {language: 'it',  platform: 'common'}, {language: 'ta',  platform: 'common'}]},
+          dd: {targets: [{language: 'en',  platform: 'linux'}, {language: 'en',  platform: 'osx'}, {language: 'en',  platform: 'sunos'}]},
+          du: {targets: [{language: 'en',  platform: 'linux'}, {language: 'en',  platform: 'osx'}, {language: 'en',  platform: 'sunos'}]},
+          git: {targets: [{language: 'en',  platform: 'common'}]},
+          ln: {targets: [{language: 'en',  platform: 'common'}]},
+          ls: {targets: [{language: 'en',  platform: 'common'}]},
+          pkg: {targets: [{language: 'en',  platform: 'android'}]},
+          svcs: {targets: [{language: 'en',  platform: 'sunos'}]},
+          top: {targets: [{language: 'en',  platform: 'linux'}, {language: 'en',  platform: 'osx'}]},
         });
       });
   });
