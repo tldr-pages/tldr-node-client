@@ -46,9 +46,8 @@
     "lint": "eslint lib test bin/tldr",
     "watch": "mocha --reporter=min --watch --growl",
     "test:functional": "bash test/functional-test.sh",
-    "test:update": "bash test/cache.sh",
     "test:coverage": "nyc mocha",
-    "test:all": "npm run lint && npm test && npm run test:functional && npm run test:update"
+    "test:all": "npm run lint && npm test && npm run test:functional"
   },
   "dependencies": {
     "adm-zip": "^0.5.10",
