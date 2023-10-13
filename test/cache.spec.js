@@ -8,7 +8,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const index = require('../lib/index');
 const remote = require('../lib/remote');
-const platforms = require('../lib/platform');
+const platforms = require('../lib/platforms');
 
 
 describe('Cache', () => {

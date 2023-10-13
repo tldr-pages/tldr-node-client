@@ -3,7 +3,7 @@
 const os = require('os');
 const config = require('../lib/config');
 const sinon = require('sinon');
-const platforms = require('../lib/platform');
+const platforms = require('../lib/platforms');
 
 describe('Platform', () => {
 
