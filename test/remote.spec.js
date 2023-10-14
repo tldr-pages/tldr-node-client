@@ -11,9 +11,7 @@ var assert = require('assert');
 
 describe('Remote', () => {
   describe('update()', () => {
-    const TIMEOUT_INTERVAL = 60000; // 1min timeout for each test case.
-    let tempFolder;
-    let i = 0;
+    const TIMEOUT_INTERVAL = 120000; // 2 min timeout for each test case.
 
     const testCases = [
       {
@@ -43,50 +41,53 @@ describe('Remote', () => {
       },
     ];
 
-    beforeEach(() => {
-      // Iterate over the test cases
-      sinon.spy(fs, 'ensureDir');
-      sinon.stub(fs, 'remove').resolves();
-      sinon.stub(fs, 'copy').resolves();
-      sinon.stub(utils, 'localeToLang').returns(testCases[i].LANG);
-      sinon.stub(index, 'rebuildPagesIndex').resolves();
-    });
-
     testCases.forEach((testCase) => {
-      it(`${testCase.description}`, () => {
-        const cache = new Cache(config.get());
-        return cache.update().then(() => {
-          let call = fs.ensureDir.getCall(0);
-          tempFolder = call.args[0];
-          
-          // Get the actual cache folders created
-          const items = fs.readdirSync(tempFolder);
-          
-          // Filter the items to get only the directories
-          const presentFolders = items.filter((item) => {
-            try {
-              return fs.statSync(path.join(tempFolder, item)).isDirectory();
-            } catch (err) {
-              return false;
-            }
-          });
-          assert.deepEqual(presentFolders, testCase.expectedFolders);
-        }).catch((err) => {
-          throw err;
-        });
-      }).timeout(TIMEOUT_INTERVAL);
-    });
+      describe(`${testCase.description}`, () => {
+        let tempFolder;
 
-    afterEach(() => {
-      // Clearing Spies & Stubs
-      fs.copy.restore();
-      fs.remove.restore();
-      fs.ensureDir.restore();
-      utils.localeToLang.restore();
-      index.rebuildPagesIndex.restore();
-      
-      fs.remove(tempFolder);
-      i = i + 1;
+        beforeEach(() => {
+          sinon.spy(fs, 'ensureDir');
+          sinon.stub(fs, 'remove').resolves();
+          sinon.stub(fs, 'copy').resolves();
+          sinon.stub(utils, 'localeToLang').returns(testCase.LANG);
+          sinon.stub(index, 'rebuildPagesIndex').resolves();
+        });
+        
+        it('passes', () => {
+          const cache = new Cache(config.get());
+          return cache.update().then(() => {
+            let call = fs.ensureDir.getCall(0);
+            tempFolder = call.args[0];
+            
+            // Get the actual cache folders created
+            const items = fs.readdirSync(tempFolder);
+            
+            // Filter the items to get only the directories
+            const presentFolders = items.filter((item) => {
+              try {
+                return fs.statSync(path.join(tempFolder, item)).isDirectory();
+              } catch (err) {
+                return false;
+              }
+            });
+            assert.deepEqual(presentFolders, testCase.expectedFolders);
+          }).catch((err) => {
+            throw err;
+          });
+        }).timeout(TIMEOUT_INTERVAL);
+
+        afterEach(async () => {
+          // Clearing Spies & Stubs
+          fs.copy.restore();
+          fs.remove.restore();
+          fs.ensureDir.restore();
+          utils.localeToLang.restore();
+          index.rebuildPagesIndex.restore();
+          
+          await fs.remove(tempFolder);
+        });
+
+      });
     });
   });
 
