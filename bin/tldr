@@ -86,10 +86,8 @@ if (program.windows) {
 }
 
 let cfg = config.get();
-if (program.platform) {
-  if (platforms.isSupported(program.platform)) {
-    cfg.platform = program.platform;
-  }
+if (program.platform && platforms.isSupported(program.platform)) {
+  cfg.platform = program.platform;
 }
 
 if (program.theme) {
