@@ -2,7 +2,7 @@
 
 local -a pages platforms
 pages=$(tldr -a1)
-platforms='( android linux osx sunos windows )'
+platforms='( android linux openbsd osx sunos windows )'
 
 _arguments \
   '(- *)'{-h,--help}'[show help]' \
@@ -18,8 +18,8 @@ _arguments \
   '(-p --platform)'{-p,--platform}"[override platform]:platform:(${(j:|:)platforms})" \
   '(- *)'{-u,--update}'[update local cache]' \
   '--android[override operating system with Android]' \
-  '--openbsd[override operating system with OpenBSD]' \
   '--linux[override operating system with Linux]' \
+  '--openbsd[override operating system with OpenBSD]' \
   '--osx[override operating system with OSX]' \
   '--sunos[override operating system with SunOS]' \
   '--windows[override operating system with Windows]' \

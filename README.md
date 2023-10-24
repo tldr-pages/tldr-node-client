@@ -154,23 +154,23 @@ fpath=(my/completions $fpath)
 
 ### Bash
 
-```zsh
+```bash
 ln -s bin/completion/bash/tldr ~/.tldr-completion.bash
 ```
 
 Now add the following line to our bashrc file:
 
-```zsh
+```bash
 source ~/.tldr-completion.bash
 ```
 
 ## FAQ
 
-#### Installation Issues
+### Installation Issues
 
 - If you are trying to install as non-root user (`npm install -g tldr`) and get something like:
 
-```shell
+```
 Error: EACCES: permission denied, access '/usr/local/lib/node_modules/tldr'
 ```
 
@@ -188,7 +188,7 @@ You need to add the option `--unsafe-perm` to your command. This is because when
 
 - If you see an error related to `webworker-threads` like:
 
-```shell
+```
 /usr/local/lib/node_modules/tldr/node_modules/natural/lib/natural/classifiers/classifier.js:32
     if (e.code !== 'MODULE_NOT_FOUND') throw e;
 ```
