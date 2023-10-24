@@ -15,12 +15,7 @@ _arguments \
   '(- *)'{-e,--random-example}'[show a random example]' \
   '(- *)'{-m,--markdown}'[show the original markdown format page]' \
   '(-f --render)'{-f,--render}'[render a specific markdown file]:markdown file:_files -/' \
-  '(-p --platform)'{-p,--platform}"[override platform]:os:${oses}" \
-  '--android[override platform with Android]' \
-  '--linux[override platform with Linux]' \
-  '--osx[override platform with OSX]' \
-  '--sunos[override platform with SunOS]' \
-  '--windows[override platform with Windows]' \
+  '(-p --platform)'{-p,--platform}"[override platform]:platform:(${(j:|:)platforms})" \
   '(- *)'{-u,--update}'[update local cache]' \
   '(- *)'{-c,--clear-cache}'[clear local cache]' \
   "*:page:(${(b)pages})" && return 0

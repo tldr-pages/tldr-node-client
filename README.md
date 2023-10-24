@@ -21,13 +21,8 @@ npm install -g tldr
 To see tldr pages:
 
 - `tldr <command>` show examples for this command
-- `tldr <command> --platform=<android|linux|osx|sunos|windows>` show command page for the given platform
+- `tldr <command> --platform=<android|linux|openbsd|osx|sunos|windows>` show command page for the given platform
 - `tldr --search "<query>"` search all pages for the query
-- `tldr --android <command>` show command page for Android
-- `tldr --linux <command>` show command page for Linux
-- `tldr --osx <command>` show command page for OSX
-- `tldr --sunos <command>` show command page for SunOS
-- `tldr --windows <command>` show command page for Windows
 - `tldr --list` show all pages for current platform
 - `tldr --list-all` show all available pages
 - `tldr --random` show a page at random
@@ -123,7 +118,7 @@ It's easiest for
 [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
 users, so let's start with that.
 
-```
+```zsh
 mkdir -p $ZSH_CUSTOM/plugins/tldr
 ln -s bin/completion/zsh/_tldr $ZSH_CUSTOM/plugins/tldr/_tldr
 ```
@@ -132,13 +127,13 @@ Then add tldr to your oh-my-zsh plugins,
 usually defined in `~/.zshrc`,
 resulting in something looking like this:
 
-```
+```zsh
 plugins=(git tmux tldr)
 ```
 
 Alternatively, using [zplug](https://github.com/zplug/zplug)
 
-```
+```zsh
 zplug "tldr-pages/tldr-node-client", use:bin/completion/zsh
 ```
 
@@ -148,19 +143,19 @@ Copy or symlink `bin/completion/zsh/_tldr` to
 (note the filename).
 Then add the containing directory to your fpath:
 
-```
+```zsh
 fpath=(my/completions $fpath)
 ```
 
 ### Bash
 
-```
+```zsh
 ln -s bin/completion/bash/tldr ~/.tldr-completion.bash
 ```
 
 Now add the following line to our bashrc file:
 
-```
+```zsh
 source ~/.tldr-completion.bash
 ```
 
@@ -170,7 +165,7 @@ source ~/.tldr-completion.bash
 
 - If you are trying to install as non-root user (`npm install -g tldr`) and get something like:
 
-```
+```shell
 Error: EACCES: permission denied, access '/usr/local/lib/node_modules/tldr'
 ```
 
@@ -178,7 +173,7 @@ Then most probably your npm's default installation directory has improper permis
 
 - If you are trying to install as a root user (`sudo npm install -g tldr`) and get something like:
 
-```
+```shell
 as root ->
 gyp WARN EACCES attempting to reinstall using temporary dev dir "/usr/local/lib/node_modules/tldr/node_modules/webworker-threads/.node-gyp"
 gyp WARN EACCES user "root" does not have permission to access the dev dir "/usr/local/lib/node_modules/tldr/node_modules/webworker-threads/.node-gyp/8.9.1"
@@ -188,14 +183,14 @@ You need to add the option `--unsafe-perm` to your command. This is because when
 
 - If you see an error related to `webworker-threads` like:
 
-```
+```shell
 /usr/local/lib/node_modules/tldr/node_modules/natural/lib/natural/classifiers/classifier.js:32
     if (e.code !== 'MODULE_NOT_FOUND') throw e;
 ```
 
 Most probably you need to reinstall `node-gyp` and `webworker-threads`. Try this -
 
-```
+```shell
 sudo -H npm uninstall -g tldr
 sudo -H npm uninstall -g webworker-threads
 npm install -g node-gyp
@@ -237,10 +232,6 @@ for a few rough guidelines.
 [npm-url]: https://www.npmjs.com/package/tldr
 [npm-image]: https://img.shields.io/npm/v/tldr.svg
 [gh-actions-url]: https://github.com/tldr-pages/tldr-node-client/actions?query=workflow%3ATest+branch%3Amaster
-[gh-actions-image]: https://img.shields.io/github/actions/workflow/status/tldr-pages/tldr-node-client/test.yml?branch=master
-[dep-url]: https://david-dm.org/tldr-pages/tldr-node-client
-[dep-image]: https://david-dm.org/tldr-pages/tldr-node-client.svg?theme=shields.io
-[dev-dep-url]: https://david-dm.org/tldr-pages/tldr-node-client#info=devDependencies
-[dev-dep-image]: https://david-dm.org/tldr-pages/tldr-node-client/dev-status.svg?theme=shields.io
+[gh-actions-image]: https://img.shields.io/github/actions/workflow/status/tldr-pages/tldr-node-client/test.yml?branch=main
 [matrix-url]: https://matrix.to/#/#tldr-pages:matrix.org
 [matrix-image]: https://img.shields.io/matrix/tldr-pages:matrix.org?label=chat+on+matrix

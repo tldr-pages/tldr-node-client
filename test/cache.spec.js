@@ -70,7 +70,7 @@ describe('Cache', () => {
         du: ['linux', 'osx', 'sunos'],
         top: ['linux', 'osx'],
         svcs: ['sunos'],
-        pkg: ['android']
+        pkg: ['android', 'openbsd']
       });
     });
 

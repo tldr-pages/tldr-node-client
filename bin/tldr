@@ -22,12 +22,13 @@ program
   .option('-e, --random-example', 'Show a random example')
   .option('-f, --render [file]', 'Render a specific markdown [file]')
   .option('-m, --markdown', 'Output in markdown format')
-  .option('-p, --platform [type]', 'Override the current platform [android, linux, osx, sunos, windows]')
-  .option('--android', 'Override the platform with Android')
-  .option('--linux', 'Override the platform with Linux')
-  .option('--osx', 'Override the platform with OSX')
-  .option('--sunos', 'Override the platform with SunOS')
-  .option('--windows', 'Override the platform with Windows')
+  .option('-p, --platform [type]', `Override the current platform [${platforms.supportedPlatforms.join(', ')}]`);
+
+for (const platform of platforms.supportedPlatforms) {
+  program.option(`--${platform}`, `Override the platform with ${platform}`);
+}
+
+program
   .alias('-o', '-p') // Alias -o to -p
   .alias('--os', '--platform') // Alias --os to --platform
   .option('-t, --theme [theme]', 'Color theme (simple, base16, ocean)')
@@ -65,24 +66,10 @@ program.on('--help', () => {
 
 program.parse(process.argv);
 
-if(program.android) {
-  program.platform = 'android';
-}
-
-if (program.linux) {
-  program.platform = 'linux';
-}
-
-if (program.osx) {
-  program.platform = 'osx';
-}
-
-if (program.sunos) {
-  program.platform = 'sunos';
-}
-
-if (program.windows) {
-  program.platform = 'windows';
+for (const platform of platforms.supportedPlatforms) {
+  if (program[platform]) {
+    program.platform = platform;
+  }
 }
 
 let cfg = config.get();
