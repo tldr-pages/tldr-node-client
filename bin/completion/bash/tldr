@@ -21,6 +21,12 @@ OPTIONS='-v
 -m
 --markdown
 -p
+--android
+--linux
+--openbsd
+--osx
+--sunos
+--windows
 -t
 --theme
 -s

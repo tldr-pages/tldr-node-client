@@ -22,6 +22,11 @@ To see tldr pages:
 
 - `tldr <command>` show examples for this command
 - `tldr <command> --platform=<android|linux|openbsd|osx|sunos|windows>` show command page for the given platform
+- `tldr --linux <command>` show command page for Linux
+- `tldr --openbsd <command>` show command page for OpenBSD
+- `tldr --osx <command>` show command page for OSX
+- `tldr --sunos <command>` show command page for SunOS
+- `tldr --windows <command>` show command page for Windows
 - `tldr --search "<query>"` search all pages for the query
 - `tldr --list` show all pages for current platform
 - `tldr --list-all` show all available pages
