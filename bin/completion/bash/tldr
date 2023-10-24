@@ -2,7 +2,7 @@
 
 BUILTIN_THEMES="single base16 ocean"
 
-PLATFORM_TYPES="android linux osx sunos windows"
+PLATFORM_TYPES="android linux openbsd osx sunos windows"
 
 OPTIONS='-v
 --version
