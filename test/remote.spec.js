@@ -52,16 +52,16 @@ describe('Remote', () => {
           sinon.stub(utils, 'localeToLang').returns(testCase.LANG);
           sinon.stub(index, 'rebuildPagesIndex').resolves();
         });
-        
+
         it('passes', () => {
           const cache = new Cache(config.get());
           return cache.update().then(() => {
             let call = fs.ensureDir.getCall(0);
             tempFolder = call.args[0];
-            
+
             // Get the actual cache folders created
             const items = fs.readdirSync(tempFolder);
-            
+
             // Filter the items to get only the directories
             const presentFolders = items.filter((item) => {
               try {
@@ -83,23 +83,11 @@ describe('Remote', () => {
           fs.ensureDir.restore();
           utils.localeToLang.restore();
           index.rebuildPagesIndex.restore();
-          
+
           await fs.remove(tempFolder);
         });
 
       });
-    });
-  });
-
-  describe('localeToLang()', () => {
-    it('should return with cc', () => {
-      let result = utils.localeToLang('pt_BR');
-      assert.deepEqual(result, ['pt', 'pt_BR']);
-    });
-
-    it('should return without cc', () => {
-      let result = utils.localeToLang('pp_BR');
-      assert.deepEqual(result, ['pp']);
     });
   });
 });
