@@ -1,6 +1,6 @@
 {
   "pagesRepository": "https://github.com/tldr-pages/tldr",
-  "repository": "https://tldr.sh/assets/tldr.zip",
+  "repositoryBase": "https://tldr.sh/assets/tldr-pages",
   "skipUpdateWhenPageNotFound": false,
   "themes": {
     "simple": {
