@@ -51,16 +51,18 @@
   },
   "dependencies": {
     "adm-zip": "^0.5.10",
-    "axios": "^0.21.1",
     "chalk": "^4.1.0",
     "commander": "^6.1.0",
     "fs-extra": "^9.0.1",
     "glob": "^7.1.6",
+    "https-proxy-agent": "^7.0.2",
     "lodash": "^4.17.20",
     "marked": "^4.0.10",
     "ms": "^2.1.2",
     "natural": "^2.1.5",
-    "ora": "^5.1.0"
+    "node-fetch": "^2.7.0",
+    "ora": "^5.1.0",
+    "proxy-from-env": "^1.1.0"
   },
   "devDependencies": {
     "eslint": "^8.39.0",
