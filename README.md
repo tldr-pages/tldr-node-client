@@ -23,15 +23,15 @@ To see tldr pages:
 - `tldr <command>` show examples for this command
 - `tldr <command> --platform=<osx, darwin, macos, freebsd, linux, netbsd, openbsd, sunos, android, windows, win32>` show command page for the given platform
 - `tldr --android <command>` show command page for Android
-- `tldr --darwin <command>` show command page for macOS
+- `tldr --darwin <command>` show command page for darwin (macOS)
 - `tldr --freebsd <command>` show command page for FreeBSD
 - `tldr --linux <command>` show command page for Linux
 - `tldr --macos <command>` show command page for macOS
 - `tldr --netbsd <command>` show command page for NetBSD
 - `tldr --openbsd <command>` show command page for OpenBSD
-- `tldr --osx <command>` show command page for macOS
+- `tldr --osx <command>` show command page for osx (macOS)
 - `tldr --sunos <command>` show command page for SunOS
-- `tldr --win32 <command>` show command page for Windows
+- `tldr --win32 <command>` show command page for win32 (Windows)
 - `tldr --windows <command>` show command page for Windows
 - `tldr --search "<query>"` search all pages for the query
 - `tldr --list` show all pages for current platform
