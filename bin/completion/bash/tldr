@@ -22,12 +22,15 @@ OPTIONS='-v
 --markdown
 -p
 --android
+--darwin
 --freebsd
 --linux
+--macos
 --netbsd
 --openbsd
 --osx
 --sunos
+--win32
 --windows
 -t
 --theme

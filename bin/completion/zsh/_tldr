@@ -18,12 +18,15 @@ _arguments \
   '(-p --platform)'{-p,--platform}"[override platform]:platform:(${(j:|:)platforms})" \
   '(- *)'{-u,--update}'[update local cache]' \
   '--android[override operating system with Android]' \
+  '--darwin[override operating system with macOS]' \
   '--freebsd[override operating system with FreeBSD]' \
   '--linux[override operating system with Linux]' \
+  '--macos[override operating system with macOS]' \
   '--netbsd[override operating system with NetBSD]' \
   '--openbsd[override operating system with OpenBSD]' \
-  '--osx[override operating system with OSX]' \
+  '--osx[override operating system with macOS]' \
   '--sunos[override operating system with SunOS]' \
+  '--win32[override operating system with Windows]' \
   '--windows[override operating system with Windows]' \
   '(- *)'{-c,--clear-cache}'[clear local cache]' \
   "*:page:(${(b)pages})" && return 0

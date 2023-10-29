@@ -21,14 +21,17 @@ npm install -g tldr
 To see tldr pages:
 
 - `tldr <command>` show examples for this command
-- `tldr <command> --platform=<android|freebsd|linux|netbsd|openbsd|osx|sunos|windows>` show command page for the given platform
+- `tldr <command> --platform=<osx, darwin, macos, freebsd, linux, netbsd, openbsd, sunos, android, windows, win32>` show command page for the given platform
 - `tldr --android <command>` show command page for Android
+- `tldr --darwin <command>` show command page for macOS
 - `tldr --freebsd <command>` show command page for FreeBSD
 - `tldr --linux <command>` show command page for Linux
+- `tldr --macos <command>` show command page for macOS
 - `tldr --netbsd <command>` show command page for NetBSD
 - `tldr --openbsd <command>` show command page for OpenBSD
-- `tldr --osx <command>` show command page for OSX
+- `tldr --osx <command>` show command page for macOS
 - `tldr --sunos <command>` show command page for SunOS
+- `tldr --win32 <command>` show command page for Windows
 - `tldr --windows <command>` show command page for Windows
 - `tldr --search "<query>"` search all pages for the query
 - `tldr --list` show all pages for current platform
@@ -173,7 +176,7 @@ source ~/.tldr-completion.bash
 
 - If you are trying to install as non-root user (`npm install -g tldr`) and get something like:
 
-```
+```text
 Error: EACCES: permission denied, access '/usr/local/lib/node_modules/tldr'
 ```
 
@@ -191,7 +194,7 @@ You need to add the option `--unsafe-perm` to your command. This is because when
 
 - If you see an error related to `webworker-threads` like:
 
-```
+```text
 /usr/local/lib/node_modules/tldr/node_modules/natural/lib/natural/classifiers/classifier.js:32
     if (e.code !== 'MODULE_NOT_FOUND') throw e;
 ```
