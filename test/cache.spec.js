@@ -70,7 +70,8 @@ describe('Cache', () => {
         du: ['linux', 'osx', 'sunos'],
         top: ['linux', 'osx'],
         svcs: ['sunos'],
-        pkg: ['android', 'openbsd']
+        pkg: ['android', 'freebsd', 'openbsd'],
+        pkgin: ['netbsd']
       });
     });
 

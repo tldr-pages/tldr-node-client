@@ -21,8 +21,11 @@ npm install -g tldr
 To see tldr pages:
 
 - `tldr <command>` show examples for this command
-- `tldr <command> --platform=<android|linux|openbsd|osx|sunos|windows>` show command page for the given platform
+- `tldr <command> --platform=<android|freebsd|linux|netbsd|openbsd|osx|sunos|windows>` show command page for the given platform
+- `tldr --android <command>` show command page for Android
+- `tldr --freebsd <command>` show command page for FreeBSD
 - `tldr --linux <command>` show command page for Linux
+- `tldr --netbsd <command>` show command page for NetBSD
 - `tldr --openbsd <command>` show command page for OpenBSD
 - `tldr --osx <command>` show command page for OSX
 - `tldr --sunos <command>` show command page for SunOS

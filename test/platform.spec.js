@@ -41,10 +41,12 @@ describe('Platform', () => {
   });
 
   describe('isSupported', () => {
-    it('should tell that Android, Linux, OSX, OpenBSD, SunOS and Win32 are supported', () => {
+    it('should tell that Android, FreeBSD, Linux, NetBSD, OpenBSD, OSX, SunOS and Win32 are supported', () => {
       platforms.isSupported('android').should.eql(true);
       platforms.isSupported('osx').should.eql(true);
+      platforms.isSupported('freebsd').should.eql(true);
       platforms.isSupported('linux').should.eql(true);
+      platforms.isSupported('netbsd').should.eql(true);
       platforms.isSupported('openbsd').should.eql(true);
       platforms.isSupported('sunos').should.eql(true);
       platforms.isSupported('windows').should.eql(true);

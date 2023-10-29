@@ -17,9 +17,11 @@ const pages = [
   ['/pages', 'common', 'git.md'],
   ['/pages', 'common', 'ln.md'],
   ['/pages', 'common', 'ls.md'],
+  ['/pages', 'freebsd', 'pkg.md'],
   ['/pages', 'linux', 'dd.md'],
   ['/pages', 'linux', 'du.md'],
   ['/pages', 'linux', 'top.md'],
+  ['/pages', 'netbsd', 'pkgin.md'],
   ['/pages', 'openbsd', 'pkg.md'],
   ['/pages', 'osx', 'dd.md'],
   ['/pages', 'osx', 'du.md'],
@@ -97,10 +99,24 @@ describe('Index', () => {
         });
     });
 
+    it('should find platform freebsd for pkg command for English', () => {
+      return index.findPage('pkg', 'freebsd', 'en')
+        .then((folder) => {
+          should.equal(folder, path.join('pages', 'freebsd'));
+        });
+    });
+
     it('should find platform openbsd for pkg command for English', () => {
       return index.findPage('pkg', 'openbsd', 'en')
         .then((folder) => {
           should.equal(folder, path.join('pages', 'openbsd'));
+        });
+    });
+
+    it('should find platform netbsd for pkgin command for English', () => {
+      return index.findPage('pkgin', 'netbsd', 'en')
+        .then((folder) => {
+          should.equal(folder, path.join('pages', 'netbsd'));
         });
     });
 
@@ -187,7 +203,7 @@ describe('Index', () => {
     return index.commands()
       .then((commands) => {
         should.deepEqual(commands, [
-          'apk', 'cp', 'dd', 'du', 'git', 'ln', 'ls', 'pkg', 'svcs', 'top'
+          'apk', 'cp', 'dd', 'du', 'git', 'ln', 'ls', 'pkg', 'pkgin', 'svcs', 'top'
         ]);
       });
   });
@@ -232,7 +248,8 @@ describe('Index', () => {
           git: { targets: [{ language: 'en', platform: 'common' }] },
           ln: { targets: [{ language: 'en', platform: 'common' }] },
           ls: { targets: [{ language: 'en', platform: 'common' }] },
-          pkg: { targets: [{ language: 'en', platform: 'openbsd' }, { language: 'en', platform: 'android' }] },
+          pkg: { targets: [{ language: 'en', platform: 'freebsd' }, { language: 'en', platform: 'openbsd' }, { language: 'en', platform: 'android' }] },
+          pkgin: { targets: [{ language: 'en', platform: 'netbsd' }] },
           svcs: { targets: [{ language: 'en', platform: 'sunos' }] },
           top: { targets: [{ language: 'en', platform: 'linux' }, { language: 'en', platform: 'osx' }] },
         });
