@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "adm-zip": "^0.5.10",
-    "axios": "^0.21.1",
+    "axios": "^1.6.0",
     "chalk": "^4.1.0",
     "commander": "^6.1.0",
     "fs-extra": "^9.0.1",
