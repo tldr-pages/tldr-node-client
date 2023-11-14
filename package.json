@@ -1,6 +1,6 @@
 {
   "name": "tldr",
-  "version": "3.3.8",
+  "version": "3.4.0",
   "description": "Simplified and community-driven man pages",
   "author": "Romain Prieto",
   "license": "MIT",
@@ -14,15 +14,18 @@
     "unix",
     "linux",
     "osx",
+    "openbsd",
+    "freebsd",
+    "netbsd",
     "commands",
     "command-line",
     "shell",
     "bash",
     "zsh"
   ],
-  "homepage": "http://tldr-pages.github.io",
+  "homepage": "https://tldr.sh",
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "main": "bin/tldr",
   "files": [
@@ -56,6 +59,7 @@
     "commander": "^6.1.0",
     "fs-extra": "^9.0.1",
     "glob": "^7.1.6",
+    "he": "^1.2.0",
     "lodash": "^4.17.20",
     "marked": "^4.0.10",
     "ms": "^2.1.2",

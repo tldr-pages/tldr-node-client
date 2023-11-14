@@ -2,7 +2,7 @@
 
 BUILTIN_THEMES="single base16 ocean"
 
-OS_TYPES="linux osx sunos windows"
+PLATFORM_TYPES="android freebsd linux netbsd openbsd osx sunos windows"
 
 OPTIONS='-v
 --version
@@ -20,10 +20,17 @@ OPTIONS='-v
 --render
 -m
 --markdown
--o
+-p
+--android
+--darwin
+--freebsd
 --linux
+--macos
+--netbsd
+--openbsd
 --osx
 --sunos
+--win32
 --windows
 -t
 --theme
@@ -56,8 +63,8 @@ function _tldr_autocomplete {
         COMPREPLY=(`compgen -f $cur`)
         ;;
 
-      -o|--os)
-        COMPREPLY=(`compgen -W "$OS_TYPES" $cur`)
+      -p|--platform)
+        COMPREPLY=(`compgen -W "$PLATFORM_TYPES" $cur`)
         ;;
 
       -t|--theme)

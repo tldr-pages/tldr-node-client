@@ -17,15 +17,19 @@ const pages = [
   ['/pages', 'common', 'git.md'],
   ['/pages', 'common', 'ln.md'],
   ['/pages', 'common', 'ls.md'],
+  ['/pages', 'freebsd', 'pkg.md'],
   ['/pages', 'linux', 'dd.md'],
   ['/pages', 'linux', 'du.md'],
   ['/pages', 'linux', 'top.md'],
+  ['/pages', 'netbsd', 'pkgin.md'],
+  ['/pages', 'openbsd', 'pkg.md'],
   ['/pages', 'osx', 'dd.md'],
   ['/pages', 'osx', 'du.md'],
   ['/pages', 'osx', 'top.md'],
   ['/pages', 'sunos', 'dd.md'],
   ['/pages', 'sunos', 'du.md'],
-  ['/pages', 'sunos', 'svcs.md']
+  ['/pages', 'sunos', 'svcs.md'],
+  ['/pages', 'android', 'pkg.md'],
 ].map((x) => {
   return path.join(...x);
 });
@@ -84,139 +88,170 @@ describe('Index', () => {
     it('should find Linux platform for apk command for Chinese', () => {
       return index.findPage('apk', 'linux', 'zh')
         .then((folder) => {
-          return folder.should.equal(path.join('pages.zh', 'linux'));
+          should.equal(folder, path.join('pages.zh', 'linux'));
+        });
+    });
+
+    it('should find platform android for pkg command for English', () => {
+      return index.findPage('pkg', 'android', 'en')
+        .then((folder) => {
+          should.equal(folder, path.join('pages', 'android'));
+        });
+    });
+
+    it('should find platform freebsd for pkg command for English', () => {
+      return index.findPage('pkg', 'freebsd', 'en')
+        .then((folder) => {
+          should.equal(folder, path.join('pages', 'freebsd'));
+        });
+    });
+
+    it('should find platform openbsd for pkg command for English', () => {
+      return index.findPage('pkg', 'openbsd', 'en')
+        .then((folder) => {
+          should.equal(folder, path.join('pages', 'openbsd'));
+        });
+    });
+
+    it('should find platform netbsd for pkgin command for English', () => {
+      return index.findPage('pkgin', 'netbsd', 'en')
+        .then((folder) => {
+          should.equal(folder, path.join('pages', 'netbsd'));
         });
     });
 
     it('should find Linux platform for apk command for Chinese given Windows', () => {
       return index.findPage('apk', 'windows', 'zh')
         .then((folder) => {
-          return folder.should.equal(path.join('pages.zh', 'linux'));
+          should.equal(folder, path.join('pages.zh', 'linux'));
         });
     });
 
     it('should find Linux platform for dd command', () => {
       return index.findPage('dd', 'linux', 'en')
         .then((folder) => {
-          return folder.should.equal(path.join('pages', 'linux'));
+          should.equal(folder, path.join('pages', 'linux'));
         });
     });
 
     it('should find platform common for cp command for English', () => {
       return index.findPage('cp', 'linux', 'en')
         .then((folder) => {
-          return folder.should.equal(path.join('pages', 'common'));
+          should.equal(folder, path.join('pages', 'common'));
         });
     });
 
     it('should find platform common for cp command for Tamil', () => {
       return index.findPage('cp', 'linux', 'ta')
         .then((folder) => {
-          return folder.should.equal(path.join('pages.ta', 'common'));
+          should.equal(folder, path.join('pages.ta', 'common'));
         });
     });
 
     it('should find platform common for cp command for Italian', () => {
       return index.findPage('cp', 'linux', 'it')
         .then((folder) => {
-          return folder.should.equal(path.join('pages.it', 'common'));
+          should.equal(folder, path.join('pages.it', 'common'));
         });
     });
 
     it('should find platform common for cp command for Italian given Windows', () => {
       return index.findPage('cp', 'windows', 'it')
         .then((folder) => {
-          return folder.should.equal(path.join('pages.it', 'common'));
+          should.equal(folder, path.join('pages.it', 'common'));
         });
     });
 
     it('should find platform common for ls command for Italian', () => {
       return index.findPage('ls', 'linux', 'it')
         .then((folder) => {
-          return folder.should.equal(path.join('pages', 'common'));
+          should.equal(folder, path.join('pages', 'common'));
         });
     });
+
 
     it('should find platform common for cp command for Italian given common platform', () => {
       return index.findPage('cp', 'common', 'it')
         .then((folder) => {
-          return folder.should.equal(path.join('pages.it', 'common'));
+          should.equal(folder, path.join('pages.it', 'common'));
         });
     });
 
     it('should find platform common for cp command for English given a bad language', () => {
       return index.findPage('cp', 'linux', 'notexist')
         .then((folder) => {
-          return folder.should.equal(path.join('pages', 'common'));
+          should.equal(folder, path.join('pages', 'common'));
         });
     });
 
     it('should find platform for svcs command on Linux', () => {
       return index.findPage('svcs', 'linux', 'en')
         .then((folder) => {
-          return folder.should.equal(path.join('pages', 'sunos'));
+          should.equal(folder, path.join('pages', 'sunos'));
         });
     });
 
     it('should not find platform for non-existing command', () => {
       return index.findPage('qwerty', 'linux', 'en')
         .then((folder) => {
-          return should.not.exist(folder);
+          should.not.exist(folder);
         });
     });
   });
 
-  it('should return correct list of all pages', () => {
+  it('should return the correct list of all pages', () => {
     return index.commands()
       .then((commands) => {
-        commands.should.deepEqual([
-          'apk', 'cp', 'dd', 'du', 'git', 'ln', 'ls', 'svcs', 'top'
+        should.deepEqual(commands, [
+          'apk', 'cp', 'dd', 'du', 'git', 'ln', 'ls', 'pkg', 'pkgin', 'svcs', 'top'
         ]);
       });
   });
 
   describe('commandsFor()', () => {
-    it('should return correct list of pages for Linux', () => {
+    it('should return the correct list of pages for Linux', () => {
       return index.commandsFor('linux')
         .then((commands) => {
-          commands.should.deepEqual([
+          should.deepEqual(commands, [
             'apk', 'cp', 'dd', 'du', 'git', 'ln', 'ls', 'top'
           ]);
         });
     });
 
-    it('should return correct list of pages for OSX', () => {
+    it('should return the correct list of pages for OSX', () => {
       return index.commandsFor('osx')
         .then((commands) => {
-          commands.should.deepEqual([
+          should.deepEqual(commands, [
             'cp', 'dd', 'du', 'git', 'ln', 'ls', 'top'
           ]);
         });
     });
 
-    it('should return correct list of pages for SunOS', () => {
+    it('should return the correct list of pages for SunOS', () => {
       return index.commandsFor('sunos')
         .then((commands) => {
-          commands.should.deepEqual([
+          should.deepEqual(commands, [
             'cp', 'dd', 'du', 'git', 'ln', 'ls', 'svcs'
           ]);
         });
     });
   });
 
-  it('should return correct short index on getShortIndex()', () => {
+  it('should return the correct short index on getShortIndex()', () => {
     return index.getShortIndex()
       .then((idx) => {
-        idx.should.deepEqual({
-          apk: {targets: [{language: 'en', os: 'linux'}, {language: 'zh', os: 'linux'}]},
-          cp: {targets: [{language: 'en', os: 'common'}, {language: 'it', os: 'common'}, {language: 'ta', os: 'common'}]},
-          dd: {targets: [{language: 'en', os: 'linux'}, {language: 'en', os: 'osx'}, {language: 'en', os: 'sunos'}]},
-          du: {targets: [{language: 'en', os: 'linux'}, {language: 'en', os: 'osx'}, {language: 'en', os: 'sunos'}]},
-          git: {targets: [{language: 'en', os: 'common'}]},
-          ln: {targets: [{language: 'en', os: 'common'}]},
-          ls: {targets: [{language: 'en', os: 'common'}]},
-          svcs: {targets: [{language: 'en', os: 'sunos'}]},
-          top: {targets: [{language: 'en', os: 'linux'}, {language: 'en', os: 'osx'}]},
+        should.deepEqual(idx, {
+          apk: { targets: [{ language: 'en', platform: 'linux' }, { language: 'zh', platform: 'linux' }] },
+          cp: { targets: [{ language: 'en', platform: 'common' }, { language: 'it', platform: 'common' }, { language: 'ta', platform: 'common' }] },
+          dd: { targets: [{ language: 'en', platform: 'linux' }, { language: 'en', platform: 'osx' }, { language: 'en', platform: 'sunos' }] },
+          du: { targets: [{ language: 'en', platform: 'linux' }, { language: 'en', platform: 'osx' }, { language: 'en', platform: 'sunos' }] },
+          git: { targets: [{ language: 'en', platform: 'common' }] },
+          ln: { targets: [{ language: 'en', platform: 'common' }] },
+          ls: { targets: [{ language: 'en', platform: 'common' }] },
+          pkg: { targets: [{ language: 'en', platform: 'freebsd' }, { language: 'en', platform: 'openbsd' }, { language: 'en', platform: 'android' }] },
+          pkgin: { targets: [{ language: 'en', platform: 'netbsd' }] },
+          svcs: { targets: [{ language: 'en', platform: 'sunos' }] },
+          top: { targets: [{ language: 'en', platform: 'linux' }, { language: 'en', platform: 'osx' }] },
         });
       });
   });
