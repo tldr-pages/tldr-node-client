@@ -31,8 +31,6 @@ for (const platform of platforms.supportedPlatforms) {
 }
 
 program
-  .alias('-o', '-p') // Alias -o to -p
-  .alias('--os', '--platform') // Alias --os to --platform
   .option('-t, --theme [theme]', 'Color theme (simple, base16, ocean)')
   .option('-s, --search [keywords]', 'Search pages using keywords')
   //
