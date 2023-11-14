@@ -25,7 +25,7 @@
   ],
   "homepage": "https://tldr.sh",
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "main": "bin/tldr",
   "files": [
