@@ -120,55 +120,32 @@ you can set the configuration variable `skipUpdateWhenPageNotFound` to `true` (d
 
 ## Command-line Autocompletion
 
-Currently we only support command-line autocompletion for zsh
-and bash. Pull requests for other shells are most welcome!
+We currently support command-line autocompletion for zsh and bash.  
+Pull requests for other shells are most welcome!
+
+To enable autocompletion for the tldr command, run:
 
 ### zsh
 
-It's easiest for
-[oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
-users, so let's start with that.
-
 ```zsh
-mkdir -p $ZSH_CUSTOM/plugins/tldr
-ln -s bin/completion/zsh/_tldr $ZSH_CUSTOM/plugins/tldr/_tldr
+tldr completion zsh
+source ~/.zshrc
 ```
 
-Then add tldr to your oh-my-zsh plugins,
-usually defined in `~/.zshrc`,
-resulting in something looking like this:
-
-```zsh
-plugins=(git tmux tldr)
-```
-
-Alternatively, using [zplug](https://github.com/zplug/zplug)
-
-```zsh
-zplug "tldr-pages/tldr-node-client", use:bin/completion/zsh
-```
-
-Fret not regular zsh user!
-Copy or symlink `bin/completion/zsh/_tldr` to
-`my/completions/_tldr`
-(note the filename).
-Then add the containing directory to your fpath:
-
-```zsh
-fpath=(my/completions $fpath)
-```
-
-### Bash
+### bash
 
 ```bash
-ln -s bin/completion/bash/tldr ~/.tldr-completion.bash
+tldr completion bash
+source ~/.bashrc
 ```
 
-Now add the following line to our bashrc file:
+This command will generate the appropriate completion script and append it to your shell's configuration file (`.zshrc` or `.bashrc`).
 
-```bash
-source ~/.tldr-completion.bash
-```
+After running the completion installation command, restart your shell or reload your configuration file to enable the autocompletion.
+
+You should now have autocompletion enabled for the tldr command.
+
+If you encounter any issues or need more information about the autocompletion setup, please refer to the [completion.js](https://github.com/tldr-pages/tldr-node-client/blob/master/lib/completion.js) file in the repository.
 
 ## FAQ
 
