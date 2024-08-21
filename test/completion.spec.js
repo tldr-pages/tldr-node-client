@@ -6,8 +6,12 @@ const sinon = require('sinon');
 const fs = require('fs');
 const os = require('os');
 const should = require('should');
+const path = require('path');
 
 describe('Completion', () => {
+  const zshrcPath = path.join(os.homedir(), '.zshrc');
+  const bashrcPath = path.join(os.homedir(), '.bashrc');
+
   describe('constructor()', () => {
     it('should construct with supported shell', () => {
       const completion = new Completion('zsh');
@@ -22,39 +26,26 @@ describe('Completion', () => {
   });
 
   describe('getFilePath()', () => {
-    let homeStub;
-
-    beforeEach(() => {
-      homeStub = sinon.stub(os, 'homedir').returns('/home/user');
-    });
-
-    afterEach(() => {
-      homeStub.restore();
-    });
-
     it('should return .zshrc path for zsh', () => {
       const completion = new Completion('zsh');
-      completion.getFilePath().should.equal('/home/user/.zshrc');
+      completion.getFilePath().should.equal(zshrcPath);
     });
 
     it('should return .bashrc path for bash', () => {
       const completion = new Completion('bash');
-      completion.getFilePath().should.equal('/home/user/.bashrc');
+      completion.getFilePath().should.equal(bashrcPath);
     });
   });
 
   describe('appendScript()', () => {
     let appendFileStub;
-    let getFilePathStub;
 
     beforeEach(() => {
       appendFileStub = sinon.stub(fs, 'appendFile').yields(null);
-      getFilePathStub = sinon.stub(Completion.prototype, 'getFilePath').returns('/home/user/.zshrc');
     });
 
     afterEach(() => {
       appendFileStub.restore();
-      getFilePathStub.restore();
     });
 
     it('should append script to file', () => {
@@ -62,7 +53,7 @@ describe('Completion', () => {
       return completion.appendScript('test script')
         .then(() => {
           appendFileStub.calledOnce.should.be.true();
-          appendFileStub.firstCall.args[0].should.equal('/home/user/.zshrc');
+          appendFileStub.firstCall.args[0].should.equal(zshrcPath);
           appendFileStub.firstCall.args[1].should.equal('\ntest script\n');
         });
     });
