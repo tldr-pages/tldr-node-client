@@ -26,7 +26,7 @@ program
   .option('-f, --render [file]', 'Render a specific markdown [file]')
   .option('-m, --markdown', 'Output in markdown format')
   .option('-p, --platform [type]', `Override the current platform [${platforms.supportedPlatforms.join(', ')}]`)
-  .option('completion <shell>', 'Generate and add shell completion script to your shell configuration');
+  .option('completion [shell]', 'Generate and add shell completion script to your shell configuration');
 
 for (const platform of platforms.supportedPlatforms) {
   program.option(`--${platform}`, `Override the platform with ${platform}`);
