@@ -86,4 +86,53 @@ describe('Theme', () => {
           chalk.white('text'));
     });
   });
+
+  describe('Rendering with distinct colors for each token type', () => {
+
+    let theme = new Theme({
+      commandName: 'greenBright, bold',
+      mainDescription: 'greenBright, bold',
+      exampleDescription: 'greenBright',
+      exampleCode: 'redBright',
+      exampleBool: 'magenta',
+      exampleNumber: 'white',
+      exampleString: 'blue'
+    });
+
+    it('should render name with greenBright and bold', () => {
+      theme.renderCommandName('text')
+        .should.equal(
+          chalk.greenBright.bold('text'));
+    });
+
+    it('should render description with greenBright and bold', () => {
+      theme.renderMainDescription('text')
+        .should.equal(
+          chalk.greenBright.bold('text'));
+    });
+
+    it('should render example description with greenBright', () => {
+      theme.renderExampleDescription('text')
+        .should.equal(
+          chalk.greenBright('text'));
+    });
+
+    it('should render example code with redBright', () => {
+      theme.renderExampleCode('text')
+        .should.equal(
+          chalk.redBright('text'));
+    });
+
+    it('should render example arguments with magenta, white, and blue, for boolean, number, and string respectively', () => {
+      theme.renderExampleToken('true')
+        .should.equal(
+          chalk.magenta('true'));
+      theme.renderExampleToken('9')
+        .should.equal(
+          chalk.white('9'));
+      theme.renderExampleToken('text')
+        .should.equal(
+          chalk.blue('text'));
+    });
+  });
 });
