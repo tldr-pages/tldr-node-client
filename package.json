@@ -63,7 +63,7 @@
     "lodash": "^4.17.20",
     "marked": "^4.0.10",
     "ms": "^2.1.2",
-    "natural": "^2.1.5",
+    "natural": "^8.0.1",
     "ora": "^5.1.0"
   },
   "devDependencies": {
