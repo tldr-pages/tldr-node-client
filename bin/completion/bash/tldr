@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# tldr bash completion
+
+# Check if bash-completion is already sourced
+if ! type _completion_loader &>/dev/null; then
+  # If not, try to load it
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
 BUILTIN_THEMES="single base16 ocean"
 
 PLATFORM_TYPES="android freebsd linux netbsd openbsd osx sunos windows"

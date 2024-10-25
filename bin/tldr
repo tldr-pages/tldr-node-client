@@ -5,6 +5,7 @@ const pkg = require('../package');
 const Tldr = require('../lib/tldr');
 const config = require('../lib/config');
 const platforms = require('../lib/platforms');
+const Completion = require('../lib/completion');
 const { TldrError } = require('../lib/errors');
 
 pkg.version = `v${pkg.version}\nClient Specification: 2.0`;
@@ -24,7 +25,8 @@ program
   .option('-e, --random-example', 'Show a random example')
   .option('-f, --render [file]', 'Render a specific markdown [file]')
   .option('-m, --markdown', 'Output in markdown format')
-  .option('-p, --platform [type]', `Override the current platform [${platforms.supportedPlatforms.join(', ')}]`);
+  .option('-p, --platform [type]', `Override the current platform [${platforms.supportedPlatforms.join(', ')}]`)
+  .option('completion [shell]', 'Generate and add shell completion script to your shell configuration');
 
 for (const platform of platforms.supportedPlatforms) {
   program.option(`--${platform}`, `Override the platform with ${platform}`);
@@ -58,6 +60,11 @@ const help = `
   To render a local file (for testing):
 
     $ tldr --render /path/to/file.md
+  
+  To add shell completion:
+
+    $ tldr completion bash
+    $ tldr completion zsh
 `;
 
 program.on('--help', () => {
@@ -105,7 +112,20 @@ if (program.list) {
   program.args.unshift(program.search);
   p = tldr.search(program.args);
 } else if (program.args.length >= 1) {
-  p = tldr.get(program.args, program);
+  if (program.args[0] === 'completion') {
+    const shell = program.args[1];
+    const completion = new Completion(shell);
+    p = completion.getScript()
+      .then((script) => {return completion.appendScript(script);})
+      .then(() => {
+        if (shell === 'zsh') {
+          console.log('If completions don\'t work, you may need to rebuild your zcompdump:');
+          console.log('  rm -f ~/.zcompdump; compinit');
+        }
+      });
+  } else {
+    p = tldr.get(program.args, program);
+  }
 }
 
 if (p === null) {
