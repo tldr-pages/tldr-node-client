@@ -127,6 +127,26 @@ To enable autocompletion for the tldr command, run:
 
 ### zsh
 
+It's easiest for
+[oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
+users, so let's start with that.
+
+```zsh
+mkdir -p $ZSH_CUSTOM/plugins/tldr
+ln -s bin/completion/zsh/_tldr $ZSH_CUSTOM/plugins/tldr/_tldr
+```
+
+Then add tldr to your oh-my-zsh plugins,
+usually defined in `~/.zshrc`,
+resulting in something looking like this:
+
+```zsh
+plugins=(git tmux tldr)
+```
+
+Fret not regular zsh user!
+You can also do this:
+
 ```zsh
 tldr completion zsh
 source ~/.zshrc
