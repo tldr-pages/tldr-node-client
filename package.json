@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "eslint": "^8.39.0",
-    "husky": "^8.0.3",
+    "husky": "^9.1.6",
     "mocha": "^10.2.0",
     "nyc": "^17.1.0",
     "should": "^13.2.3",
