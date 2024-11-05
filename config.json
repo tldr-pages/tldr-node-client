@@ -8,35 +8,50 @@
       "mainDescription": "bold",
       "exampleDescription": "",
       "exampleCode": "",
-      "exampleToken": "underline"
+      "exampleToken": "underline",
+      "exampleNumber": "yellow, bold",
+      "exampleString": "green, italic",
+      "exampleBool": "magenta, bold"
     },
     "base16": {
       "commandName": "bold",
       "mainDescription": "",
       "exampleDescription": "green",
       "exampleCode": "red",
-      "exampleToken": "cyan"
+      "exampleToken": "cyan",
+      "exampleNumber": "yellow, bold",
+      "exampleString": "green, italic",
+      "exampleBool": "magenta, bold"
     },
     "ocean": {
       "commandName": "bold, cyan",
       "mainDescription": "",
       "exampleDescription": "green",
       "exampleCode": "cyan",
-      "exampleToken": "dim"
+      "exampleToken": "dim",
+      "exampleNumber": "yellow, bold",
+      "exampleString": "green, italic",
+      "exampleBool": "magenta, bold"
     },
     "inverse": {
       "commandName": "bold, inverse",
       "mainDescription": "inverse",
       "exampleDescription": "black",
       "exampleCode": "inverse",
-      "exampleToken": "green, bgBlack, inverse"
+      "exampleToken": "green, bgBlack, inverse",
+      "exampleNumber": "yellow, bold",
+      "exampleString": "green, italic",
+      "exampleBool": "magenta, bold"
     },
     "matrix": {
       "commandName": "bold",
       "mainDescription": "underline",
       "exampleDescription": "green, bgBlack",
       "exampleCode": "green, bgBlack",
-      "exampleToken": "green, bold, bgBlack"
+      "exampleToken": "green, bold, bgBlack",
+      "exampleNumber": "yellow, bold",
+      "exampleString": "green, italic",
+      "exampleBool": "magenta, bold"
     }
   },
   "theme": "simple"
