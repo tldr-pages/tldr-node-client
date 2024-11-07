@@ -50,7 +50,8 @@
     "watch": "mocha --reporter=min --watch --growl",
     "test:functional": "bash test/functional-test.sh",
     "test:coverage": "nyc mocha",
-    "test:all": "npm run lint && npm test && npm run test:functional"
+    "test:all": "npm run lint && npm test && npm run test:functional",
+    "prepare": "husky"
   },
   "dependencies": {
     "adm-zip": "^0.5.10",
@@ -74,12 +75,6 @@
     "nyc": "^17.1.0",
     "should": "^13.2.3",
     "sinon": "^19.0.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint",
-      "pre-push": "npm run test:quiet"
-    }
   },
   "funding": {
     "type": "liberapay",
