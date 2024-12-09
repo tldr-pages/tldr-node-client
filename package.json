@@ -65,7 +65,7 @@
     "marked": "^4.0.10",
     "ms": "^2.1.2",
     "natural": "^8.0.1",
-    "ora": "^5.1.0"
+    "ora": "^8.1.1"
   },
   "devDependencies": {
     "eslint": "^9.14.0",
