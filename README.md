@@ -173,7 +173,7 @@ If you encounter any issues or need more information about the autocompletion se
 Error: EACCES: permission denied, access '/usr/local/lib/node_modules/tldr'
 ```
 
-Then most probably your npm's default installation directory has improper permissions. You can resolve it by clicking [here](https://docs.npmjs.com/getting-started/fixing-npm-permissions)
+Then most probably your npm's default installation directory has improper permissions. You can resolve it by following [this guide](https://docs.npmjs.com/getting-started/fixing-npm-permissions).
 
 - If you are trying to install as a root user (`sudo npm install -g tldr`) and get something like:
 
