@@ -4,7 +4,10 @@
   "description": "Simplified and community-driven man pages",
   "author": "Romain Prieto",
   "license": "MIT",
-  "repository": "tldr-pages/tldr-node-client",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tldr-pages/tldr-node-client.git"
+  },
   "keywords": [
     "man",
     "pages",
@@ -35,7 +38,7 @@
     "LICENSE.md"
   ],
   "bin": {
-    "tldr": "./bin/tldr"
+    "tldr": "bin/tldr"
   },
   "preferGlobal": true,
   "directories": {
@@ -71,7 +74,7 @@
     "eslint": "^9.14.0",
     "eslint-config-eslint": "^11.0.0",
     "husky": "^9.1.6",
-    "mocha": "^10.2.0",
+    "mocha": "^11.0.1",
     "nyc": "^17.1.0",
     "should": "^13.2.3",
     "sinon": "^19.0.2"
