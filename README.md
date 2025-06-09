@@ -158,7 +158,7 @@ source ~/.bashrc
 
 This command will generate the appropriate completion script and append it to your shell's configuration file (`.zshrc` or `.bashrc`).
 
-If you encounter any issues or need more information about the autocompletion setup, please refer to the [completion.js](https://github.com/tldr-pages/tldr-node-client/blob/master/lib/completion.js) file in the repository.
+If you encounter any issues or need more information about the autocompletion setup, please refer to the [completion.js](https://github.com/tldr-pages/tldr-node-client/blob/main/lib/completion.js) file in the repository.
 
 ## FAQ
 
@@ -170,7 +170,7 @@ If you encounter any issues or need more information about the autocompletion se
 Error: EACCES: permission denied, access '/usr/local/lib/node_modules/tldr'
 ```
 
-Then most probably your npm's default installation directory has improper permissions. You can resolve it by clicking [here](https://docs.npmjs.com/getting-started/fixing-npm-permissions)
+Then most probably your npm's default installation directory has improper permissions. You can resolve it by following [this guide](https://docs.npmjs.com/getting-started/fixing-npm-permissions).
 
 - If you are trying to install as a root user (`sudo npm install -g tldr`) and get something like:
 
@@ -227,12 +227,12 @@ function tldr() {
 ## Contributing
 
 Contribution are most welcome!
-Have a look [over here](https://github.com/tldr-pages/tldr-node-client/blob/master/.github/CONTRIBUTING.md)
+Have a look [over here](https://github.com/tldr-pages/tldr-node-client/blob/main/.github/CONTRIBUTING.md)
 for a few rough guidelines.
 
 [npm-url]: https://www.npmjs.com/package/tldr
 [npm-image]: https://img.shields.io/npm/v/tldr.svg
-[gh-actions-url]: https://github.com/tldr-pages/tldr-node-client/actions?query=workflow%3ATest+branch%3Amaster
+[gh-actions-url]: https://github.com/tldr-pages/tldr-node-client/actions/workflows/test.yml?query=workflow%3ATest+branch%3Amain
 [gh-actions-image]: https://img.shields.io/github/actions/workflow/status/tldr-pages/tldr-node-client/test.yml?branch=main
 [matrix-url]: https://matrix.to/#/#tldr-pages:matrix.org
 [matrix-image]: https://img.shields.io/matrix/tldr-pages:matrix.org?label=chat+on+matrix
