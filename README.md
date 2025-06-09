@@ -161,7 +161,7 @@ source ~/.bashrc
 
 This command will generate the appropriate completion script and append it to your shell's configuration file (`.zshrc` or `.bashrc`).
 
-If you encounter any issues or need more information about the autocompletion setup, please refer to the [completion.js](https://github.com/tldr-pages/tldr-node-client/blob/master/lib/completion.js) file in the repository.
+If you encounter any issues or need more information about the autocompletion setup, please refer to the [completion.js](https://github.com/tldr-pages/tldr-node-client/blob/main/lib/completion.js) file in the repository.
 
 ## FAQ
 
