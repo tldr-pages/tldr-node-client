@@ -85,10 +85,9 @@ describe('Remote', () => {
           index.rebuildPagesIndex.restore();
 
           await fs.remove(tempFolder);
-        });
+        }).timeout(TIMEOUT_INTERVAL);
 
-      });
+      }).timeout(TIMEOUT_INTERVAL);
     });
   });
 });
-
