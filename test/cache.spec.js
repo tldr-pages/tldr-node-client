@@ -54,14 +54,14 @@ describe('Cache', () => {
       fs.ensureDir.restore();
       fs.remove.restore();
       fs.copy.restore();
-      remote.download.restore();
-      index.rebuildPagesIndex.restore();
+      /** @type {sinon.SinonSpy} */ (remote.download).restore();
+      /** @type {sinon.SinonSpy} */ (index.rebuildPagesIndex).restore();
     });
   });
 
   describe('getPage()', () => {
     beforeEach(() => {
-      sinon.stub(index, 'getShortIndex').returns({
+      sinon.stub(index, 'getShortIndex').returns(Promise.resolve({
         cp: ['common'],
         git: ['common'],
         ln: ['common'],
@@ -72,11 +72,11 @@ describe('Cache', () => {
         svcs: ['sunos'],
         pkg: ['android', 'freebsd', 'openbsd'],
         pkgin: ['netbsd']
-      });
+      }));
     });
 
     afterEach(() => {
-      index.getShortIndex.restore();
+      /** @type {sinon.SinonSpy} */ (index.getShortIndex).restore();
     });
 
     it('should return page contents for ls', () => {
@@ -89,12 +89,12 @@ describe('Cache', () => {
           should.exist(content);
           content.should.startWith('# ls');
           fs.readFile.restore();
-          platforms.getPreferredPlatformFolder.restore();
-          index.findPage.restore();
+          /** @type {sinon.SinonSpy} */ (platforms.getPreferredPlatformFolder).restore();
+          /** @type {sinon.SinonSpy} */ (index.findPage).restore();
         });
     });
 
-    it('should return empty contents for svcs on OSX', () =>{
+    it('should return empty contents for svcs on OSX', () => {
       sinon.stub(fs, 'readFile').resolves('# svcs\n> svcs');
       sinon.stub(platforms, 'getPreferredPlatformFolder').returns('osx');
       sinon.stub(index, 'findPage').resolves(null);
@@ -103,8 +103,8 @@ describe('Cache', () => {
         .then((content) => {
           should.not.exist(content);
           fs.readFile.restore();
-          platforms.getPreferredPlatformFolder.restore();
-          index.findPage.restore();
+          /** @type {sinon.SinonSpy} */ (platforms.getPreferredPlatformFolder).restore();
+          /** @type {sinon.SinonSpy} */ (index.findPage).restore();
         });
     });
 
@@ -118,8 +118,8 @@ describe('Cache', () => {
           should.exist(content);
           content.should.startWith('# svcs');
           fs.readFile.restore();
-          platforms.getPreferredPlatformFolder.restore();
-          index.findPage.restore();
+          /** @type {sinon.SinonSpy} */ (platforms.getPreferredPlatformFolder).restore();
+          /** @type {sinon.SinonSpy} */ (index.findPage).restore();
         });
     });
 
@@ -133,8 +133,8 @@ describe('Cache', () => {
           should.exist(content);
           content.should.startWith('# pkg');
           fs.readFile.restore();
-          platforms.getPreferredPlatformFolder.restore();
-          index.findPage.restore();
+          /** @type {sinon.SinonSpy} */ (platforms.getPreferredPlatformFolder).restore();
+          /** @type {sinon.SinonSpy} */ (index.findPage).restore();
         });
     });
 

@@ -10,33 +10,32 @@ describe('Platform', () => {
   describe('getPreferredPlatform', () => {
     beforeEach(() => {
       sinon.stub(os, 'platform');
-      this.config = config.get();
     });
 
     afterEach(() => {
-      os.platform.restore();
+      /** @type {sinon.SinonStub} */ (os.platform).restore();
     });
 
     it('should return the running platform with no configuration', () => {
-      os.platform.onCall(0).returns('darwin');
-      this.config = {};
-      platforms.getPreferredPlatform(this.config).should.eql('darwin');
+      /** @type {sinon.SinonStub} */ (os.platform).onCall(0).returns('darwin');
+      const config = {};
+      platforms.getPreferredPlatform(config).should.eql('darwin');
     });
 
     it('should overwrite the running platform if configured', () => {
-      os.platform.onCall(0).returns('darwin');
-      this.config = {
+      /** @type {sinon.SinonStub} */ (os.platform).onCall(0).returns('darwin');
+      const config = {
         platform: 'linux'
       };
-      platforms.getPreferredPlatform(this.config).should.eql('linux');
+      platforms.getPreferredPlatform(config).should.eql('linux');
     });
 
     it('should return current system platform if configuration is wrong', () => {
-      os.platform.onCall(0).returns('darwin');
-      this.config = {
+      /** @type {sinon.SinonStub} */ (os.platform).onCall(0).returns('darwin');
+      const config = {
         platform: 'there_is_no_such_platform'
       };
-      platforms.getPreferredPlatform(this.config).should.eql('darwin');
+      platforms.getPreferredPlatform(config).should.eql('darwin');
     });
   });
 
