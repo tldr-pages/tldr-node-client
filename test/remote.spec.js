@@ -81,8 +81,8 @@ describe('Remote', () => {
           fs.copy.restore();
           fs.remove.restore();
           fs.ensureDir.restore();
-          utils.localeToLang.restore();
-          index.rebuildPagesIndex.restore();
+          /** @type {sinon.SinonSpy} */ (utils.localeToLang).restore();
+          /** @type {sinon.SinonSpy} */ (index.rebuildPagesIndex).restore();
 
           await fs.remove(tempFolder);
         }).timeout(TIMEOUT_INTERVAL);

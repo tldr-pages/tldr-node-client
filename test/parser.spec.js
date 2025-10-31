@@ -160,7 +160,7 @@ describe('Parser', () => {
     });
 
     afterEach(() => {
-      index.hasPage.restore();
+      /** @type {sinon.SinonSpy} */ (index.hasPage).restore();
     });
 
     it('should parse seeAlso commands when mentioned in description', () => {

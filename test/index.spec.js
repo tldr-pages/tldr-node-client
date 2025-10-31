@@ -64,7 +64,7 @@ describe('Index building', () => {
   });
 
   afterEach(() => {
-    utils.walk.restore();
+    /** @type {sinon.SinonSpy} */ (utils.walk).restore();
     fs.readJson.restore();
     fs.writeJson.restore();
   });
@@ -79,7 +79,7 @@ describe('Index', () => {
   });
 
   afterEach(() => {
-    utils.walk.restore();
+    /** @type {sinon.SinonSpy} */ (utils.walk).restore();
     fs.readJson.restore();
     fs.writeJson.restore();
   });
