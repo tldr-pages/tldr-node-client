@@ -24,7 +24,6 @@ export default [
         "sourceType": "module",
         "globals": {
           "node": true,
-          "mocha": true,
           "es2019": true
         }
       }
