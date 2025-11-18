@@ -8,6 +8,7 @@ name: Publish Package to NPM
 on:
   release:
     types: [published]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,12 +17,14 @@ jobs:
       id-token: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
       # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         with:
           node-version: '22.x'
           registry-url: 'https://registry.npmjs.org'
+
       - run: npm ci
       - run: npm publish --provenance
         env:

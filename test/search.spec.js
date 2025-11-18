@@ -119,7 +119,7 @@ let fakes = {
   },
   fs: {
     writeFile: (writepath, content) => {
-      return new Promise((resolve, reject) => {
+      return new Promise((/** @type {(v?: never) => void} */ resolve, reject) => {
         if (writepath !== filepath) {
           return reject('Incorrect File Path');
         }
@@ -160,8 +160,8 @@ describe('Search', () => {
     stubs.push(sinon.stub(fs, 'readFile').callsFake(fakes.fs.readFile));
     stubs.push(sinon.stub(fs, 'writeFile').callsFake(fakes.fs.writeFile));
     search.createIndex().then((data) => {
-      Object.keys(data.tfidf).length.should.equal(20);  
-      Object.keys(data.invertedIndex).length.should.equal(56);  
+      Object.keys(data.tfidf).length.should.equal(20);
+      Object.keys(data.invertedIndex).length.should.equal(56);
       data.invertedIndex['roxi'][0].should.equal('/path/to/file-11.md');
       testData.corpus = data;
       done();
@@ -178,7 +178,7 @@ describe('Search', () => {
     stubs.push(sinon.stub(fs, 'writeFile').callsFake(fakes.fs.writeFile));
     stubs.push(sinon.stub(index, 'getShortIndex').callsFake(fakes.index.getShortIndex));
     search.getResults('Anthony').then((data) => {
-      data.length.should.equal(4);  
+      data.length.should.equal(4);
       data[0].file.should.equal('/path/to/file-09.md');
       return Promise.resolve();
     }).then(() => {
@@ -188,7 +188,7 @@ describe('Search', () => {
       });
     }).then(() => {
       return search.getResults('Joe and Roxie').then((data) => {
-        data.length.should.equal(8);  
+        data.length.should.equal(8);
         data[1].file.should.equal('/path/to/file-16.md');
         done();
         return Promise.resolve();

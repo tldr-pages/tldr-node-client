@@ -4,7 +4,10 @@
   "description": "Simplified and community-driven man pages",
   "author": "Romain Prieto",
   "license": "MIT",
-  "repository": "tldr-pages/tldr-node-client",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tldr-pages/tldr-node-client.git"
+  },
   "keywords": [
     "man",
     "pages",
@@ -25,7 +28,7 @@
   ],
   "homepage": "https://tldr.sh",
   "engines": {
-    "node": ">=16"
+    "node": ">=22"
   },
   "main": "bin/tldr",
   "files": [
@@ -35,7 +38,7 @@
     "LICENSE.md"
   ],
   "bin": {
-    "tldr": "./bin/tldr"
+    "tldr": "bin/tldr"
   },
   "preferGlobal": true,
   "directories": {
@@ -51,12 +54,12 @@
     "test:functional": "bash test/functional-test.sh",
     "test:coverage": "nyc mocha",
     "test:all": "npm run lint && npm test && npm run test:functional",
+    "typecheck": "tsc --noEmit",
     "prepare": "husky"
   },
   "dependencies": {
     "adm-zip": "^0.5.10",
     "axios": "^1.6.0",
-    "chalk": "^4.1.0",
     "commander": "^6.1.0",
     "fs-extra": "^11.2.0",
     "glob": "^11.0.0",
@@ -67,13 +70,17 @@
     "natural": "^8.0.1"
   },
   "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^24.9.2",
+    "@types/sinon": "^17.0.4",
     "eslint": "^9.14.0",
     "eslint-config-eslint": "^11.0.0",
     "husky": "^9.1.6",
     "mocha": "^11.0.1",
     "nyc": "^17.1.0",
     "should": "^13.2.3",
-    "sinon": "^19.0.2"
+    "sinon": "^19.0.2",
+    "typescript": "^5.9.3"
   },
   "funding": {
     "type": "liberapay",
