@@ -31,8 +31,8 @@ describe('Render', () => {
       description: 'archive utility',
       examples: []
     }, this.config);
-    text.should.startWith('\n');
-    text.should.endWith('\n');
+    should(text).startWith('\n');
+    should(text).endWith('\n');
   });
 
   it('contains the command name', () => {
@@ -41,8 +41,8 @@ describe('Render', () => {
       description: 'archive utility',
       examples: []
     }, this.config);
-    text.should.containEql('tar');
-    text.should.containEql('archive utility');
+    should(text).containEql('tar');
+    should(text).containEql('archive utility');
   });
 
   it('contains the description name', () => {
@@ -51,8 +51,8 @@ describe('Render', () => {
       description: 'archive utility\nwith support for compression',
       examples: []
     }, this.config);
-    text.should.containEql('archive utility');
-    text.should.containEql('with support for compression');
+    should(text).containEql('archive utility');
+    should(text).containEql('with support for compression');
   });
 
   it('highlights replaceable {{tokens}}', () => {
@@ -64,16 +64,16 @@ describe('Render', () => {
         code: 'hello {{token}} bye'
       }]
     }, this.config);
-    text.should.containEql('hello ');
-    text.should.containEql('token');
-    text.should.containEql(' bye');
+    should(text).containEql('hello ');
+    should(text).containEql('token');
+    should(text).containEql(' bye');
   });
 
   it('should correctly render see also section', () => {
     let text = render.toANSI({
       name: 'uname',
       description: 'Description for `uname`.\n' +
-                   'See also `lsb_release`.',
+        'See also `lsb_release`.',
       examples: [{
         description: '1st example. You need `sudo` to run this',
         code: 'uname {{token}}'
@@ -83,7 +83,7 @@ describe('Render', () => {
         'sudo'
       ]
     }, this.config);
-    text.should.containEql('See also: lsb_release, sudo');
+    should(text).containEql('See also: lsb_release, sudo');
   });
 
   it('should return an error for invalid theme', () => {
@@ -103,8 +103,9 @@ describe('Render', () => {
     let text = render.toANSI({
       name: 'tar',
       description: 'archive utility',
+      examples: [],
     }, config);
     should.not.exist(text);
-    console.error.getCall(0).args[0].should.equal('invalid theme: bad');
+    /** @type {sinon.SinonSpy} */ (console.error).getCall(0).args[0].should.equal('invalid theme: bad');
   });
 });

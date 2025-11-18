@@ -62,7 +62,7 @@ For the list of available translations, please refer to the main [tldr](https://
 
 You can configure the `tldr` client by adding a `.tldrrc` file in your HOME directory. You can copy the contents of the `config.json` file from the repo to get the basic structure to start with, and modify it to suit your needs.
 
-The default color theme is the one named `"simple"`. You can change the theme by assigning a different value to the `"theme"` variable -- either to one of the pre-configured themes, or to a new theme that you have previously created in the `"themes"` section. Note that the colors and text effects you can choose are limited. Refer to the [chalk documentation](https://github.com/chalk/chalk#styles) for all options.
+The default color theme is the one named `"simple"`. You can change the theme by assigning a different value to the `"theme"` variable -- either to one of the pre-configured themes, or to a new theme that you have previously created in the `"themes"` section. Note that the colors and text effects you can choose are limited. Refer to the [Node.js documentation](https://nodejs.org/api/util.html#modifiers) for all options.
 
 ```json
 {
