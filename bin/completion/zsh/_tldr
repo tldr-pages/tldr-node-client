@@ -2,7 +2,7 @@
 
 local -a pages platforms
 
-# a lot of special characters in the tldr pages names
+# there is a lot of special characters in the tldr pages names
 # like ! [ ] [[ { } ( ) , and so on
 # so we need to escape them one by one
 for page_name in $(tldr -a | sed 's/\,//g'); do
