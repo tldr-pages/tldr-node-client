@@ -1,6 +1,8 @@
 'use strict';
 
 const { styleText } = require('node:util');
+const assert = require('node:assert/strict')
+const { describe, it } = require('node:test');
 const Theme = require('../lib/theme');
 
 describe('Theme', () => {
@@ -16,33 +18,23 @@ describe('Theme', () => {
     });
 
     it('should render name with green and bold', () => {
-      theme.renderCommandName('text')
-        .should.equal(
-          styleText(['green', 'bold'], 'text'));
+      assert.equal(theme.renderCommandName('text'), styleText(['green', 'bold'], 'text'));
     });
 
     it('should render description with red and underline', () => {
-      theme.renderMainDescription('text')
-        .should.equal(
-          styleText(['red', 'underline'], 'text'));
+      assert.equal(theme.renderMainDescription('text'), styleText(['red', 'underline'], 'text'));
     });
 
     it('should render example description with blue', () => {
-      theme.renderExampleDescription('text')
-        .should.equal(
-          styleText('blue', 'text'));
+      assert.equal(theme.renderExampleDescription('text'), styleText('blue', 'text'));
     });
 
     it('should render example code with blue', () => {
-      theme.renderExampleCode('text')
-        .should.equal(
-          styleText('bold', 'text'));
+      assert.equal(theme.renderExampleCode('text'), styleText('bold', 'text'));
     });
 
     it('should render example argument with yellow, dim, underline', () => {
-      theme.renderExampleToken('text')
-        .should.equal(
-          styleText(['yellow', 'dim', 'underline'], 'text'));
+      assert.equal(theme.renderExampleToken('text'), styleText(['yellow', 'dim', 'underline'], 'text'));
     });
   });
 
@@ -57,33 +49,23 @@ describe('Theme', () => {
     });
 
     it('should render name with greenBright and bold', () => {
-      theme.renderCommandName('text')
-        .should.equal(
-          styleText(['greenBright', 'bold'], 'text'));
+      assert.equal(theme.renderCommandName('text'), styleText(['greenBright', 'bold'], 'text'));
     });
 
     it('should render description with greenBright and bold', () => {
-      theme.renderMainDescription('text')
-        .should.equal(
-          styleText(['greenBright', 'bold'], 'text'));
+      assert.equal(theme.renderMainDescription('text'), styleText(['greenBright', 'bold'], 'text'));
     });
 
     it('should render example description with greenBright', () => {
-      theme.renderExampleDescription('text')
-        .should.equal(
-          styleText('greenBright', 'text'));
+      assert.equal(theme.renderExampleDescription('text'), styleText('greenBright', 'text'));
     });
 
     it('should render example code with redBright', () => {
-      theme.renderExampleCode('text')
-        .should.equal(
-          styleText('redBright', 'text'));
+      assert.equal(theme.renderExampleCode('text'), styleText('redBright', 'text'));
     });
 
     it('should render example argument with white', () => {
-      theme.renderExampleToken('text')
-        .should.equal(
-          styleText('white', 'text'));
+      assert.equal(theme.renderExampleToken('text'), styleText('white', 'text'));
     });
   });
 
@@ -100,39 +82,25 @@ describe('Theme', () => {
     });
 
     it('should render name with greenBright and bold', () => {
-      theme.renderCommandName('text')
-        .should.equal(
-          styleText(['greenBright', 'bold'], 'text'));
+      assert.equal(theme.renderCommandName('text'), styleText(['greenBright', 'bold'], 'text'));
     });
 
     it('should render description with greenBright and bold', () => {
-      theme.renderMainDescription('text')
-        .should.equal(
-          styleText(['greenBright', 'bold'], 'text'));
+      assert.equal(theme.renderMainDescription('text'), styleText(['greenBright', 'bold'], 'text'));
     });
 
     it('should render example description with greenBright', () => {
-      theme.renderExampleDescription('text')
-        .should.equal(
-          styleText('greenBright', 'text'));
+      assert.equal(theme.renderExampleDescription('text'), styleText('greenBright', 'text'));
     });
 
     it('should render example code with redBright', () => {
-      theme.renderExampleCode('text')
-        .should.equal(
-          styleText('redBright', 'text'));
+      assert.equal(theme.renderExampleCode('text'), styleText('redBright', 'text'));
     });
 
     it('should render example arguments with magenta, white, and blue, for boolean, number, and string respectively', () => {
-      theme.renderExampleToken('true')
-        .should.equal(
-          styleText('magenta', 'true'));
-      theme.renderExampleToken('9')
-        .should.equal(
-          styleText('white', '9'));
-      theme.renderExampleToken('text')
-        .should.equal(
-          styleText('blue', 'text'));
+      assert.equal(theme.renderExampleToken('true'), styleText('magenta', 'true'));
+      assert.equal(theme.renderExampleToken('9'), styleText('white', '9'));
+      assert.equal(theme.renderExampleToken('text'), styleText('blue', 'text'));
     });
   });
 });

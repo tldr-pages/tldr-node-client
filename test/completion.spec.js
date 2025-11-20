@@ -1,11 +1,11 @@
 'use strict';
 
+const assert = require('node:assert/strict')
+const { describe, it } = require('node:test');
 const Completion = require('../lib/completion');
 const { UnsupportedShellError, CompletionScriptError } = require('../lib/errors');
-const sinon = require('sinon');
 const fs = require('fs');
 const os = require('os');
-const should = require('should');
 const path = require('path');
 
 describe('Completion', () => {
@@ -15,54 +15,44 @@ describe('Completion', () => {
   describe('constructor()', () => {
     it('should construct with supported shell', () => {
       const completion = new Completion('zsh');
-      should.exist(completion);
-      completion.shell.should.equal('zsh');
-      completion.rcFilename.should.equal('.zshrc');
+      assert.equal(!!completion, true);
+      assert.equal(completion.shell, 'zsh');
+      assert.equal(completion.rcFilename, '.zshrc');
     });
 
     it('should throw UnsupportedShellError for unsupported shell', () => {
-      (() => {return new Completion('fish');}).should.throw(UnsupportedShellError);
+      assert.throws(() => {return new Completion('fish')}, UnsupportedShellError);
     });
   });
 
   describe('getFilePath()', () => {
     it('should return .zshrc path for zsh', () => {
       const completion = new Completion('zsh');
-      completion.getFilePath().should.equal(zshrcPath);
+      assert.equal(completion.getFilePath(), zshrcPath);
     });
 
     it('should return .bashrc path for bash', () => {
       const completion = new Completion('bash');
-      completion.getFilePath().should.equal(bashrcPath);
+      assert.equal(completion.getFilePath(), bashrcPath);
     });
   });
 
   describe('appendScript()', () => {
-    let appendFileStub;
-
-    beforeEach(() => {
-      appendFileStub = sinon.stub(fs, 'appendFile').yields(null);
-    });
-
-    afterEach(() => {
-      appendFileStub.restore();
-    });
-
-    it('should append script to file', () => {
+    it('should append script to file', (t) => {
+      const appendFile = t.mock.method(fs, 'appendFile', (_, __, callback) => callback(null));
       const completion = new Completion('zsh');
       return completion.appendScript('test script')
         .then(() => {
-          appendFileStub.calledOnce.should.be.true();
-          appendFileStub.firstCall.args[0].should.equal(zshrcPath);
-          appendFileStub.firstCall.args[1].should.equal('\ntest script\n');
+          assert.equal(appendFile.mock.callCount(), 1);
+          assert.equal(appendFile.mock.calls[0].arguments[0], zshrcPath);
+          assert.equal(appendFile.mock.calls[0].arguments[1], '\ntest script\n');
         });
     });
 
-    it('should reject with CompletionScriptError on fs error', () => {
+    it('should reject with CompletionScriptError on fs error', (t) => {
+      t.mock.method(fs, 'appendFile', (_, __, callback) => callback(new Error('File write error')));
       const completion = new Completion('zsh');
-      appendFileStub.yields(new Error('File write error'));
-      return completion.appendScript('test script')
-        .should.be.rejectedWith(CompletionScriptError);
+      assert.rejects(() => completion.appendScript('test script'), CompletionScriptError);
     });
   });
 
@@ -71,19 +61,18 @@ describe('Completion', () => {
       const completion = new Completion('zsh');
       return completion.getScript()
         .then((script) => {
-          script.should.containEql('# tldr zsh completion');
-          script.should.containEql('fpath=(');
+          assert.match(script, /# tldr zsh completion/);
+          assert.match(script, /fpath=\(/);
         });
     });
 
-    it('should return bash script for bash shell', () => {
+    it('should return bash script for bash shell', (t) => {
       const completion = new Completion('bash');
-      const readFileStub = sinon.stub(fs, 'readFile').yields(null, '# bash completion script');
+      t.mock.method(fs, 'readFile', (_, __, callback) => callback(null, '# bash completion script'));
 
       return completion.getScript()
         .then((script) => {
-          script.should.equal('# bash completion script');
-          readFileStub.restore();
+          assert.equal(script, '# bash completion script');
         });
     });
   });
@@ -92,39 +81,28 @@ describe('Completion', () => {
     it('should return zsh completion script', () => {
       const completion = new Completion('zsh');
       const script = completion.getZshScript();
-      script.should.containEql('# tldr zsh completion');
-      script.should.containEql('fpath=(');
-      script.should.containEql('compinit');
+      assert.match(script, /# tldr zsh completion/);
+      assert.match(script, /fpath=\(/);
+      assert.match(script, /compinit/);
     });
   });
 
   describe('getBashScript()', () => {
-    let readFileStub;
-
-    beforeEach(() => {
-      readFileStub = sinon.stub(fs, 'readFile');
-    });
-
-    afterEach(() => {
-      readFileStub.restore();
-    });
-
-    it('should return bash completion script', () => {
+    it('should return bash completion script', (t) => {
       const completion = new Completion('bash');
-      readFileStub.yields(null, '# bash completion script');
+      t.mock.method(fs, 'readFile', (_, __, callback) => callback(null, '# bash completion script'));
 
       return completion.getBashScript()
         .then((script) => {
-          script.should.equal('# bash completion script');
+          assert.equal(script, '# bash completion script');
         });
     });
 
-    it('should reject with CompletionScriptError on fs error', () => {
+    it('should reject with CompletionScriptError on fs error', async (t) => {
       const completion = new Completion('bash');
-      readFileStub.yields(new Error('File read error'));
+      t.mock.method(fs, 'readFile', (_, __, callback) => callback(new Error('File read error')));
 
-      return completion.getBashScript()
-        .should.be.rejectedWith(CompletionScriptError);
+      assert.rejects(() => completion.getBashScript(), CompletionScriptError);
     });
   });
 });
