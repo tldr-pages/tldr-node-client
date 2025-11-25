@@ -22,8 +22,6 @@ OPTIONS='-v
 --list
 -a
 --list-all
--1
---single-column
 -r
 --random
 -e
