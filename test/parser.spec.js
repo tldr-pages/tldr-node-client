@@ -1,7 +1,8 @@
 'use strict';
 
+const assert = require('node:assert/strict')
+const { describe, it } = require('node:test');
 const parser = require('../lib/parser');
-const sinon = require('sinon');
 const index = require('../lib/index');
 
 describe('Parser', () => {
@@ -9,7 +10,7 @@ describe('Parser', () => {
     let page = parser.parse(
       '\n# tar'
     );
-    page.name.should.eql('tar');
+    assert.equal(page.name, 'tar');
   });
 
   it('parses the description', () => {
@@ -17,7 +18,7 @@ describe('Parser', () => {
 # tar
 > archiving utility`
     );
-    page.description.should.eql('archiving utility');
+    assert.equal(page.description, 'archiving utility');
   });
 
   it('can parse the description on multiple lines', () => {
@@ -26,7 +27,7 @@ describe('Parser', () => {
 > archiving utility
 > with support for compression`
     );
-    page.description.should.eql('archiving utility\nwith support for compression');
+    assert.equal(page.description, 'archiving utility\nwith support for compression');
   });
 
   it('can parse the homepage', () => {
@@ -35,7 +36,7 @@ describe('Parser', () => {
 > archiving utility
 > Homepage: <https://www.gnu.org/software/tar/manual/tar.html>.`
     );
-    page.description.should.eql('archiving utility\nHomepage: https://www.gnu.org/software/tar/manual/tar.html.');
+    assert.equal(page.description, 'archiving utility\nHomepage: https://www.gnu.org/software/tar/manual/tar.html.');
   });
 
   it('does not escape HTML entities', () => {
@@ -43,7 +44,7 @@ describe('Parser', () => {
 # tar
 > compress & decompress`
     );
-    page.description.should.eql('compress & decompress');
+    assert.equal(page.description, 'compress & decompress');
   });
 
   it('parses example descriptions and codes', () => {
@@ -55,9 +56,9 @@ describe('Parser', () => {
 
 \`tar cf {{file.tar}}\``
     );
-    page.examples.should.have.length(1);
-    page.examples[0].description.should.eql('create an archive');
-    page.examples[0].code.should.eql('tar cf {{file.tar}}');
+    assert.equal(page.examples.length, 1);
+    assert.equal(page.examples[0].description, 'create an archive');
+    assert.equal(page.examples[0].code, 'tar cf {{file.tar}}');
   });
 
   it('does not escape HTML in the examples either', () => {
@@ -66,9 +67,9 @@ describe('Parser', () => {
 
 \`cmd & data\``
     );
-    page.examples.should.have.length(1);
-    page.examples[0].description.should.eql('this & that');
-    page.examples[0].code.should.eql('cmd & data');
+    assert.equal(page.examples.length, 1);
+    assert.equal(page.examples[0].description, 'this & that');
+    assert.equal(page.examples[0].code, 'cmd & data');
   });
 
   it('parses all the examples', () => {
@@ -84,7 +85,7 @@ describe('Parser', () => {
 
 \`tar xf {{file}}\``
     );
-    page.examples.should.have.length(2);
+    assert.equal(page.examples.length, 2);
   });
 
   it('leaves out malformed examples', () => {
@@ -95,7 +96,7 @@ describe('Parser', () => {
 
 - example 2`
     );
-    page.examples.should.have.length(1);
+    assert.equal(page.examples.length, 1);
   });
 
   it('should parse description with inline code', () => {
@@ -103,7 +104,7 @@ describe('Parser', () => {
 # uname
 > See also \`lsb_release\``
     );
-    page.description.should.eql('See also lsb_release');
+    assert.equal(page.description, 'See also lsb_release');
   });
 
   it('should parse examples with inline code', () => {
@@ -119,10 +120,10 @@ describe('Parser', () => {
 
 \`cmd2 --foo\``
     );
-    page.examples[0].code.should.eql('cmd1 --foo');
-    page.examples[1].code.should.eql('cmd2 --foo');
-    page.examples[0].description.should.eql('example 1, see inline_cmd1 for details');
-    page.examples[1].description.should.eql('example 2, see inline_cmd2 for details');
+    assert.equal(page.examples[0].code, 'cmd1 --foo');
+    assert.equal(page.examples[1].code, 'cmd2 --foo');
+    assert.equal(page.examples[0].description, 'example 1, see inline_cmd1 for details');
+    assert.equal(page.examples[1].description, 'example 2, see inline_cmd2 for details');
   });
 
   it('should parse code examples with unix redirects ">", "<", ">>" and "<<<"', () => {
@@ -143,35 +144,30 @@ describe('Parser', () => {
 
 \`bc <<< "1 + 1"\``
     );
-    page.examples[0].code.should.eql('cat {{file1}} {{file2}} > {{target-file}}');
-    page.examples[1].code.should.eql('wc -l < {{users-file}}');
-    page.examples[2].code.should.eql('cat {{file}} >> {{target-file}}');
-    page.examples[3].code.should.eql('bc <<< "1 + 1"');
+    assert.equal(page.examples[0].code, 'cat {{file1}} {{file2}} > {{target-file}}');
+    assert.equal(page.examples[1].code, 'wc -l < {{users-file}}');
+    assert.equal(page.examples[2].code, 'cat {{file}} >> {{target-file}}');
+    assert.equal(page.examples[3].code, 'bc <<< "1 + 1"');
   });
 
   describe('See also section', () => {
 
-    beforeEach(() => {
-      let hasPage = sinon.stub(index, 'hasPage');
-      hasPage.withArgs('lsb_release').returns(true);
-      hasPage.withArgs('ln').returns(true);
-      hasPage.withArgs('cp').returns(false);
-      hasPage.withArgs('mv').returns(false);
-    });
+    /** @param {import('node:test').TestContext} t */
+    function mockFn(t) {
+      t.mock.method(index, 'hasPage', (arg) => arg === 'lsb_release' || arg === 'ln');
+    }
 
-    afterEach(() => {
-      /** @type {sinon.SinonSpy} */ (index.hasPage).restore();
-    });
-
-    it('should parse seeAlso commands when mentioned in description', () => {
+    it('should parse seeAlso commands when mentioned in description', (t) => {
+      mockFn(t);
       let page = parser.parse(`
 # uname
 > See also \`lsb_release\`, \`mv\``
       );
-      page.seeAlso.should.eql(['lsb_release']);
+      assert.deepEqual(page.seeAlso, ['lsb_release']);
     });
 
-    it('should parse seeAlso commands when mentioned in examples', () => {
+    it('should parse seeAlso commands when mentioned in examples', (t) => {
+      mockFn(t);
       let page = parser.parse(`
 # uname
 > Description for uname
@@ -180,10 +176,11 @@ describe('Parser', () => {
 
 \`cmd1 --foo\``
       );
-      page.seeAlso.should.eql(['ln']);
+      assert.deepEqual(page.seeAlso, ['ln']);
     });
 
-    it('should have only unique seeAlso commands when mentioned a few times', () => {
+    it('should have only unique seeAlso commands when mentioned a few times', (t) => {
+      mockFn(t);
       let page = parser.parse(`
 # uname
 > Description for uname, see \`lsb_release\`, \`ln\`
@@ -196,7 +193,7 @@ describe('Parser', () => {
 
 \`cmd1 --foo\``
       );
-      page.seeAlso.should.eql(['lsb_release', 'ln']);
+      assert.deepEqual(page.seeAlso, ['lsb_release', 'ln']);
     });
   });
 });

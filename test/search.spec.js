@@ -1,8 +1,8 @@
 'use strict';
 
+const assert = require('node:assert/strict')
+const { describe, it } = require('node:test');
 const search = require('../lib/search');
-const should = require('should');
-const sinon = require('sinon');
 const path = require('path');
 const fs = require('fs-extra');
 
@@ -154,50 +154,44 @@ let restoreStubs = (stubs) => {
 //TODO write tests for private functions in the search module.
 
 describe('Search', () => {
-  it('should create index', function(done) {
-    let stubs = [];
-    stubs.push(sinon.stub(utils, 'glob').callsFake(fakes.utils.glob));
-    stubs.push(sinon.stub(fs, 'readFile').callsFake(fakes.fs.readFile));
-    stubs.push(sinon.stub(fs, 'writeFile').callsFake(fakes.fs.writeFile));
+  it('should create index', function(t, done) {
+    t.mock.method(utils, 'glob', fakes.utils.glob);
+    t.mock.method(fs, 'readFile', fakes.fs.readFile);
+    t.mock.method(fs, 'writeFile', fakes.fs.writeFile);
     search.createIndex().then((data) => {
-      Object.keys(data.tfidf).length.should.equal(20);
-      Object.keys(data.invertedIndex).length.should.equal(56);
-      data.invertedIndex['roxi'][0].should.equal('/path/to/file-11.md');
+      assert.equal(Object.keys(data.tfidf).length, 20);
+      assert.equal(Object.keys(data.invertedIndex).length, 56);
+      assert.equal(data.invertedIndex['roxi'][0], '/path/to/file-11.md');
       testData.corpus = data;
       done();
     }).catch((error) => {
-      should.not.exist(error);
+      assert.equal(!!error, false);
       done(error);
-    }).then(() => {
-      restoreStubs(stubs);
     });
   });
-  it('should perform searches', function(done) {
-    let stubs = [];
-    stubs.push(sinon.stub(fs, 'readFile').callsFake(fakes.fs.readFile));
-    stubs.push(sinon.stub(fs, 'writeFile').callsFake(fakes.fs.writeFile));
-    stubs.push(sinon.stub(index, 'getShortIndex').callsFake(fakes.index.getShortIndex));
+  it('should perform searches', function(t, done) {
+    t.mock.method(fs, 'readFile', fakes.fs.readFile);
+    t.mock.method(fs, 'writeFile', fakes.fs.writeFile);
+    t.mock.method(index, 'getShortIndex', fakes.index.getShortIndex);
     search.getResults('Anthony').then((data) => {
-      data.length.should.equal(4);
-      data[0].file.should.equal('/path/to/file-09.md');
+      assert.equal(data.length, 4);
+      assert.equal(data[0].file, '/path/to/file-09.md');
       return Promise.resolve();
     }).then(() => {
       return search.getResults('textnotfound').then((data) => {
-        data.length.should.equal(0);
+        assert.equal(data.length, 0);
         return Promise.resolve();
       });
     }).then(() => {
       return search.getResults('Joe and Roxie').then((data) => {
-        data.length.should.equal(8);
-        data[1].file.should.equal('/path/to/file-16.md');
+        assert.equal(data.length, 8);
+        assert.equal(data[1].file, '/path/to/file-16.md');
         done();
         return Promise.resolve();
       });
     }).catch((error) => {
-      should.not.exist(error);
+      assert.equal(!!error, false);
       done(error);
-    }).then(() => {
-      restoreStubs(stubs);
     });
   });
 });

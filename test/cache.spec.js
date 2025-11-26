@@ -1,67 +1,67 @@
 'use strict';
 
+const assert = require('node:assert/strict')
+const { describe, beforeEach, it } = require('node:test');
 const Cache = require('../lib/cache');
 const config = require('../lib/config');
-const should = require('should');
-const sinon = require('sinon');
 const path = require('path');
 const fs = require('fs-extra');
 const index = require('../lib/index');
 const remote = require('../lib/remote');
 const platforms = require('../lib/platforms');
 
-
 describe('Cache', () => {
   describe('update()', () => {
+    /** @param {import('node:test').TestContext} t */
+    function mockFns(t) {
+      t.mock.method(fs, 'ensureDir');
+      t.mock.method(fs, 'remove');
+      t.mock.method(fs, 'copy', () => Promise.resolve());
+      t.mock.method(remote, 'download', () => Promise.resolve());
+      t.mock.method(index, 'rebuildPagesIndex', () => Promise.resolve());
+    }
+
     beforeEach(() => {
-      sinon.spy(fs, 'ensureDir');
-      sinon.spy(fs, 'remove');
-      sinon.stub(fs, 'copy').resolves();
-      sinon.stub(remote, 'download').resolves();
-      sinon.stub(index, 'rebuildPagesIndex').resolves();
       this.cacheFolder = path.join(config.get().cache, 'cache');
     });
 
-    it('should use randomly created temp folder', () => {
+    it('should use randomly created temp folder', (t) => {
+      mockFns(t);
+
       const count = 16;
       const cache = new Cache(config.get());
       return Promise.all(Array.from({ length: count }).map(() => {
         return cache.update();
       })).then(() => {
-        let calls = fs.ensureDir.getCalls().filter((call) => {
-          return !call.calledWith(this.cacheFolder);
+        let calls = fs.ensureDir.mock.calls.filter((call) => {
+          return call.arguments[0] !== this.cacheFolder;
         });
-        calls.should.have.length(count);
+        assert.equal(calls.length, count);
         let tempFolders = calls.map((call) => {
-          return call.args[0];
+          return call.arguments[0];
         });
-        tempFolders.should.have.length(new Set(tempFolders).size);
+        assert.equal(tempFolders.length, new Set(tempFolders).size);
       });
     });
 
-    it('should remove temp folder after cache gets updated', () => {
+    it('should remove temp folder after cache gets updated', (t) => {
+      mockFns(t);
+
       const cache = new Cache(config.get());
       return cache.update().then(() => {
-        let createFolder = fs.ensureDir.getCalls().find((call) => {
-          return !call.calledWith(this.cacheFolder);
+        let createFolder = fs.ensureDir.mock.calls.find((call) => {
+          return call.arguments[0] !== this.cacheFolder;
         });
-        let removeFolder = fs.remove.getCall(0);
-        removeFolder.args[0].should.be.equal(createFolder.args[0]);
+        let removeFolder = fs.remove.mock.calls[0];
+        assert.equal(removeFolder.arguments[0], createFolder.arguments[0]);
       });
-    });
-
-    afterEach(() => {
-      fs.ensureDir.restore();
-      fs.remove.restore();
-      fs.copy.restore();
-      /** @type {sinon.SinonSpy} */ (remote.download).restore();
-      /** @type {sinon.SinonSpy} */ (index.rebuildPagesIndex).restore();
     });
   });
 
   describe('getPage()', () => {
-    beforeEach(() => {
-      sinon.stub(index, 'getShortIndex').returns(Promise.resolve({
+    /** @param {import('node:test').TestContext} t */
+    function mockFns(t) {
+      t.mock.method(index, 'getShortIndex', () => ({
         cp: ['common'],
         git: ['common'],
         ln: ['common'],
@@ -73,68 +73,60 @@ describe('Cache', () => {
         pkg: ['android', 'freebsd', 'openbsd'],
         pkgin: ['netbsd']
       }));
-    });
+    }
 
-    afterEach(() => {
-      /** @type {sinon.SinonSpy} */ (index.getShortIndex).restore();
-    });
+    it('should return page contents for ls', (t) => {
+      mockFns(t);
+      t.mock.method(fs, 'readFile', () => Promise.resolve('# ls\n> ls page'));
+      t.mock.method(platforms, 'getPreferredPlatformFolder', () => 'osx');
+      t.mock.method(index, 'findPage', () => Promise.resolve('osx'));
 
-    it('should return page contents for ls', () => {
-      sinon.stub(fs, 'readFile').resolves('# ls\n> ls page');
-      sinon.stub(platforms, 'getPreferredPlatformFolder').returns('osx');
-      sinon.stub(index, 'findPage').resolves('osx');
       const cache = new Cache(config.get());
       return cache.getPage('ls')
         .then((content) => {
-          should.exist(content);
-          content.should.startWith('# ls');
-          fs.readFile.restore();
-          /** @type {sinon.SinonSpy} */ (platforms.getPreferredPlatformFolder).restore();
-          /** @type {sinon.SinonSpy} */ (index.findPage).restore();
+          assert.equal(!!content, true);
+          assert.equal(content?.startsWith('# ls'), true);
         });
     });
 
-    it('should return empty contents for svcs on OSX', () => {
-      sinon.stub(fs, 'readFile').resolves('# svcs\n> svcs');
-      sinon.stub(platforms, 'getPreferredPlatformFolder').returns('osx');
-      sinon.stub(index, 'findPage').resolves(null);
+    it('should return empty contents for svcs on OSX', (t) => {
+      mockFns(t);
+      t.mock.method(fs, 'readFile', () => Promise.resolve('# svcs\n> svcs'));
+      t.mock.method(platforms, 'getPreferredPlatformFolder', () => 'osx');
+      t.mock.method(index, 'findPage', () => Promise.resolve(null));
+
       const cache = new Cache(config.get());
       return cache.getPage('svc')
         .then((content) => {
-          should.not.exist(content);
-          fs.readFile.restore();
-          /** @type {sinon.SinonSpy} */ (platforms.getPreferredPlatformFolder).restore();
-          /** @type {sinon.SinonSpy} */ (index.findPage).restore();
+          assert.equal(!!content, false);
         });
     });
 
-    it('should return page contents for svcs on SunOS', () => {
-      sinon.stub(fs, 'readFile').resolves('# svcs\n> svcs');
-      sinon.stub(platforms, 'getPreferredPlatformFolder').returns('sunos');
-      sinon.stub(index, 'findPage').resolves('svcs');
+    it('should return page contents for svcs on SunOS', (t) => {
+      mockFns(t);
+      t.mock.method(fs, 'readFile', () => Promise.resolve('# svcs\n> svcs'));
+      t.mock.method(platforms, 'getPreferredPlatformFolder', () => 'sunos');
+      t.mock.method(index, 'findPage', () => Promise.resolve('svcs'));
+
       const cache = new Cache(config.get());
       return cache.getPage('svcs')
         .then((content) => {
-          should.exist(content);
-          content.should.startWith('# svcs');
-          fs.readFile.restore();
-          /** @type {sinon.SinonSpy} */ (platforms.getPreferredPlatformFolder).restore();
-          /** @type {sinon.SinonSpy} */ (index.findPage).restore();
+          assert.equal(!!content, true);
+          assert.equal(content?.startsWith('# svcs'), true);
         });
     });
 
-    it('should return page contents for pkg on Android', () => {
-      sinon.stub(fs, 'readFile').resolves('# pkg\n> pkg');
-      sinon.stub(platforms, 'getPreferredPlatformFolder').returns('android');
-      sinon.stub(index, 'findPage').resolves('pkg');
+    it('should return page contents for pkg on Android', (t) => {
+      mockFns(t);
+      t.mock.method(fs, 'readFile', () => Promise.resolve('# pkg\n> pkg'));
+      t.mock.method(platforms, 'getPreferredPlatformFolder', () => 'android');
+      t.mock.method(index, 'findPage', () => Promise.resolve('pkg'));
+
       const cache = new Cache(config.get());
       return cache.getPage('pkg')
         .then((content) => {
-          should.exist(content);
-          content.should.startWith('# pkg');
-          fs.readFile.restore();
-          /** @type {sinon.SinonSpy} */ (platforms.getPreferredPlatformFolder).restore();
-          /** @type {sinon.SinonSpy} */ (index.findPage).restore();
+          assert.equal(!!content, true);
+          assert.equal(content?.startsWith('# pkg'), true);
         });
     });
 
@@ -142,7 +134,7 @@ describe('Cache', () => {
       const cache = new Cache(config.get());
       return cache.getPage('qwerty')
         .then((content) => {
-          return should.not.exist(content);
+          assert.equal(!!content, false);
         });
     });
   });
