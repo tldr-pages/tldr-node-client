@@ -11,8 +11,7 @@ const { TldrError } = require('../lib/errors');
 pkg.version = `v${pkg.version}\nClient Specification: 2.0`;
 
 program
-  .version(pkg.version, '-v, --version', 'Display version')
-  .helpOption('-h, --help', 'Show this help message')
+  .version(pkg.version)
   .description(pkg.description)
   .usage('command [options]')
   //
