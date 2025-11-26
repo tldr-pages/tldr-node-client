@@ -66,8 +66,7 @@
     "lodash": "^4.17.20",
     "marked": "^4.0.10",
     "ms": "^2.1.2",
-    "natural": "^8.0.1",
-    "ora": "^5.1.0"
+    "natural": "^8.0.1"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
