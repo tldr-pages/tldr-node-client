@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const program = require('commander');
+const { Command } = require('commander'); // Commander 14
 const pkg = require('../package');
 const Tldr = require('../lib/tldr');
 const config = require('../lib/config');
@@ -8,70 +8,100 @@ const platforms = require('../lib/platforms');
 const Completion = require('../lib/completion');
 const { TldrError } = require('../lib/errors');
 
-pkg.version = `v${pkg.version}\nClient Specification: 2.0`;
+const program = new Command();
 
+pkg.version = `v${pkg.version} (Client Spec: 2.0)`;
+
+// Basic CLI setup
 program
-  .version(pkg.version)
+  .name('tldr')
+  .version(pkg.version) // Commander 14 only takes version string
   .description(pkg.description)
   .usage('command [options]')
-  //
-  // BASIC OPTIONS
-  //
+
+// --------------------
+// BASIC OPTIONS
+// --------------------
+program
   .option('-l, --list', 'List all commands for the chosen platform in the cache')
   .option('-a, --list-all', 'List all commands in the cache')
-  .option('-1, --single-column', 'List single command per line (use with options -l or -a)')
+  .option('-1, --single-column', 'List single command per line (use with -l or -a)')
   .option('-r, --random', 'Show a random command')
   .option('-e, --random-example', 'Show a random example')
   .option('-f, --render [file]', 'Render a specific markdown [file]')
   .option('-m, --markdown', 'Output in markdown format')
   .option('-p, --platform [type]', `Override the current platform [${platforms.supportedPlatforms.join(', ')}]`)
-  .option('completion [shell]', 'Generate and add shell completion script to your shell configuration');
-
-for (const platform of platforms.supportedPlatforms) {
-  program.option(`--${platform}`, `Override the platform with ${platform}`);
-}
-
-program
   .option('-t, --theme [theme]', 'Color theme (simple, base16, ocean)')
   .option('-s, --search [keywords]', 'Search pages using keywords')
-  //
-  // CACHE MANAGEMENT
-  //
   .option('-u, --update', 'Update the local cache')
   .option('-c, --clear-cache', 'Clear the local cache');
 
-const help = `
-  Examples:
+// Add flags for each supported platform
+for (const platform of platforms.supportedPlatforms) {
+  program.option(`--${platform}`, `Override platform with ${platform}`);
+}
 
-    $ tldr tar
-    $ tldr du --platform=linux
-    $ tldr --search "create symbolic link to file"
-    $ tldr --list
-    $ tldr --list-all
-    $ tldr --random
-    $ tldr --random-example
+// --------------------
+// COMPLETION SUBCOMMAND
+// --------------------
+program
+  .command('completion [shell]')
+  .description('Generate and add shell completion script to your shell configuration')
+  .action(async (shell) => {
+    try {
+      const completion = new Completion(shell);
+      const script = await completion.getScript();
+      await completion.appendScript(script);
 
-  To control the cache:
+      if (shell === 'zsh') {
+        console.log('If completions don\'t work, rebuild ~/.zcompdump:');
+        console.log('  rm -f ~/.zcompdump; compinit');
+      }
+    } catch (err) {
+      console.error(err.stack || err);
+      process.exit(1);
+    }
+  });
 
-    $ tldr --update
-    $ tldr --clear-cache
+// --------------------
+// CUSTOM HELP EXAMPLES
+// --------------------
+const helpText = `
+Examples:
 
-  To render a local file (for testing):
+  $ tldr tar
+  $ tldr du --platform=linux
+  $ tldr --search "create symbolic link to file"
+  $ tldr --list
+  $ tldr --list-all
+  $ tldr --random
+  $ tldr --random-example
 
-    $ tldr --render /path/to/file.md
-  
-  To add shell completion:
+Cache control:
 
-    $ tldr completion bash
-    $ tldr completion zsh
+  $ tldr --update
+  $ tldr --clear-cache
+
+Render local file:
+
+  $ tldr --render /path/to/file.md
+
+Add shell completion:
+
+  $ tldr completion bash
+  $ tldr completion zsh
 `;
 
-program.on('--help', () => {
-  console.log(help);
-});
+program.addHelpText('after', helpText);
 
+// --------------------
+// PARSE ARGS
+// --------------------
 program.parse(process.argv);
 
+// --------------------
+// PLATFORM OVERRIDE
+// --------------------
 for (const platform of platforms.supportedPlatforms) {
   if (program[platform]) {
     program.platform = platform;
@@ -82,59 +112,50 @@ let cfg = config.get();
 if (program.platform && platforms.isSupported(program.platform)) {
   cfg.platform = program.platform;
 }
-
 if (program.theme) {
   cfg.theme = program.theme;
 }
 
 const tldr = new Tldr(cfg);
 
-let p = null;
+// --------------------
+// COMMAND HANDLING
+// --------------------
+let promise = null;
+
 if (program.list) {
-  p = tldr.list(program.singleColumn);
+  promise = tldr.list(program.singleColumn);
 } else if (program.listAll) {
-  p = tldr.listAll(program.singleColumn);
+  promise = tldr.listAll(program.singleColumn);
 } else if (program.random) {
-  p = tldr.random(program);
+  promise = tldr.random(program);
 } else if (program.randomExample) {
-  p = tldr.randomExample();
+  promise = tldr.randomExample();
 } else if (program.clearCache) {
-  p = tldr.clearCache();
+  promise = tldr.clearCache();
 } else if (program.update) {
-  p = tldr.updateCache()
-    .then(() => {
-      return tldr.updateIndex();
-    });
+  promise = tldr.updateCache()
+    .then(() => tldr.updateIndex());
 } else if (program.render) {
-  p = tldr.render(program.render);
+  promise = tldr.render(program.render);
 } else if (program.search) {
   program.args.unshift(program.search);
-  p = tldr.search(program.args);
+  promise = tldr.search(program.args);
 } else if (program.args.length >= 1) {
-  if (program.args[0] === 'completion') {
-    const shell = program.args[1];
-    const completion = new Completion(shell);
-    p = completion.getScript()
-      .then((script) => {return completion.appendScript(script);})
-      .then(() => {
-        if (shell === 'zsh') {
-          console.log('If completions don\'t work, you may need to rebuild your zcompdump:');
-          console.log('  rm -f ~/.zcompdump; compinit');
-        }
-      });
-  } else {
-    p = tldr.get(program.args, program);
-  }
+  promise = tldr.get(program.args, program);
 }
 
-if (p === null) {
+// --------------------
+// EXIT HANDLING
+// --------------------
+if (!promise) {
   program.outputHelp();
   process.exitCode = 1;
 } else {
-  p.catch((err) => {
-    let output = TldrError.isTldrError(err)
+  promise.catch((err) => {
+    const output = TldrError.isTldrError(err)
       ? err.message
-      : err.stack;
+      : err.stack || err;
     console.error(output);
     process.exitCode = err.code || 1;
   });
