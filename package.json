@@ -47,12 +47,11 @@
   "scripts": {
     "start": "node ./bin/tldr",
     "example": "node ./bin/tldr tar",
-    "test": "mocha",
-    "test:quiet": "mocha --reporter=dot",
+    "test": "node --test ./**/*.spec.js",
+    "test:quiet": "node --test --test-reporter=dot ./**/*.spec.js",
     "lint": "eslint lib test bin/tldr",
-    "watch": "mocha --reporter=min --watch --growl",
     "test:functional": "bash test/functional-test.sh",
-    "test:coverage": "nyc mocha",
+    "test:coverage": "node --experimental-test-coverage --test  ./**/*.spec.js",
     "test:all": "npm run lint && npm test && npm run test:functional",
     "typecheck": "tsc --noEmit",
     "prepare": "husky"
@@ -67,8 +66,7 @@
     "lodash": "^4.17.20",
     "marked": "^4.0.10",
     "ms": "^2.1.2",
-    "natural": "^8.0.1",
-    "ora": "^5.1.0"
+    "natural": "^8.0.1"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
@@ -77,10 +75,6 @@
     "eslint": "^9.14.0",
     "eslint-config-eslint": "^11.0.0",
     "husky": "^9.1.6",
-    "mocha": "^11.0.1",
-    "nyc": "^17.1.0",
-    "should": "^13.2.3",
-    "sinon": "^19.0.2",
     "typescript": "^5.9.3"
   },
   "funding": {
