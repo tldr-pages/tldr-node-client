@@ -1,0 +1,3 @@
+/.github/workflows/* @sebastiaanspeck
+/package.json @sebastiaanspeck
+/package-lock.json @sebastiaanspeck
