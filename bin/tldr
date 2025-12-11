@@ -20,7 +20,6 @@ program
   //
   .option('-l, --list', 'List all commands for the chosen platform in the cache')
   .option('-a, --list-all', 'List all commands in the cache')
-  .option('-1, --single-column', 'List single command per line (use with options -l or -a)')
   .option('-r, --random', 'Show a random command')
   .option('-e, --random-example', 'Show a random example')
   .option('-f, --render [file]', 'Render a specific markdown [file]')
@@ -92,9 +91,9 @@ const tldr = new Tldr(cfg);
 
 let p = null;
 if (program.list) {
-  p = tldr.list(program.singleColumn);
+  p = tldr.list();
 } else if (program.listAll) {
-  p = tldr.listAll(program.singleColumn);
+  p = tldr.listAll();
 } else if (program.random) {
   p = tldr.random(program);
 } else if (program.randomExample) {
