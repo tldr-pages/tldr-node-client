@@ -1,0 +1,70 @@
+name: Bug Report
+title: "Bug: "
+description: Report a bug or unexpected behavior
+labels: bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug!
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: Tell us what should happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Tell us what happens instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log, debug output
+      description: Put any log or error output here.
+      render: shell
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - macOS
+        - Linux
+        - Windows
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: os-version
+    attributes:
+      label: OS version (optional)
+      description: Add OS version if relevant to the bug.
+      placeholder: e.g., Ubuntu 22.04, Windows 11
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js version
+      description: Run `node --version` to find this.
+      placeholder: e.g., v20.10.0
+    validations:
+      required: true
+
+  - type: input
+    id: tldr-version
+    attributes:
+      label: tldr-node-client version
+      description: Run `tldr --version` to find this.
+      placeholder: e.g., 4.0.0
+    validations:
+      required: true
+
