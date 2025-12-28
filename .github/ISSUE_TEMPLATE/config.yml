@@ -1,0 +1,6 @@
+blank_issues_enabled: true
+contact_links:
+  - name: tldr pages repository
+    url: https://github.com/tldr-pages/tldr
+    about: For issues with tldr page content, not the client
+
