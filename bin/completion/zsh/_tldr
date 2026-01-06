@@ -17,7 +17,6 @@ _arguments \
   '(- *)'{-v,--version}'[display version]' \
   '(- *)'{-l,--list}'[list all commands for chosen platform]' \
   '(- *)'{-a,--list-all}'[list all commands]' \
-  '(- *)'{-1,--single-column}'[list one command per line (used with -l or -a)]' \
   '(- *)'{-r,--random}'[show a random command]' \
   '(- *)'{-s,--search}'[search all pages for query]' \
   '(- *)'{-e,--random-example}'[show a random example]' \
