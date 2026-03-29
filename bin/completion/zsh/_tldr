@@ -1,8 +1,16 @@
 #compdef tldr
 
 local -a pages platforms
-pages=$(tldr -a1)
-platforms='( android freebsd linux netbsd openbsd osx sunos windows )'
+
+# there is a lot of special characters in the tldr pages names
+# like ! [ ] [[ { } ( ) , and so on
+# so we need to escape them one by one
+for page_name in $(tldr -a | sed 's/\,//g'); do
+  pages+=(${(q)page_name})
+done
+unset page_name
+
+platforms='(android freebsd linux netbsd openbsd osx sunos windows)'
 
 _arguments \
   '(- *)'{-h,--help}'[show help]' \
@@ -28,4 +36,4 @@ _arguments \
   '--win32[override operating system with Windows]' \
   '--windows[override operating system with Windows]' \
   '(- *)'{-c,--clear-cache}'[clear local cache]' \
-  "*:page:(${(b)pages})" && return 0
+  "*:page:(${pages})" && return 0
