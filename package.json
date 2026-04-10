@@ -59,7 +59,7 @@
   "dependencies": {
     "adm-zip": "^0.5.10",
     "axios": "^1.6.0",
-    "commander": "^6.1.0",
+    "commander": "^14.0.3",
     "fs-extra": "^11.2.0",
     "glob": "^13.0.0",
     "he": "^1.2.0",
