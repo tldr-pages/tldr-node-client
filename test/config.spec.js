@@ -10,7 +10,7 @@ describe('Config', () => {
   const DEFAULT =
 `
 {
-  "repository": "http://tldr-pages.github.io/assets/tldr.zip"
+  "repository": "https://github.com/tldr-pages/tldr/releases/latest/download/tldr.zip"
 }`;
 
   const CUSTOM =
@@ -42,7 +42,7 @@ describe('Config', () => {
     // @ts-expect-error Types are narrowed in implementation detail.
     readFileSync.mock.mockImplementationOnce(() => DEFAULT, 0);
     readFileSync.mock.mockImplementationOnce(() => { throw new Error('Not found') }, 1);
-    assert.equal(config.get().repository, 'http://tldr-pages.github.io/assets/tldr.zip');
+    assert.equal(config.get().repository, 'https://github.com/tldr-pages/tldr/releases/latest/download/tldr.zip');
   });
 
   it('should override the defaults with content from .tldrrc', (t) => {
