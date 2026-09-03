@@ -11,7 +11,10 @@
     "strict": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "types": [
+      "node"
+    ]
   },
   "exclude": [
     "node_modules/"
