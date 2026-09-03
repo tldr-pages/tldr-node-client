@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const program = require('commander');
+const { program } = require('commander');
 const pkg = require('../package');
 const Tldr = require('../lib/tldr');
 const config = require('../lib/config');
@@ -15,6 +15,10 @@ program
   .helpOption('-h, --help', 'Show this help message')
   .description(pkg.description)
   .usage('command [options]')
+  // Commands (e.g. the page to look up, or `completion <shell>`) are
+  // passed as plain positional arguments rather than declared via
+  // `.argument()`, so allow any number of them through.
+  .allowExcessArguments()
   //
   // BASIC OPTIONS
   //
@@ -24,8 +28,7 @@ program
   .option('-e, --random-example', 'Show a random example')
   .option('-f, --render [file]', 'Render a specific markdown [file]')
   .option('-m, --markdown', 'Output in markdown format')
-  .option('-p, --platform [type]', `Override the current platform [${platforms.supportedPlatforms.join(', ')}]`)
-  .option('completion [shell]', 'Generate and add shell completion script to your shell configuration');
+  .option('-p, --platform [type]', `Override the current platform [${platforms.supportedPlatforms.join(', ')}]`);
 
 for (const platform of platforms.supportedPlatforms) {
   program.option(`--${platform}`, `Override the platform with ${platform}`);
@@ -72,43 +75,45 @@ program.on('--help', () => {
 
 program.parse(process.argv);
 
+const options = program.opts();
+
 for (const platform of platforms.supportedPlatforms) {
-  if (program[platform]) {
-    program.platform = platform;
+  if (options[platform]) {
+    options.platform = platform;
   }
 }
 
 let cfg = config.get();
-if (program.platform && platforms.isSupported(program.platform)) {
-  cfg.platform = program.platform;
+if (options.platform && platforms.isSupported(options.platform)) {
+  cfg.platform = options.platform;
 }
 
-if (program.theme) {
-  cfg.theme = program.theme;
+if (options.theme) {
+  cfg.theme = options.theme;
 }
 
 const tldr = new Tldr(cfg);
 
 let p = null;
-if (program.list) {
+if (options.list) {
   p = tldr.list();
-} else if (program.listAll) {
+} else if (options.listAll) {
   p = tldr.listAll();
-} else if (program.random) {
-  p = tldr.random(program);
-} else if (program.randomExample) {
+} else if (options.random) {
+  p = tldr.random(options);
+} else if (options.randomExample) {
   p = tldr.randomExample();
-} else if (program.clearCache) {
+} else if (options.clearCache) {
   p = tldr.clearCache();
-} else if (program.update) {
+} else if (options.update) {
   p = tldr.updateCache()
     .then(() => {
       return tldr.updateIndex();
     });
-} else if (program.render) {
-  p = tldr.render(program.render);
-} else if (program.search) {
-  program.args.unshift(program.search);
+} else if (options.render) {
+  p = tldr.render(options.render);
+} else if (options.search) {
+  program.args.unshift(options.search);
   p = tldr.search(program.args);
 } else if (program.args.length >= 1) {
   if (program.args[0] === 'completion') {
@@ -123,7 +128,7 @@ if (program.list) {
         }
       });
   } else {
-    p = tldr.get(program.args, program);
+    p = tldr.get(program.args, options);
   }
 }
 
