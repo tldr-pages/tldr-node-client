@@ -2,6 +2,7 @@
   "pagesRepository": "https://github.com/tldr-pages/tldr",
   "repositoryBase": "https://github.com/tldr-pages/tldr/releases/latest/download/tldr-pages",
   "skipUpdateWhenPageNotFound": false,
+  "cacheUpdateInterval": 86400000,
   "themes": {
     "simple": {
       "commandName": "bold, underline",
