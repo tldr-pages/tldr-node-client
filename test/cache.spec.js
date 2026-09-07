@@ -12,6 +12,8 @@ const platforms = require('../lib/platforms');
 
 describe('Cache', () => {
   describe('update()', () => {
+    let cacheFolder;
+
     /** @param {import('node:test').TestContext} t */
     function mockFns(t) {
       t.mock.method(fs, 'ensureDir');
@@ -22,7 +24,7 @@ describe('Cache', () => {
     }
 
     beforeEach(() => {
-      this.cacheFolder = path.join(config.get().cache, 'cache');
+      cacheFolder = path.join(config.get().cache, 'cache');
     });
 
     it('should use randomly created temp folder', (t) => {
@@ -34,7 +36,7 @@ describe('Cache', () => {
         return cache.update();
       })).then(() => {
         let calls = fs.ensureDir.mock.calls.filter((call) => {
-          return call.arguments[0] !== this.cacheFolder;
+          return call.arguments[0] !== cacheFolder;
         });
         assert.equal(calls.length, count);
         let tempFolders = calls.map((call) => {
@@ -50,7 +52,7 @@ describe('Cache', () => {
       const cache = new Cache(config.get());
       return cache.update().then(() => {
         let createFolder = fs.ensureDir.mock.calls.find((call) => {
-          return call.arguments[0] !== this.cacheFolder;
+          return call.arguments[0] !== cacheFolder;
         });
         let removeFolder = fs.remove.mock.calls[0];
         assert.equal(removeFolder.arguments[0], createFolder.arguments[0]);
