@@ -5,9 +5,10 @@ const { describe, it, beforeEach } = require('node:test');
 const render = require('../lib/render');
 
 describe('Render', () => {
+  let themeConfig;
 
   beforeEach(() => {
-    this.config = {
+    themeConfig = {
       'themes': {
         'base16': {
           'commandName': 'bold',
@@ -26,7 +27,7 @@ describe('Render', () => {
       name: 'tar',
       description: 'archive utility',
       examples: []
-    }, this.config);
+    }, themeConfig);
     assert.equal(text?.startsWith('\n'), true);
     assert.equal(text?.endsWith('\n'), true);
   });
@@ -36,7 +37,7 @@ describe('Render', () => {
       name: 'tar',
       description: 'archive utility',
       examples: []
-    }, this.config);
+    }, themeConfig);
     assert.equal(text?.includes('tar'), true);
     assert.equal(text?.includes('archive utility'), true);
   });
@@ -46,7 +47,7 @@ describe('Render', () => {
       name: 'tar',
       description: 'archive utility\nwith support for compression',
       examples: []
-    }, this.config);
+    }, themeConfig);
     assert.equal(text?.includes('archive utility'), true);
     assert.equal(text?.includes('with support for compression'), true);
   });
@@ -59,7 +60,7 @@ describe('Render', () => {
         description: 'create',
         code: 'hello {{token}} bye'
       }]
-    }, this.config);
+    }, themeConfig);
     assert.equal(text?.includes('hello'), true);
     assert.equal(text?.includes('token'), true);
     assert.equal(text?.includes('bye'), true);
@@ -78,7 +79,7 @@ describe('Render', () => {
         'lsb_release',
         'sudo'
       ]
-    }, this.config);
+    }, themeConfig);
     assert.equal(text?.includes('See also: lsb_release, sudo'), true);
   });
 
