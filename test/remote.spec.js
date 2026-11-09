@@ -6,7 +6,7 @@ const Cache = require('../lib/cache');
 const config = require('../lib/config');
 const path = require('path');
 const fs = require('fs-extra');
-const nock = require('nock');
+const nock = require('nock').default;
 const index = require('../lib/index');
 const utils = require('../lib/utils');
 
