@@ -12,6 +12,7 @@ const index = require('../lib/index');
 
 const CACHE_FOLDER = path.join(config.get().cache, 'cache');
 const filepath = CACHE_FOLDER + '/search-corpus.json';
+const shortIndexPath = CACHE_FOLDER + '/shortIndex.json';
 
 const testData = {
   files: [{
@@ -142,6 +143,15 @@ let fakes = {
         return reject('Trying to read incorrect file path: ' + readpath);
       });
     },
+    // Pretend the on-disk corpus is newer than the shortIndex, so
+    // ensureCorpus() decides no rebuild is needed and getResults proceeds
+    // directly to readCorpus (which is mocked above).
+    stat: (statpath) => {
+      if (statpath === filepath) {
+        return Promise.resolve({mtimeMs: 2000});
+      }
+      return Promise.resolve({mtimeMs: 1000});
+    },
   },
 };
 
@@ -172,6 +182,7 @@ describe('Search', () => {
   it('should perform searches', function(t, done) {
     t.mock.method(fs, 'readFile', fakes.fs.readFile);
     t.mock.method(fs, 'writeFile', fakes.fs.writeFile);
+    t.mock.method(fs, 'stat', fakes.fs.stat);
     t.mock.method(index, 'getShortIndex', fakes.index.getShortIndex);
     search.getResults('Anthony').then((data) => {
       assert.equal(data.length, 4);
@@ -193,5 +204,66 @@ describe('Search', () => {
       assert.equal(!!error, false);
       done(error);
     });
+  });
+});
+
+describe('Lazy corpus rebuild (ensureCorpus, exercised via getResults)', () => {
+  // Helpers: fs.stat fake constructed from per-path mtimes. Any unmapped
+  // path returns the default mtime so getMaxPagesMtime sees something.
+  let statFake = (mtimes, defaultMtime) => {
+    return (p) => {
+      if (p in mtimes) {
+        return mtimes[p] === null
+          ? Promise.reject(Object.assign(new Error('ENOENT'), { code: 'ENOENT' }))
+          : Promise.resolve({ mtimeMs: mtimes[p] });
+      }
+      return Promise.resolve({ mtimeMs: defaultMtime });
+    };
+  };
+
+  it('rebuilds when corpus file is missing', async (t) => {
+    let rebuilt = false;
+    t.mock.method(fs, 'stat', statFake({ [filepath]: null, [shortIndexPath]: 1000 }, 0));
+    t.mock.method(utils, 'glob', fakes.utils.glob);
+    t.mock.method(fs, 'readFile', fakes.fs.readFile);
+    t.mock.method(fs, 'writeFile', fakes.fs.writeFile);
+    t.mock.method(search, 'createIndex', () => { rebuilt = true; return Promise.resolve(); });
+    await search.getResults('Anthony').catch(() => {});
+    assert.equal(rebuilt, true);
+  });
+
+  it('skips rebuild when corpus is newer than shortIndex (fast path)', async (t) => {
+    let rebuilt = false;
+    t.mock.method(fs, 'stat', statFake({ [filepath]: 5000, [shortIndexPath]: 1000 }, 0));
+    t.mock.method(utils, 'glob', fakes.utils.glob);
+    t.mock.method(fs, 'readFile', fakes.fs.readFile);
+    t.mock.method(search, 'createIndex', () => { rebuilt = true; return Promise.resolve(); });
+    await search.getResults('Anthony').catch(() => {});
+    assert.equal(rebuilt, false);
+  });
+
+  it('rebuilds when shortIndex is newer AND a page is newer than corpus (defensive path)', async (t) => {
+    let rebuilt = false;
+    // shortIndex newer than corpus → fast path skipped → defensive walk runs.
+    // Pages all stat as mtime 9000 (default), > corpus 5000 → rebuild.
+    t.mock.method(fs, 'stat', statFake({ [filepath]: 5000, [shortIndexPath]: 6000 }, 9000));
+    t.mock.method(utils, 'glob', fakes.utils.glob);
+    t.mock.method(fs, 'readFile', fakes.fs.readFile);
+    t.mock.method(fs, 'writeFile', fakes.fs.writeFile);
+    t.mock.method(search, 'createIndex', () => { rebuilt = true; return Promise.resolve(); });
+    await search.getResults('Anthony').catch(() => {});
+    assert.equal(rebuilt, true);
+  });
+
+  it('skips rebuild when shortIndex is newer but no page is newer than corpus (defensive path passes)', async (t) => {
+    let rebuilt = false;
+    // shortIndex newer than corpus → fast path skipped → defensive walk runs.
+    // Pages all stat as mtime 1000 (default), < corpus 5000 → no rebuild.
+    t.mock.method(fs, 'stat', statFake({ [filepath]: 5000, [shortIndexPath]: 6000 }, 1000));
+    t.mock.method(utils, 'glob', fakes.utils.glob);
+    t.mock.method(fs, 'readFile', fakes.fs.readFile);
+    t.mock.method(search, 'createIndex', () => { rebuilt = true; return Promise.resolve(); });
+    await search.getResults('Anthony').catch(() => {});
+    assert.equal(rebuilt, false);
   });
 });
